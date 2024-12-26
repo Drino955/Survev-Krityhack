@@ -3,7 +3,9 @@
 Aimbot and ESP for surviv.io. Automatically targets the nearest player and displays lines connecting nearby players. Removes ceilings from buildings, allowing you to see inside them.
 
 ## Features ✨
-- **No Ceilings**: Removes ceilings from buildings, allowing you to see inside.
+- **X-Ray(No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
+![xray-off](./github-images/xray-off.png)
+![xray-on](./github-images/xray-on.png)
 
 ## Coming Soon 🚧
 - **Aimbot**: Automatically targets the nearest player.
