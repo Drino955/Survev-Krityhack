@@ -1,6 +1,6 @@
 # survev-krityhack 🎯
 
-Aimbot and ESP for surviv.io. Automatically targets the nearest player and displays lines connecting nearby players. Removes ceilings from buildings, allowing you to see inside them.
+**survev-krityhack** is a cheat tool designed to enhance gameplay in the game survev.io by providing various hacks and modifications.
 
 ## Features ✨
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
@@ -19,11 +19,8 @@ Aimbot and ESP for surviv.io. Automatically targets the nearest player and displ
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
 YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
-2. Download the latest script main.js.
-3. Open Tampermonkey and click on the "Add a new script" button.
-4. Copy and paste the downloaded script into the Tampermonkey editor.
-5. Save the script and ensure it is enabled.
-6. Refresh the survev.io page to activate the hack.
+2. Install script from [greasyfork]().
+3. Refresh the survev.io page to activate the hack.
 
 ## Usage 🚀
 1. Launch survev.io in your browser.

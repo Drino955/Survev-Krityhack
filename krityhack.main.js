@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Survev.IO-KrityHack: Aimbot, ESP & X-Ray
+// @name         Survev.IO-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
 // @version      0.0.6
 // @description  Xray, better zoom, smoke/obstacle opacity, player names for survev.io.
@@ -9,6 +9,10 @@
 // @grant        none
 // @run-at       document-end
 // @webRequest   [{"selector":"*app-*.js","action":"cancel"}]
+// @homepageURL  https://github.com/Drino955/survev-krityhack
+// @updateURL    https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js
+// @downloadURL  https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js
+// @supportURL   https://github.com/Drino955/survev-krityhack/issues
 // ==/UserScript==
 
 
@@ -16,7 +20,7 @@ console.log('Script injecting...')
 
 const script = document.createElement('script');
 script.type = 'module';
-script.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/app-module.js';
+script.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/app.js';
 script.onload = () => console.log('app.js loaded');
 script.onerror = (err) => console.error('Error in app.js loading:', err);
 document.head.append(script);
