@@ -1,35 +1,29 @@
 // ==UserScript==
 // @name         Survev.IO-KrityHack: Aimbot, ESP & X-Ray
-// @namespace    http://tampermonkey.net/
-// @version      0.0.5
-// @description  Aimbot and ESP for surviv.io. Locks the aim to the nearest player and shows lines between nearby players. Removes ceilings from buildings and let's you see inside them too.
+// @namespace    https://github.com/Drino955/survev-krityhack
+// @version      0.0.6
+// @description  Xray, better zoom, smoke/obstacle opacity, player names for survev.io.
 // @author       KrityTeam
-// @match        *://surviv.io/*
 // @match        *://survev.io/*
-// @match        *://surviv2.io/*
-// @match        *://2dbattleroyale.com/*
-// @match        *://2dbattleroyale.org/*
-// @match        *://piearesquared.info/*
-// @match        *://thecircleisclosing.com/*
-// @match        *://archimedesofsyracuse.info/*
-// @match        *://secantsecant.com/*
-// @match        *://parmainitiative.com/*
-// @match        *://nevelskoygroup.com/*
-// @match        *://kugahi.com/*
-// @match        *://chandlertallowmd.com/*
-// @match        *://ot38.club/*
-// @match        *://kugaheavyindustry.com/*
-// @match        *://drchandlertallow.com/*
-// @match        *://rarepotato.com/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
 // @grant        none
-// @run-at       document-start
+// @run-at       document-end
+// @webRequest   [{"selector":"*app-*.js","action":"cancel"}]
 // ==/UserScript==
 
 
+console.log('Script injecting...')
+
+const script = document.createElement('script');
+script.type = 'module';
+script.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/app-module.js';
+script.onload = () => console.log('app.js loaded');
+script.onerror = (err) => console.error('Error in app.js loading:', err);
+document.head.append(script);
+
 let espEnabled = false;
 let aimbotEnabled = false;
-let xrayEnabled = false;
+let xrayEnabled = true;
 
 
 const overlay = document.createElement('div');
@@ -57,31 +51,20 @@ styles.innerHTML = `
 `;
 document.head.append(styles);
 
+window.addEventListener('keyup', function (event) {
+    switch (String.fromCharCode(event.keyCode)) {
+        case 'N': espEnabled = !espEnabled; break;
+        case 'B': aimbotEnabled = !aimbotEnabled; break;
+        case 'H': xrayEnabled = !xrayEnabled; break;
+    }
+    updateOverlay();
+});
 
-function updateOverlay() {
-    overlay.innerHTML = '';
-
-    const controls = [
-        [ '[B] Aimbot', aimbotEnabled ],
-        [ '[N] ESP', espEnabled ],
-        [ '[H] X-Ray', xrayEnabled ]
-    ];
-
-    controls.forEach((control, index) => {
-        // console.log('control', control);
-        let [text, isEnabled] = control;
-        text = `${text} ${isEnabled ? 'ON' : 'OFF'}`;
-
-        const line = document.createElement('p');
-        line.className = 'krity-control';
-        line.style.opacity = isEnabled ? 1 : 0.5;
-        line.textContent = text;
-        overlay.appendChild(line);
-    });
-}
+updateOverlay();
 
 
 
+// remove ceilings
 Object.defineProperty( Object.prototype, 'textureCacheIds', {
 	set( value ) {
 		this._textureCacheIds = value;
@@ -89,9 +72,10 @@ Object.defineProperty( Object.prototype, 'textureCacheIds', {
 		if ( Array.isArray( value ) ) {
 			const scope = this;
 
-			value.push = new Proxy( value.push, {
-				apply( target, thisArgs, args ) {
-					// console.log(args[0], scope, scope?.baseTexture?.cacheId);
+            value.push = new Proxy( value.push, {
+                apply( target, thisArgs, args ) {
+                    // console.log(args[0], scope, scope?.baseTexture?.cacheId);
+                    // console.log(scope, args[0]);
                     if (args[0].includes('ceiling') || args[0].includes('map-snow-')) {
 						Object.defineProperty( scope, 'valid', {
 							set( value ) {
@@ -115,200 +99,300 @@ Object.defineProperty( Object.prototype, 'textureCacheIds', {
 	}
 });
 
-// let ctx;
-// HTMLCanvasElement.prototype.getContext = new Proxy( HTMLCanvasElement.prototype.getContext, {
-// 	apply( target, thisArgs, args ) {
-// 		const result = Reflect.apply( ...arguments );
- 
-// 		if ( thisArgs.parentNode ) {
-// 			ctx = result;
-//             console.log('ctx', ctx)
-// 		}
-// 		return result;
-// 	}
-// });
-
-// const players = [];
-// let radius;
-// let mouseX = 0, mouseY = 0;
-
-// window.addEventListener( 'mousemove', function ( event ) {
-// 	if ( event.dispatchedByMe !== true ) {
-// 		mouseX = event.clientX;
-// 		mouseY = event.clientY;
-// 	}
-// });
-
-window.addEventListener('keyup', function (event) {
-    switch (String.fromCharCode(event.keyCode)) {
-        case 'N': espEnabled = !espEnabled; break;
-        case 'B': aimbotEnabled = !aimbotEnabled; break;
-        case 'H': xrayEnabled = !xrayEnabled; break;
+Object.defineProperty(window, 'game', {
+    get () {
+        return this._game;
+    },
+    set(value) {
+        this._game = value;
+        
+        if (!value) return;
+        
+        initGame();
+        
     }
-    updateOverlay();
 });
 
-// const Context2D = CanvasRenderingContext2D.prototype;
-// console.log('Context2D', Context2D);
 
-// Context2D.drawImage = new Proxy( Context2D.drawImage, {
-// 	apply( target, thisArgs, args ) {
-//         console.log('drawImage', target, thisArgs, args)
-// 		if ( aimbotEnabled && args[0].src && args[0].src.indexOf( 'loadout' ) > -1 && args[8] === 142 ) {
-// 			const { a, b, e, f } = thisArgs.getTransform();
+// Object.defineProperty( Object.prototype, 'obstaclePool', {
+//     get () {
+//         return this._obstaclePool;
+//     },
+//     set (value) {
+//         this._obstaclePool = value;
+//         console.log('set obstaclePool: ', this);
 
-// 			radius = Math.hypot( a, b ) * args[8] + 10;
-
-// 			const centerX = thisArgs.canvas.width / 2;
-// 			const centerY = thisArgs.canvas.height / 2;
-
-// 			if ( e !== centerX && f !== centerY ) {
-// 				players.push( { x: e, y: f });
-// 			}
-// 		}
-
-// 		return Reflect.apply( ...arguments );
-// 	}
+//         Object.defineProperty( this, 'pool', {
+//             get () {
+//                 return this._pool;
+//             },
+//             set (value) {
+//                 this._pool = value;
+//                 console.log('set pool: ', this);
+                
+//                 if (Array.isArray(value)) {
+//                     const scope = this;
+    
+//                     value.push = new Proxy(value.push, {
+//                         apply(target, thisArgs, args){
+//                             console.log('poolik: ', scope, args[0]);
+//                             args[0].sprite.alpha = 0.5;
+//                             return Reflect.apply( ...arguments );
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     }
 // });
 
-// window.requestAnimationFrame = new Proxy( window.requestAnimationFrame, {
-// 	apply( target, thisArgs, args ) {
-// 		args[0] = new Proxy( args[0], {
-// 			apply( target, thisArgs, args ) {
-// 				players.length = 0;
-// 				Reflect.apply( ...arguments );
 
-// 				if ( players.length === 0 ) {
-// 					return;
-// 				}
+// setInterval(() => {
+//     if (!window.game) return;
 
-// 				ctx.lineWidth = 5;
-// 				ctx.strokeStyle = 'red';
-
-// 				if ( espEnabled ) {
-// 					const centerX = ctx.canvas.width / 2;
-// 					const centerY = ctx.canvas.height / 2;
-
-// 					ctx.beginPath();
-
-// 					for ( let i = 0; i < players.length; i ++ ) {
-// 						const player = players[ i ];
-
-// 						ctx.moveTo( centerX, centerY );
-// 						ctx.lineTo( player.x, player.y );
-// 					}
-
-// 					ctx.stroke();
-// 				}
-
-// 				if ( aimbotEnabled ) {
-// 					let minDistance = Infinity;
-// 					let targetPlayer;
-
-// 					for ( let i = 0; i < players.length; i ++ ) {
-// 						const player = players[ i ];
-// 						const distance = Math.hypot( player.x - mouseX, player.y - mouseY );
-
-// 						if ( distance < minDistance ) {
-// 							minDistance = distance;
-// 							targetPlayer = player;
-// 						}
-// 					}
-
-// 					ctx.beginPath();
-
-// 					ctx.arc( targetPlayer.x, targetPlayer.y, radius, 0, Math.PI * 2 );
-
-// 					ctx.stroke();
-
-// 					window.dispatchEvent( new MouseEvent( 'mousemove', {
-// 						clientX: targetPlayer.x,
-// 						clientY: targetPlayer.y,
-// 						dispatchedByMe: true
-// 					} ) );
-// 				}
-// 			}
-// 		});
-
-// 		return Reflect.apply( ...arguments );
-// 	}
+// 	window.game.map.obstaclePool.pool.forEach(obstacle => obstacle.sprite.alpha = 0.45);
 // });
 
-updateOverlay();
 
-// window.addEventListener( 'DOMContentLoaded', function () {
-// 	const el = document.createElement( 'div' );
 
-// 	el.innerHTML = `<style>
+function initGame() {
+    console.log('init game...........');
 
-// 	.my-dialog {
-// 		position: absolute;
-// 		left: 50%;
-// 		top: 50%;
-// 		padding: 20px;
-// 		background: rgba(0, 0, 0, 0.9);
-// 		box-shadow: 0 0 0 1000vw rgba(0, 0, 0, 0.5);
-// 		border-radius: 5px;
-// 		color: #fff;
-// 		transform: translate(-50%, -50%);
-// 		text-align: center;
-// 		z-index: 999999;
-// 	}
+    const tasks = [
+        {isApplied: false, condition: () => window.game?.activePlayer?.localData, action: betterScale},
+        {isApplied: false, condition: () => window.game?.map?.obstaclePool?.pool != undefined, action: obstacleOpacity},
+        // {isApplied: false, condition: () => window.game?.smokeBarn?.particles.length == 0, action: smokeOpacity},
+        {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
+        // {isApplied: false, condition: () => window.game?.playerBarn?.playerPool?.pool.length == 0, action: visibleNames},
+        {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
+    ];
 
-// 	.my-dialog * {
-// 		color: #fff;
-// 	}
+    (function checkLocalData(){
+        if(!window.game.ws) return;
 
-// 	.my-close {
-// 		position: absolute;
-// 		right: 5px;
-// 		top: 5px;
-// 		width: 20px;
-// 		height: 20px;
-// 		opacity: 0.5;
-// 		cursor: pointer;
-// 	}
+        console.log('Checking local data')
 
-// 	.my-close:before, .my-close:after {
-// 		content: ' ';
-// 		position: absolute;
-// 		left: 50%;
-// 		top: 50%;
-// 		width: 100%;
-// 		height: 20%;
-// 		transform: translate(-50%, -50%) rotate(-45deg);
-// 		background: #fff;
-// 	}
+        console.log(
+            window.game?.activePlayer?.localData, 
+            window.game?.map?.obstaclePool?.pool,
+            window.game?.smokeBarn?.particles,
+            window.game?.playerBarn?.playerPool?.pool
+        );
 
-// 	.my-close:after {
-// 		transform: translate(-50%, -50%) rotate(45deg);
-// 	}
+        tasks.forEach(task => console.log(task.action, task.isApplied))
+        
+        tasks.forEach(task => {
+            if (task.isApplied || !task.condition()) return;
+            task.action();
+            task.isApplied = true;
+        });
+        
+        if (tasks.some(task => !task.isApplied)) setTimeout(checkLocalData, 5);
+        else console.log('All functions applied, stopping loop.');
+    })();
+}
+mousedownClick();
 
-// 	.my-close:hover {
-// 		opacity: 1;
-// 	}
 
-// 	</style>
-// 	<div class="my-dialog">${`<div class="my-close" onclick="this.parentNode.style.display='none';"></div>
-// 		<big style="font-size: 2em;">Aimbot, ESP & X-Ray</big>
-// 		<br>
-// 		<br>
-// 		[B] to toggle aimbot
-// 		<br>
-// 		[H] to toggle x-ray
-// 		<br>
-// 		[N] to toggle esp
-// 		<br>
-// 		<br>
-// 		By Zertalious
-// 		<br>
-// 		<br>
-// 		` }
-// 	</div>`;
+function mousedownClick(){
+    let timeoutId;
 
-// 	while ( el.children.length > 0 ) {
+    function updateMouseButtons() {
+        if (!window.game?.input?.mouseButtonsOld) return;
+        Object.keys(window.game.input.mouseButtonsOld).forEach(key => delete (window.game.input.mouseButtonsOld[key]));
+        timeoutId = setTimeout(updateMouseButtons, 5);
+    }
 
-// 		document.body.appendChild( el.children[ 0 ] );
+    window.addEventListener('mousedown', function (event) {
+        if (event.button === 0) { // 0 is the code for the left mouse button
+            updateMouseButtons();
+        }
+    });
 
-// 	}
-// });
+    window.addEventListener('mouseup', function (event) {
+        if (event.button === 0) { // 0 is the code for the left mouse button
+            clearTimeout(timeoutId);
+        }
+    });
+}
+
+function betterScale(){
+    Object.defineProperty(window.game.camera, 'zoom', {
+        get() {
+            return Math.max(window.game.camera.targetZoom - 0.45, 0.35);
+        },
+        set(value) {
+        }
+    });
+
+    let oldScope = window.game.activePlayer.localData.scope;
+    Object.defineProperty(window.game.camera, 'targetZoom', {
+        get(){
+            return this._targetZoom;
+        },
+        set(value) {
+            const newScope = window.game.activePlayer.localData.scope;
+            const inventory = window.game.activePlayer.localData.inventory;
+
+            const scopes = ['1xscope', '2xscope', '4xscope', '8xscope', '15xscope']
+
+            // console.log(value, oldScope, newScope, newScope == oldScope, (inventory['2xscope'] || inventory['4xscope'] || inventory['8xscope'] || inventory['15xscope']));
+            if ( (newScope == oldScope) && (inventory['2xscope'] || inventory['4xscope'] || inventory['8xscope'] || inventory['15xscope']) && value >= this._targetZoom
+                // || scopes.indexOf(newScope) > scopes.indexOf(oldScope) && value >= this._targetZoom
+            ) return;
+
+            oldScope = window.game.activePlayer.localData.scope;
+
+            this._targetZoom = value;
+        }
+    });
+}
+
+function smokeOpacity(){
+    console.log('smokeopacity')
+    
+    const particles = window.game.smokeBarn.particles;
+    console.log('smokeopacity', particles, window.game.smokeBarn.particles)
+    particles.push = new Proxy( particles.push, {
+        apply( target, thisArgs, args ) {
+            console.log('smokeopacity', args[0]);
+            const particle = args[0];
+
+            Object.defineProperty(particle.sprite, 'alpha', {
+                get() {
+                    return 0.12;
+                },
+                set(value) {
+                }
+            });
+
+            return Reflect.apply( ...arguments );
+
+        }
+    });
+
+    particles.forEach(particle => {
+        Object.defineProperty(particle.sprite, 'alpha', {
+            get() {
+                return 0.12;
+            },
+            set(value) {
+            }
+        });
+    });
+}
+
+function obstacleOpacity(){
+    setInterval(() => {
+        window.game.map.obstaclePool.pool.forEach(obstacle => {
+            if (!['bush', 'tree', 'table', 'stairs'].some(substring => obstacle.type.includes(substring))) return;
+            obstacle.sprite.alpha = 0.45
+        });
+    });
+}
+
+function visibleNames(){
+    const pool = window.game.playerBarn.playerPool.pool;
+
+    console.log('visibleNames', pool)
+
+    pool.push = new Proxy( pool.push, {
+        apply( target, thisArgs, args ) {
+            console.log('visibleNames', args[0]);
+            const player = args[0];
+
+            player.nameText.tint = 0xff0000;
+            Object.defineProperty(player.nameText, 'visible', {
+                get(){
+                    return true;
+                },
+                set(value){
+                }
+            });
+
+            return Reflect.apply( ...arguments );
+        }
+    });
+
+    pool.forEach(player => {
+        player.nameText.tint = 0xff0000;
+        Object.defineProperty(player.nameText, 'visible', {
+            get(){
+                return true;
+            },
+            set(value){
+            }
+        });
+    });
+}
+
+function esp(){
+    
+    const pixi = window.game.pixi;
+    
+    const me = window.game.activePlayer;
+    const players = window.game.playerBarn.playerPool.pool;
+    
+    players.push = new Proxy( players.push, {
+        apply( target, thisArgs, args ) {
+            const player = args[0];
+
+            if(!player.active || player.netData.dead) return;
+
+            const playerX = +player.pos.x;
+            const playerY = +player.pos.y;
+            const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
+            console.log(`${player.nameText._text}, distance: ${distanceToPlayer}`);
+
+            graphics.lineStyle(2, 0xFF0000, 1);
+            graphics.moveTo(meX, meY);
+            graphics.lineTo(playerX, playerY);
+
+            return Reflect.apply( ...arguments );
+        }
+    });
+
+    const meX = me.pos.x;
+    const meY = me.pos.y;
+
+    const graphics = new pixi.Graphics();
+    pixi.stage.addChild(graphics);
+
+    players.forEach(player => {
+        if(!player.active || player.netData.dead) return;
+
+        const playerX = +player.pos.x;
+        const playerY = +player.pos.y;
+        const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
+        console.log(`${player.nameText._text}, distance: ${distanceToPlayer}`);
+
+        graphics.lineStyle(2, 0xFF0000, 1);
+        graphics.moveTo(meX, meY);
+        graphics.lineTo(playerX, playerY);
+    });
+}
+
+
+function updateOverlay() {
+    overlay.innerHTML = '';
+
+    const controls = [
+        // [ '[B] Aimbot', aimbotEnabled ],
+        // [ '[N] ESP', espEnabled ],
+        [ '[H] X-Ray', xrayEnabled ]
+    ];
+
+    controls.forEach((control, index) => {
+        // console.log('control', control);
+        let [text, isEnabled] = control;
+        text = `${text} ${isEnabled ? 'ON' : 'OFF'}`;
+
+        const line = document.createElement('p');
+        line.className = 'krity-control';
+        line.style.opacity = isEnabled ? 1 : 0.5;
+        line.textContent = text;
+        overlay.appendChild(line);
+    });
+}
+
+console.log('Script injected')
