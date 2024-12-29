@@ -1,6 +1,6 @@
-# survev-krityhack 🎯
+# Survev-Krityhack 🎯
 
-**survev-krityhack** is a cheat tool designed to enhance gameplay in the game survev.io by providing various hacks and modifications.
+**Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io by providing various hacks and modifications.
 
 ## Features ✨
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
