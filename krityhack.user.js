@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Survev.IO-KrityHack
+// @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
 // @version      0.0.7
-// @description  Xray, better zoom, smoke/obstacle opacity, player names for survev.io.
+// @description  Xray, tracer, better zoom, smoke/obstacle opacity, player names for survev.io.
 // @author       KrityTeam
 // @match        *://survev.io/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io

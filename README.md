@@ -9,8 +9,10 @@
 - 🌫️ **Smoke opacity**.
 - 🧱 **Obstacle opacity**.
 - 🏷️ **Player names will be visible**.
+- 🔫 **Tracer**: Draws lines to nearby players.
 
 ![hack](./github-images/hack.png)
+![tracer](./github-images/tracer.png)
 
 ## Coming Soon 🚧
 - **Aimbot**: Automatically targets the nearest player.
