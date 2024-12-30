@@ -298,6 +298,7 @@ const getTeam = player => Object.keys(game.playerBarn.teamInfo).find(team => gam
 const GREEN = 0x00ff00;
 const BLUE = 0x00f3f3;
 const RED = 0xff0000;
+const WHITE = 0xffffff;
 
 function visibleNames(){
     const pool = window.game.playerBarn.playerPool.pool;
@@ -389,7 +390,7 @@ function esp(){
         }
 
         // Вычисляем цвет линии (например, красный для врагов)
-        const lineColor = playerTeam === meTeam ? BLUE : RED; // green/red
+        const lineColor = playerTeam === meTeam ? BLUE : me.layer === player.layer ? RED : WHITE; // green/red
 
         // Рисуем линию от текущего игрока к другому игроку
         lineDrawer.lineStyle(2, lineColor, 1);
@@ -446,36 +447,6 @@ function aimBot() {
         }
     });
 
-
-    // Object.defineProperty(window.gameControls.touchMoveDir, 'x', {
-    //     get(){
-    //         console.log('touchMoveDirGet, x ', window.aimTouchMoveDir);
-    //         if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
-    //             window.gameControls.touchMoveActive = true;
-    //             return window.aimTouchMoveDir.x;
-    //             }
-    //         return this._x;
-    //     },
-    //     set(value){
-    //         this._x = value;
-    //     }
-    // });
-
-    // Object.defineProperty(window.gameControls.touchMoveDir, 'y', {
-    //     get(){
-    //         console.log('touchMoveDirGet, y ', window.aimTouchMoveDir);
-            // if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
-            //     window.gameControls.touchMoveActive = true;
-            //     return window.aimTouchMoveDir.y;
-            // }
-    //         return this._y;
-    //     },
-    //     set(value){
-    //         this._y = value;
-    //     }
-    // });
-
-
     try {
         const meX = me.pos.x;
         const meY = me.pos.y;
@@ -486,7 +457,7 @@ function aimBot() {
 
         players.forEach((player) => {
             // Пропускаем неактивных или мертвых игроков
-            if (!player.active || player.netData.dead || me.__id === player.__id) return; // добавить еще проверку если под землей
+            if (!player.active || player.netData.dead || me.__id === player.__id || me.layer !== player.layer) return; // добавить еще проверку если под землей
 
             const playerTeam = getTeam(player);
             if (playerTeam === meTeam) return; // Пропускаем союзников
@@ -511,12 +482,6 @@ function aimBot() {
                 clientX: screenTargetX,
                 clientY: screenTargetY,
             }
-
-            // window.game.input.onMouseMove.call(
-            //     window.game.input,
-            //     window.lastAimPos
-            // );
-
             
             if(minDistance <= 8) {
                 const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
@@ -527,10 +492,6 @@ function aimBot() {
                     y: Math.sin(moveAngle),
                 }
 
-                // window.gameControls.touchMoveActive = true;
-
-                // window.gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
-                // window.gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
             }
         }else{
             window.aimTouchMoveDir = null;
