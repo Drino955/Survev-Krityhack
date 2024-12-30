@@ -300,6 +300,11 @@ function obstacleOpacity(){
     });
 }
 
+const getTeam = player => Object.keys(game.playerBarn.teamInfo).find(team => game.playerBarn.teamInfo[team].playerIds.includes(player.__id))
+const GREEN = 0x00ff00;
+const BLUE = 0x00f3f3;
+const RED = 0xff0000;
+
 function visibleNames(){
     const pool = window.game.playerBarn.playerPool.pool;
 
@@ -307,12 +312,14 @@ function visibleNames(){
 
     pool.push = new Proxy( pool.push, {
         apply( target, thisArgs, args ) {
-            console.log('visibleNames', args[0]);
             const player = args[0];
-
-            player.nameText.tint = 0xff0000;
             Object.defineProperty(player.nameText, 'visible', {
                 get(){
+                    const me = window.game.activePlayer;
+                    const meTeam = getTeam(me);
+                    const playerTeam = getTeam(player);
+                    // console.log('visible', player?.nameText?._text, playerTeam === meTeam ? BLUE : RED, player, me, playerTeam, meTeam)
+                    this.tint = playerTeam === meTeam ? BLUE : RED;
                     return true;
                 },
                 set(value){
@@ -324,9 +331,14 @@ function visibleNames(){
     });
 
     pool.forEach(player => {
-        player.nameText.tint = 0xff0000;
         Object.defineProperty(player.nameText, 'visible', {
             get(){
+                const me = window.game.activePlayer;
+                const meTeam = getTeam(me);
+                const playerTeam = getTeam(player);
+                // console.log('visible', player?.nameText?._text, playerTeam === meTeam ? BLUE : RED, player, me, playerTeam, meTeam)
+                this.tint = playerTeam === meTeam ? BLUE : RED;
+
                 return true;
             },
             set(value){
@@ -360,8 +372,6 @@ function esp(){
     const meX = me.pos.x;
     const meY = me.pos.y;
 
-    const getTeam = player => Object.keys(game.playerBarn.teamInfo).find(team => game.playerBarn.teamInfo[team].playerIds.includes(player.__id))
-
     const meTeam = getTeam(me);
 
     let minDistanceToPlayer = Infinity;
@@ -385,7 +395,7 @@ function esp(){
         }
 
         // Вычисляем цвет линии (например, красный для врагов)
-        const lineColor = playerTeam === meTeam ? 0x00ff00 : 0xff0000; // green/red
+        const lineColor = playerTeam === meTeam ? BLUE : RED; // green/red
 
         // Рисуем линию от текущего игрока к другому игроку
         lineDrawer.lineStyle(2, lineColor, 1);
@@ -396,7 +406,7 @@ function esp(){
         );
     });
 
-    console.log(minPlayer?.nameText?._text, minDistanceToPlayer, minPlayer?.pos?.x, minPlayer?.pos?.y);
+    // console.log(minPlayer?.nameText?._text, minDistanceToPlayer, minPlayer?.pos?.x, minPlayer?.pos?.y);
 
     }catch{}
 
