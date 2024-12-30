@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev.IO-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.0.6
+// @version      0.0.7
 // @description  Xray, better zoom, smoke/obstacle opacity, player names for survev.io.
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -18,12 +18,17 @@
 
 console.log('Script injecting...')
 
+// cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
 const script = document.createElement('script');
 script.type = 'module';
 script.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/app.js';
 script.onload = () => console.log('app.js loaded');
 script.onerror = (err) => console.error('Error in app.js loading:', err);
 document.head.append(script);
+
+const pixiScript = document.createElement('script');
+pixiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.0.3/pixi.min.js';
+document.head.append(pixiScript);
 
 let espEnabled = false;
 let aimbotEnabled = false;
@@ -165,10 +170,9 @@ function initGame() {
     const tasks = [
         {isApplied: false, condition: () => window.game?.activePlayer?.localData, action: betterScale},
         {isApplied: false, condition: () => window.game?.map?.obstaclePool?.pool != undefined, action: obstacleOpacity},
-        // {isApplied: false, condition: () => window.game?.smokeBarn?.particles.length == 0, action: smokeOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
-        // {isApplied: false, condition: () => window.game?.playerBarn?.playerPool?.pool.length == 0, action: visibleNames},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container, action: () => window.game?.pixi?._ticker?.add(esp)},
     ];
 
     (function checkLocalData(){
@@ -204,6 +208,7 @@ function mousedownClick(){
     function updateMouseButtons() {
         if (!window.game?.input?.mouseButtonsOld) return;
         Object.keys(window.game.input.mouseButtonsOld).forEach(key => delete (window.game.input.mouseButtonsOld[key]));
+
         timeoutId = setTimeout(updateMouseButtons, 5);
     }
 
@@ -242,7 +247,7 @@ function betterScale(){
 
             // console.log(value, oldScope, newScope, newScope == oldScope, (inventory['2xscope'] || inventory['4xscope'] || inventory['8xscope'] || inventory['15xscope']));
             if ( (newScope == oldScope) && (inventory['2xscope'] || inventory['4xscope'] || inventory['8xscope'] || inventory['15xscope']) && value >= this._targetZoom
-                // || scopes.indexOf(newScope) > scopes.indexOf(oldScope) && value >= this._targetZoom
+                || scopes.indexOf(newScope) > scopes.indexOf(oldScope) && value >= this._targetZoom
             ) return;
 
             oldScope = window.game.activePlayer.localData.scope;
@@ -331,51 +336,72 @@ function visibleNames(){
 }
 
 function esp(){
+    const pixi = window.game.pixi; 
+    const me = window.game.activePlayer; // Текущий игрок
+    const players = window.game.playerBarn.playerPool.pool; // Список игроков
+
+    // Проверяем, есть ли объект PIXI, иначе создаем новый
+    if (!pixi || me?.container == undefined) {
+        console.error("PIXI object not found in game.");
+        return;
+    }
+
     
-    const pixi = window.game.pixi;
-    
-    const me = window.game.activePlayer;
-    const players = window.game.playerBarn.playerPool.pool;
-    
-    players.push = new Proxy( players.push, {
-        apply( target, thisArgs, args ) {
-            const player = args[0];
+    try{
 
-            if(!player.active || player.netData.dead) return;
-
-            const playerX = +player.pos.x;
-            const playerY = +player.pos.y;
-            const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
-            console.log(`${player.nameText._text}, distance: ${distanceToPlayer}`);
-
-            graphics.lineStyle(2, 0xFF0000, 1);
-            graphics.moveTo(meX, meY);
-            graphics.lineTo(playerX, playerY);
-
-            return Reflect.apply( ...arguments );
-        }
-    });
-
+    // Создаем графический объект, если он не существует
+    if (!me.container.lineDrawer) {
+        me.container.lineDrawer = new PIXI.Graphics();
+        me.container.addChild(me.container.lineDrawer);
+    }
+        
+    const lineDrawer = me.container.lineDrawer;
+    lineDrawer.clear(); // Очистка предыдущих линий
     const meX = me.pos.x;
     const meY = me.pos.y;
 
-    const graphics = new pixi.Graphics();
-    pixi.stage.addChild(graphics);
+    const getTeam = player => Object.keys(game.playerBarn.teamInfo).find(team => game.playerBarn.teamInfo[team].playerIds.includes(player.__id))
 
-    players.forEach(player => {
-        if(!player.active || player.netData.dead) return;
+    const meTeam = getTeam(me);
 
-        const playerX = +player.pos.x;
-        const playerY = +player.pos.y;
+    let minDistanceToPlayer = Infinity;
+    let minPlayer;
+
+    // Проходим по каждому игроку
+    players.forEach((player) => {
+        // Пропускаем неактивных или мертвых игроков
+        if (!player.active || player.netData.dead || me.__id == player.__id) return;
+
+        const playerX = player.pos.x;
+        const playerY = player.pos.y;
+
+        const playerTeam = getTeam(player);
+
         const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
-        console.log(`${player.nameText._text}, distance: ${distanceToPlayer}`);
 
-        graphics.lineStyle(2, 0xFF0000, 1);
-        graphics.moveTo(meX, meY);
-        graphics.lineTo(playerX, playerY);
+        if (minDistanceToPlayer > distanceToPlayer) {
+            minDistanceToPlayer = distanceToPlayer;
+            minPlayer = player; 
+        }
+
+        // Вычисляем цвет линии (например, красный для врагов)
+        const lineColor = playerTeam === meTeam ? 0x00ff00 : 0xff0000; // green/red
+
+        // Рисуем линию от текущего игрока к другому игроку
+        lineDrawer.lineStyle(2, lineColor, 1);
+        lineDrawer.moveTo(0, 0); // Центр контейнера текущего игрока
+        lineDrawer.lineTo(
+            (playerX - meX) * 16,
+            (meY - playerY) * 16
+        );
     });
-}
 
+    console.log(minPlayer?.nameText?._text, minDistanceToPlayer, minPlayer?.pos?.x, minPlayer?.pos?.y);
+
+    }catch{}
+
+    
+}
 
 function updateOverlay() {
     overlay.innerHTML = '';
