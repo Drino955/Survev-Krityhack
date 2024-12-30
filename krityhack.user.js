@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.0.7
+// @version      0.0.8
 // @description  Xray, tracer, better zoom, smoke/obstacle opacity, player names for survev.io.
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -33,6 +33,7 @@ document.head.append(pixiScript);
 let espEnabled = false;
 let aimbotEnabled = false;
 let xrayEnabled = true;
+let zoomEnabled = true;
 
 
 const overlay = document.createElement('div');
@@ -65,6 +66,7 @@ window.addEventListener('keyup', function (event) {
         case 'N': espEnabled = !espEnabled; break;
         case 'B': aimbotEnabled = !aimbotEnabled; break;
         case 'H': xrayEnabled = !xrayEnabled; break;
+        case 'Z': zoomEnabled = !zoomEnabled; break;
     }
     updateOverlay();
 });
@@ -122,50 +124,39 @@ Object.defineProperty(window, 'game', {
     }
 });
 
-
-// Object.defineProperty( Object.prototype, 'obstaclePool', {
-//     get () {
-//         return this._obstaclePool;
-//     },
-//     set (value) {
-//         this._obstaclePool = value;
-//         console.log('set obstaclePool: ', this);
-
-//         Object.defineProperty( this, 'pool', {
-//             get () {
-//                 return this._pool;
-//             },
-//             set (value) {
-//                 this._pool = value;
-//                 console.log('set pool: ', this);
-                
-//                 if (Array.isArray(value)) {
-//                     const scope = this;
-    
-//                     value.push = new Proxy(value.push, {
-//                         apply(target, thisArgs, args){
-//                             console.log('poolik: ', scope, args[0]);
-//                             args[0].sprite.alpha = 0.5;
-//                             return Reflect.apply( ...arguments );
-//                         }
-//                     });
-//                 }
-//             }
-//         });
-//     }
-// });
-
-
-// setInterval(() => {
-//     if (!window.game) return;
-
-// 	window.game.map.obstaclePool.pool.forEach(obstacle => obstacle.sprite.alpha = 0.45);
-// });
-
-
+Object.defineProperty(window, 'basicDataInfo', {
+    get () {
+        return this._basicDataInfo;
+    },
+    set(value) {
+        this._basicDataInfo = value;
+        
+        if (!value) return;
+        
+        Object.defineProperty(window.basicDataInfo, 'isMobile', {
+            get () {
+                return true;
+            },
+            set(value) {
+            }
+        });
+        
+        Object.defineProperty(window.basicDataInfo, 'useTouch', {
+            get () {
+                return true;
+            },
+            set(value) {
+            }
+        });
+        
+    }
+});
 
 function initGame() {
     console.log('init game...........');
+
+    window.lastAimPos = null;
+    window.aimTouchMoveDir = null;
 
     const tasks = [
         {isApplied: false, condition: () => window.game?.activePlayer?.localData, action: betterScale},
@@ -173,6 +164,7 @@ function initGame() {
         {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
         {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container, action: () => window.game?.pixi?._ticker?.add(esp)},
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container, action: () => window.game?.pixi?._ticker?.add(aimBot)},
     ];
 
     (function checkLocalData(){
@@ -220,6 +212,8 @@ function mousedownClick(){
 
     window.addEventListener('mouseup', function (event) {
         if (event.button === 0) { // 0 is the code for the left mouse button
+            window.lastAimPos = null;
+            window.aimTouchMoveDir = null;
             clearTimeout(timeoutId);
         }
     });
@@ -228,7 +222,7 @@ function mousedownClick(){
 function betterScale(){
     Object.defineProperty(window.game.camera, 'zoom', {
         get() {
-            return Math.max(window.game.camera.targetZoom - 0.45, 0.35);
+            return Math.max(window.game.camera.targetZoom - (zoomEnabled ? 0.45 : 0), 0.35);
         },
         set(value) {
         }
@@ -409,9 +403,159 @@ function esp(){
     // console.log(minPlayer?.nameText?._text, minDistanceToPlayer, minPlayer?.pos?.x, minPlayer?.pos?.y);
 
     }catch{}
-
-    
 }
+
+window.initGameControls = function(gameControls){
+    if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
+        gameControls.touchMoveActive = true;
+        gameControls.touchMoveLen = 255;
+        gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
+        gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+    }
+    return gameControls
+}
+
+function aimBot() {
+    const pixi = window.game.pixi;
+    const me = window.game.activePlayer; // Текущий игрок
+    const players = window.game.playerBarn.playerPool.pool; // Список игроков
+
+    if (!pixi || me?.container === undefined) {
+        console.error("PIXI object not found in game.");
+        return;
+    }
+
+
+    Object.defineProperty(window.game.input.mousePos, 'x', {
+        get(){
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos) return window.lastAimPos.clientX;
+            return this._x;
+        },
+        set(value){
+            this._x = value;
+        }
+    });
+
+    Object.defineProperty(window.game.input.mousePos, 'y', {
+        get(){
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos) return window.lastAimPos.clientY;
+            return this._y;
+        },
+        set(value){
+            this._y = value;
+        }
+    });
+
+
+    // Object.defineProperty(window.gameControls.touchMoveDir, 'x', {
+    //     get(){
+    //         console.log('touchMoveDirGet, x ', window.aimTouchMoveDir);
+    //         if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
+    //             window.gameControls.touchMoveActive = true;
+    //             return window.aimTouchMoveDir.x;
+    //             }
+    //         return this._x;
+    //     },
+    //     set(value){
+    //         this._x = value;
+    //     }
+    // });
+
+    // Object.defineProperty(window.gameControls.touchMoveDir, 'y', {
+    //     get(){
+    //         console.log('touchMoveDirGet, y ', window.aimTouchMoveDir);
+            // if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
+            //     window.gameControls.touchMoveActive = true;
+            //     return window.aimTouchMoveDir.y;
+            // }
+    //         return this._y;
+    //     },
+    //     set(value){
+    //         this._y = value;
+    //     }
+    // });
+
+
+    try {
+        const meX = me.pos.x;
+        const meY = me.pos.y;
+        const meTeam = getTeam(me);
+
+        let closestEnemy = null;
+        let minDistance = Infinity;
+
+        players.forEach((player) => {
+            // Пропускаем неактивных или мертвых игроков
+            if (!player.active || player.netData.dead || me.__id === player.__id) return; // добавить еще проверку если под землей
+
+            const playerTeam = getTeam(player);
+            if (playerTeam === meTeam) return; // Пропускаем союзников
+
+            const playerX = player.pos.x;
+            const playerY = player.pos.y;
+            const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
+
+            if (distanceToPlayer < minDistance) {
+                minDistance = distanceToPlayer;
+                closestEnemy = player;
+            }
+        });
+
+        if (closestEnemy) {
+            const targetX = closestEnemy.pos.x;
+            const targetY = closestEnemy.pos.y;
+
+            const { x: screenTargetX, y: screenTargetY } = window.game.camera.pointToScreen(closestEnemy.pos);
+
+            window.lastAimPos = {
+                clientX: screenTargetX,
+                clientY: screenTargetY,
+            }
+
+            // window.game.input.onMouseMove.call(
+            //     window.game.input,
+            //     window.lastAimPos
+            // );
+
+            
+            if(minDistance <= 8) {
+                const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
+                window.gameControls.touchMoveActive = true;
+
+                window.aimTouchMoveDir = {
+                    x: Math.cos(moveAngle),
+                    y: Math.sin(moveAngle),
+                }
+
+                // window.gameControls.touchMoveActive = true;
+
+                // window.gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
+                // window.gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+            }
+        }else{
+            window.aimTouchMoveDir = null;
+        }
+    } catch (error) {
+        console.error("Error in aimBot:", error);
+    }
+}
+
+function calcAngle(playerPos, mePos){
+    const dx = mePos.x - playerPos.x;
+    const dy = mePos.y - playerPos.y;
+
+    return Math.atan2(dy, dx);
+}
+
+// Вспомогательная функция для плавного изменения угла
+function lerpAngle(current, target, factor) {
+    const delta = target - current;
+    return current + delta * factor;
+}
+
+
+
+
 
 function updateOverlay() {
     overlay.innerHTML = '';
@@ -419,7 +563,8 @@ function updateOverlay() {
     const controls = [
         // [ '[B] Aimbot', aimbotEnabled ],
         // [ '[N] ESP', espEnabled ],
-        [ '[H] X-Ray', xrayEnabled ]
+        // [ '[H] X-Ray', xrayEnabled ]
+        [ '[Z] Zoom', zoomEnabled ]
     ];
 
     controls.forEach((control, index) => {
