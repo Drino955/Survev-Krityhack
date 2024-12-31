@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.0.8
-// @description  Xray, tracer, better zoom, smoke/obstacle opacity, player names for survev.io.
+// @version      0.1.0
+// @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
 // @grant        none
 // @run-at       document-end
 // @webRequest   [{"selector":"*app-*.js","action":"cancel"}]
+// @webRequest   [{"selector":"*shared-*.js","action":"cancel"}]
 // @homepageURL  https://github.com/Drino955/survev-krityhack
 // @updateURL    https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js
 // @downloadURL  https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js
@@ -18,53 +19,103 @@
 
 console.log('Script injecting...')
 
+window.AlguienClientEnabled = true;
+
 // cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
-const script = document.createElement('script');
-script.type = 'module';
-script.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/app.js';
-script.onload = () => console.log('app.js loaded');
-script.onerror = (err) => console.error('Error in app.js loading:', err);
-document.head.append(script);
+const appScript = document.createElement('script');
+appScript.type = 'module';
+appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/app.js';
+appScript.onload = () => console.log('app.js loaded');
+appScript.onerror = (err) => console.error('Error in app.js loading:', err);
+document.head.append(appScript);
+
+const sharedScript = document.createElement('script');
+sharedScript.type = 'module';
+sharedScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/shared.js';
+sharedScript.onload = () => console.log('shared.js loaded');
+sharedScript.onerror = (err) => console.error('Error in shared.js loading:', err);
+document.head.append(sharedScript);
 
 const pixiScript = document.createElement('script');
 pixiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.0.3/pixi.min.js';
+pixiScript.onload = () => console.log('pixi.js loaded');
+pixiScript.onerror = (err) => console.error('Error in pixi.js loading:', err);
 document.head.append(pixiScript);
 
-let espEnabled = false;
-let aimbotEnabled = false;
+let espEnabled = true;
+let aimBotEnabled = true;
 let xrayEnabled = true;
 let zoomEnabled = true;
+
+const version = '0.1.0';
 
 
 const overlay = document.createElement('div');
 overlay.className = 'krity-overlay';
 document.querySelector('#ui-game').appendChild(overlay);
 
+const krityTitle = document.createElement('h3');
+krityTitle.className = 'krity-title';
+krityTitle.innerText = `KrityHack ${version}`;
+document.querySelector('#ui-top-left').insertBefore(krityTitle, document.querySelector('#ui-top-left').firstChild);
+
+
+
 const styles = document.createElement('style');
 styles.innerHTML = `
 .krity-overlay{
     position: absolute;
-    top: 100px;
+    top: 128px;
     left: 0px;
     width: 100%;
     pointer-events: None;
     color: #fff;
     font-family: monospace;
+    text-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    z-index: 1;
+}
+
+.krity-title{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, .9);
+    color: #fff;
+    font-family: monospace;
+    pointer-events: None;
 }
 
 .krity-control{
     text-align: center;
     margin-top: 3px;
     margin-bottom: 3px;
-    font-size: 20px;
+    font-size: 18px;
+}
+
+.aimbotDot{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    transform: translateX(-50%) translateY(-50%);
+    display: none;
 }
 `;
 document.head.append(styles);
 
+
+const aimbotDot = document.createElement('div')
+aimbotDot.className = 'aimbotDot';
+document.querySelector('#ui-game').appendChild(aimbotDot);
+
+
 window.addEventListener('keyup', function (event) {
     switch (String.fromCharCode(event.keyCode)) {
         case 'N': espEnabled = !espEnabled; break;
-        case 'B': aimbotEnabled = !aimbotEnabled; break;
+        case 'B': aimBotEnabled = !aimBotEnabled; break;
         case 'H': xrayEnabled = !xrayEnabled; break;
         case 'Z': zoomEnabled = !zoomEnabled; break;
     }
@@ -87,7 +138,7 @@ Object.defineProperty( Object.prototype, 'textureCacheIds', {
                 apply( target, thisArgs, args ) {
                     // console.log(args[0], scope, scope?.baseTexture?.cacheId);
                     // console.log(scope, args[0]);
-                    if (args[0].includes('ceiling') || args[0].includes('map-snow-')) {
+                    if (args[0].includes('ceiling') && !args[0].includes('map-building-container-ceiling-05') || args[0].includes('map-snow-')) {
 						Object.defineProperty( scope, 'valid', {
 							set( value ) {
 								this._valid = value;
@@ -152,6 +203,8 @@ Object.defineProperty(window, 'basicDataInfo', {
     }
 });
 
+let espOneTime = false;
+let aimBotOneTime = false;
 function initGame() {
     console.log('init game...........');
 
@@ -163,8 +216,8 @@ function initGame() {
         {isApplied: false, condition: () => window.game?.map?.obstaclePool?.pool != undefined, action: obstacleOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
-        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container, action: () => window.game?.pixi?._ticker?.add(esp)},
-        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container, action: () => window.game?.pixi?._ticker?.add(aimBot)},
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!espOneTime) { window.game?.pixi?._ticker?.add(esp); espOneTime = true; } } },
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!aimBotOneTime) { window.game?.pixi?._ticker?.add(aimBot); aimBotOneTime = true; } } },
     ];
 
     (function checkLocalData(){
@@ -369,9 +422,6 @@ function esp(){
 
     const meTeam = getTeam(me);
 
-    let minDistanceToPlayer = Infinity;
-    let minPlayer;
-
     // Проходим по каждому игроку
     players.forEach((player) => {
         // Пропускаем неактивных или мертвых игроков
@@ -381,13 +431,6 @@ function esp(){
         const playerY = player.pos.y;
 
         const playerTeam = getTeam(player);
-
-        const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
-
-        if (minDistanceToPlayer > distanceToPlayer) {
-            minDistanceToPlayer = distanceToPlayer;
-            minPlayer = player; 
-        }
 
         // Вычисляем цвет линии (например, красный для врагов)
         const lineColor = playerTeam === meTeam ? BLUE : me.layer === player.layer ? RED : WHITE; // green/red
@@ -400,8 +443,6 @@ function esp(){
             (meY - playerY) * 16
         );
     });
-
-    // console.log(minPlayer?.nameText?._text, minDistanceToPlayer, minPlayer?.pos?.x, minPlayer?.pos?.y);
 
     }catch{}
 }
@@ -416,16 +457,10 @@ window.initGameControls = function(gameControls){
     return gameControls
 }
 
+let date = Date.now();
 function aimBot() {
-    const pixi = window.game.pixi;
-    const me = window.game.activePlayer; // Текущий игрок
-    const players = window.game.playerBarn.playerPool.pool; // Список игроков
 
-    if (!pixi || me?.container === undefined) {
-        console.error("PIXI object not found in game.");
-        return;
-    }
-
+    if (!aimBotEnabled) return;
 
     Object.defineProperty(window.game.input.mousePos, 'x', {
         get(){
@@ -447,13 +482,17 @@ function aimBot() {
         }
     });
 
+    const players = window.game.playerBarn.playerPool.pool;
+    const me = window.game.activePlayer;
+
     try {
         const meX = me.pos.x;
         const meY = me.pos.y;
         const meTeam = getTeam(me);
 
         let closestEnemy = null;
-        let minDistance = Infinity;
+        let distanceToEnemy = Infinity;
+        let minDistanceToPlayerFromMouse = Infinity;
 
         players.forEach((player) => {
             // Пропускаем неактивных или мертвых игроков
@@ -465,25 +504,35 @@ function aimBot() {
             const playerX = player.pos.x;
             const playerY = player.pos.y;
             const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
+            const screenPlayerPos = window.game.camera.pointToScreen(player.pos);
+            const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos.x, screenPlayerPos.y - window.game.input.mousePos.y);
 
-            if (distanceToPlayer < minDistance) {
-                minDistance = distanceToPlayer;
+            if (distanceToPlayerFromMouse < minDistanceToPlayerFromMouse) {
+                minDistanceToPlayerFromMouse = distanceToPlayerFromMouse;
+                distanceToEnemy = distanceToPlayer;
                 closestEnemy = player;
             }
         });
 
         if (closestEnemy) {
-            const targetX = closestEnemy.pos.x;
-            const targetY = closestEnemy.pos.y;
+            // const { x: screenTargetX, y: screenTargetY } = window.game.camera.pointToScreen(closestEnemy.pos);
 
-            const { x: screenTargetX, y: screenTargetY } = window.game.camera.pointToScreen(closestEnemy.pos);
+            const pos = posCalc(closestEnemy, me);
 
+            if (!pos) return;
+
+
+            // window.lastAimPos = {
+            //     clientX: screenTargetX,
+            //     clientY: screenTargetY,
+            // }
             window.lastAimPos = {
-                clientX: screenTargetX,
-                clientY: screenTargetY,
+                clientX: pos.x,
+                clientY: pos.y,
             }
             
-            if(minDistance <= 8) {
+            // autoattack with mobile movement
+            if(distanceToEnemy <= 8) {
                 const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
                 window.gameControls.touchMoveActive = true;
 
@@ -491,11 +540,20 @@ function aimBot() {
                     x: Math.cos(moveAngle),
                     y: Math.sin(moveAngle),
                 }
-
             }
+
+            // aimbotDot.style.left = screenTargetX + 'px';
+            // aimbotDot.style.top = screenTargetY + 'px';
+            aimbotDot.style.left = pos.x + 'px';
+            aimbotDot.style.top = pos.y + 'px';
+            aimbotDot.style.display = 'block';
         }else{
             window.aimTouchMoveDir = null;
+            window.lastAimPos = null;
+            aimbotDot.style.display = 'none';
         }
+
+        date = Date.now();
     } catch (error) {
         console.error("Error in aimBot:", error);
     }
@@ -508,24 +566,91 @@ function calcAngle(playerPos, mePos){
     return Math.atan2(dy, dx);
 }
 
-// Вспомогательная функция для плавного изменения угла
-function lerpAngle(current, target, factor) {
-    const delta = target - current;
-    return current + delta * factor;
+function posCalc(enemy, curPlayer) {
+    if(!enemy) {
+        return;
+    }
+    if(!enemy.posOld || !curPlayer.posOld) {
+        return window.game.camera.pointToScreen({
+            x: enemy.pos.x,
+            y: enemy.pos.y,
+        });
+    }
+    let curWeap = findWeap(curPlayer);
+    let curBullet = findBullet(curWeap);
+    let FPS = (Date.now() - date) * 1.6;
+    let bulletSpeed = curBullet ? curBullet.speed / FPS : 1000;
+    var enemyPos = enemy.pos;
+    var playerPos = curPlayer.pos;
+    var distance = calcDistance(
+        enemyPos.x,
+        enemyPos.y,
+        playerPos.x,
+        playerPos.y
+    );
+    var userX = playerPos.x;
+    var userY = playerPos.y;
+    var enemyDirX = enemyPos.x - enemy.posOld.x;
+    var enemyDirY = enemyPos.y - enemy.posOld.y;
+    var diffX = enemyPos.x - userX;
+    var diffY = enemyPos.y - userY;
+    var a =
+        enemyDirX * enemyDirX +
+        enemyDirY * enemyDirY -
+        bulletSpeed * bulletSpeed;
+    var b = diffX * enemyDirX + diffY * enemyDirY;
+    var c = diffX * diffX + diffY * diffY;
+    var d = b * b - a * c;
+    if(d < 0) {
+        return;
+    }
+    d = Math.sqrt(d);
+    var t = -(b + d) / a;
+    var bulletAngle = Math.atan2(
+        diffY + enemyDirY + enemyDirY * t,
+        diffX + enemyDirX + enemyDirX * t
+    );
+    var pos = {
+        x: playerPos.x + Math.cos(bulletAngle) * distance,
+        y: playerPos.y + Math.sin(bulletAngle) * distance,
+    };
+    return window.game.camera.pointToScreen(pos);
 }
+
+
+function calcDistance(cx, cy, ex, ey) {
+    return Math.sqrt(Math.pow(cx - ex, 2) + Math.pow(cy - ey, 2));
+}
+
+function findWeap(me) {
+    var weapType = me.netData.activeWeapon;
+    return weapType && window.guns[weapType] ? window.guns[weapType] : false;
+}
+
+function findBullet(curWeapon) {
+    return !!curWeapon ? window.bullets[curWeapon.bulletType] : false;
+}
+
+
+// // Вспомогательная функция для плавного изменения угла
+// function lerpAngle(current, target, factor) {
+//     const delta = target - current;
+//     return current + delta * factor;
+// }
 
 
 
 
 
 function updateOverlay() {
-    overlay.innerHTML = '';
+    overlay.innerHTML = `
+    `;
 
     const controls = [
-        // [ '[B] Aimbot', aimbotEnabled ],
-        // [ '[N] ESP', espEnabled ],
-        // [ '[H] X-Ray', xrayEnabled ]
-        [ '[Z] Zoom', zoomEnabled ]
+        [ '[B] AimBot:', aimBotEnabled ],
+        // [ '[N] ESP:', espEnabled ],
+        // [ '[H] X-Ray:', xrayEnabled ]
+        [ '[Z] Zoom:', zoomEnabled ]
     ];
 
     controls.forEach((control, index) => {
