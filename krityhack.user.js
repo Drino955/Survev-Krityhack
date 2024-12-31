@@ -503,7 +503,8 @@ function aimBot() {
             const playerY = player.pos.y;
             const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
             const screenPlayerPos = window.game.camera.pointToScreen(player.pos);
-            const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos.x, screenPlayerPos.y - window.game.input.mousePos.y);
+            // const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos.x, screenPlayerPos.y - window.game.input.mousePos.y);
+            const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos._x, screenPlayerPos.y - window.game.input.mousePos._y);
 
             if (distanceToPlayerFromMouse < minDistanceToPlayerFromMouse) {
                 minDistanceToPlayerFromMouse = distanceToPlayerFromMouse;
