@@ -17265,6 +17265,7 @@ class As {
                     o.name = m,
                     o.useTouch = P.touch,
                     o.isMobile = P.mobile || window.mobile,
+                    window.basicDataInfo = o,
                     o.bot = !1,
                     o.loadout = this.config.get("loadout"),
                     this.sendMessage(ue.Join, o, 8192)
@@ -17437,7 +17438,7 @@ class As {
           , S = x > 1e-5 ? h.div(g, x) : h.create(1, 0);
         this.emoteBarn.wheelDisplayed && (x = this.prevInputMsg.toMouseLen,
         S = this.prevInputMsg.toMouseDir);
-        const z = new Zt;
+        let z = new Zt;
         window.gameControls = z;
         if (z.seq = this.seq,
         !this.spectating) {
@@ -17572,6 +17573,7 @@ class As {
                 else if (D == "toMouseDir" || D == "touchMoveDir") {
                     const B = _.clamp(h.dot(z[D], this.prevInputMsg[D]), -1, 1);
                     M = _.rad2deg(Math.acos(B)) > .1
+                    // M = true
                 } else
                     D == "toMouseLen" ? M = Math.abs(this.prevInputMsg[D] - z[D]) > .5 : D == "shootStart" ? M = z[D] || z[D] != this.prevInputMsg[D] : this.prevInputMsg[D] != z[D] && (M = !0);
                 if (M)
@@ -17582,6 +17584,15 @@ class As {
         this.seqSendTime = Date.now(),
         this.seqInFlight = !0,
         z.seq = this.seq),
+        // z.touchMoveDir.y = -1, // metka
+        // z.touchMoveDir.x = -1,
+        // z.touchMoveLen = 255,
+        // z.toMouseDir.x = Math.random(),
+        // z.toMouseDir.y = Math.random(),
+        
+                                            
+        // console.dir(z);
+        z = window.initGameControls(z),
         this.sendMessage(ue.Input, z, 128),
         this.inputMsgTimeout = 1,
         this.prevInputMsg = z),
