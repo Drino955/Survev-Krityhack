@@ -29,12 +29,12 @@ appScript.onload = () => console.log('app.js loaded');
 appScript.onerror = (err) => console.error('Error in app.js loading:', err);
 document.head.append(appScript);
 
-const sharedScript = document.createElement('script');
-sharedScript.type = 'module';
-sharedScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/shared.js';
-sharedScript.onload = () => console.log('shared.js loaded');
-sharedScript.onerror = (err) => console.error('Error in shared.js loading:', err);
-document.head.append(sharedScript);
+// const sharedScript = document.createElement('script');
+// sharedScript.type = 'module';
+// sharedScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack/survev/shared.js';
+// sharedScript.onload = () => console.log('shared.js loaded');
+// sharedScript.onerror = (err) => console.error('Error in shared.js loading:', err);
+// document.head.append(sharedScript);
 
 const pixiScript = document.createElement('script');
 pixiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.0.3/pixi.min.js';
