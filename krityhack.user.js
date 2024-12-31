@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.0
+// @version      0.1.1
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -19,7 +19,7 @@
 
 console.log('Script injecting...')
 
-window.AlguienClientEnabled = true;
+window.AlguienClientEnabled = false;
 
 // cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
 const appScript = document.createElement('script');
