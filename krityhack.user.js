@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.1
+// @version      0.1.2
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -29,13 +29,6 @@ appScript.onload = () => console.log('app.js loaded');
 appScript.onerror = (err) => console.error('Error in app.js loading:', err);
 document.head.append(appScript);
 
-const sharedScript = document.createElement('link');
-sharedScript.rel = 'modulepreload';
-sharedScript.href = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/shared.js';
-sharedScript.onload = () => console.log('shared.js loaded');
-sharedScript.onerror = (err) => console.error('Error in shared.js loading:', err);
-document.head.append(sharedScript);
-
 const pixiScript = document.createElement('script');
 pixiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.0.3/pixi.min.js';
 pixiScript.onload = () => console.log('pixi.js loaded');
@@ -47,7 +40,7 @@ let aimBotEnabled = true;
 let xrayEnabled = true;
 let zoomEnabled = true;
 
-const version = '0.1.0';
+const version = '0.1.2';
 
 
 const overlay = document.createElement('div');
@@ -115,7 +108,10 @@ document.querySelector('#ui-game').appendChild(aimbotDot);
 window.addEventListener('keyup', function (event) {
     switch (String.fromCharCode(event.keyCode)) {
         case 'N': espEnabled = !espEnabled; break;
-        case 'B': aimBotEnabled = !aimBotEnabled; break;
+        case 'B': 
+            aimBotEnabled = !aimBotEnabled; 
+            aimbotDot.style.display = 'None';
+            break;
         case 'H': xrayEnabled = !xrayEnabled; break;
         case 'Z': zoomEnabled = !zoomEnabled; break;
     }
