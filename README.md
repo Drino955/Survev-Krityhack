@@ -10,13 +10,15 @@
 - 🧱 **Obstacle opacity**.
 - 🏷️ **Player names will be visible**.
 - 🔫 **Tracer**: Draws lines to nearby players.
+- 🛠️ **Auto Loot**: Automatically picks up nearby items to streamline gameplay.
+- 🚪 **Auto Door Open**: Automatically opens doors when you approach them.
+- 🎯 **Aimbot**: Automatically targets the nearest player with precision and prediction (aimbot from IceHack).
+- 🖥️ **AlguienClient UI**: A user-friendly interface for easy configuration and control of hacks (you can enable it by changing `window.AlguienClientEnabled = false;` to `window.AlguienClientEnabled = true;` in script).
 
 ![hack](./github-images/hack.png)
 ![tracer](./github-images/tracer.png)
+![AlguienClient](./github-images/AlguienClient.png)
 
-## Coming Soon 🚧
-- **Aimbot**: Automatically targets the nearest player.
-- **ESP (Extra Sensory Perception)**: Displays lines connecting nearby players.
 
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
@@ -35,6 +37,7 @@ This software is for educational purposes only. Use at your own risk.
 ## Special Thanks 🙌
 Special thanks to zertalious for the [surviv.io Aimbot, ESP, X-Ray script](https://greasyfork.org/en/scripts/439241-surviv-io-aimbot-esp-x-ray) and his article on [how the Shellshock.io cheat was made](https://www.zertalious.xyz/how-was-the-shellshock-io-cheat-made/).
 Also, thanks to my friend Askile for help with TamperMonkey and the IceHack team [IceHack](https://github.com/humphreygaming/surviv-cheat-source).
+Thanks to SoyAlguien0 for the [AlguienClient-Survev.io_Client UI client](https://github.com/SoyAlguien0/AlguienClient-Survev.io_Client).
 
 ## A Special Note 📝
 
