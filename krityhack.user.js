@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.2
+// @version      0.1.3
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -40,7 +40,7 @@ let aimBotEnabled = true;
 let xrayEnabled = true;
 let zoomEnabled = true;
 
-const version = '0.1.2';
+const version = GM_info.script.version;
 
 
 const overlay = document.createElement('div');
@@ -111,6 +111,8 @@ window.addEventListener('keyup', function (event) {
         case 'B': 
             aimBotEnabled = !aimBotEnabled; 
             aimbotDot.style.display = 'None';
+            window.lastAimPos = null;
+            window.aimTouchMoveDir = null;
             break;
         case 'H': xrayEnabled = !xrayEnabled; break;
         case 'Z': zoomEnabled = !zoomEnabled; break;
