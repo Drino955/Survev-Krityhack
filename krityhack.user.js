@@ -19,7 +19,7 @@
 
 console.log('Script injecting...')
 
-window.AlguienClientEnabled = false;
+window.AlguienClientEnabled = true;
 
 // cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
 const appScript = document.createElement('script');
@@ -566,79 +566,64 @@ function calcAngle(playerPos, mePos){
 }
 
 function posCalc(enemy, curPlayer) {
-    if(!enemy) {
+    if (!enemy || !curPlayer) {
         return;
     }
-    if(!enemy.posOld || !curPlayer.posOld) {
+
+    const { pos: enemyPos, posOld: enemyPosOld } = enemy;
+    const { pos: playerPos, posOld: playerPosOld } = curPlayer;
+
+    if (!enemyPosOld || !playerPosOld) {
         return window.game.camera.pointToScreen({
-            x: enemy.pos.x,
-            y: enemy.pos.y,
+            x: enemyPos.x,
+            y: enemyPos.y,
         });
     }
-    let curWeap = findWeap(curPlayer);
-    let curBullet = findBullet(curWeap);
-    let FPS = (Date.now() - date) * 1.6;
-    let bulletSpeed = curBullet ? curBullet.speed / FPS : 1000;
-    var enemyPos = enemy.pos;
-    var playerPos = curPlayer.pos;
-    var distance = calcDistance(
-        enemyPos.x,
-        enemyPos.y,
-        playerPos.x,
-        playerPos.y
-    );
-    var userX = playerPos.x;
-    var userY = playerPos.y;
-    var enemyDirX = enemyPos.x - enemy.posOld.x;
-    var enemyDirY = enemyPos.y - enemy.posOld.y;
-    var diffX = enemyPos.x - userX;
-    var diffY = enemyPos.y - userY;
-    var a =
-        enemyDirX * enemyDirX +
-        enemyDirY * enemyDirY -
-        bulletSpeed * bulletSpeed;
-    var b = diffX * enemyDirX + diffY * enemyDirY;
-    var c = diffX * diffX + diffY * diffY;
-    var d = b * b - a * c;
-    if(d < 0) {
+
+    const curWeap = findWeap(curPlayer);
+    const curBullet = findBullet(curWeap);
+    const FPS = (Date.now() - date) * 1.6;
+    const bulletSpeed = curBullet ? curBullet.speed / FPS : 1000;
+
+    const distance = Math.hypot(enemyPos.x - playerPos.x, enemyPos.y - playerPos.y);
+
+    const diffX = enemyPos.x - playerPos.x;
+    const diffY = enemyPos.y - playerPos.y;
+    const enemyDirX = enemyPos.x - enemyPosOld.x;
+    const enemyDirY = enemyPos.y - enemyPosOld.y;
+
+    const a = enemyDirX ** 2 + enemyDirY ** 2 - bulletSpeed ** 2;
+    const b = diffX * enemyDirX + diffY * enemyDirY;
+    const c = diffX ** 2 + diffY ** 2;
+    let d = b ** 2 - a * c;
+
+    if (d < 0) {
         return;
     }
+
     d = Math.sqrt(d);
-    var t = -(b + d) / a;
-    var bulletAngle = Math.atan2(
-        diffY + enemyDirY + enemyDirY * t,
-        diffX + enemyDirX + enemyDirX * t
+    const t = -(b + d) / a;
+    const bulletAngle = Math.atan2(
+        diffY + enemyDirY * t,
+        diffX + enemyDirX * t
     );
-    var pos = {
+
+    const pos = {
         x: playerPos.x + Math.cos(bulletAngle) * distance,
         y: playerPos.y + Math.sin(bulletAngle) * distance,
     };
+
     return window.game.camera.pointToScreen(pos);
 }
 
-
-function calcDistance(cx, cy, ex, ey) {
-    return Math.sqrt(Math.pow(cx - ex, 2) + Math.pow(cy - ey, 2));
+function findWeap(player) {
+    const weapType = player.netData.activeWeapon;
+    return weapType && window.guns[weapType] ? window.guns[weapType] : null;
 }
 
-function findWeap(me) {
-    var weapType = me.netData.activeWeapon;
-    return weapType && window.guns[weapType] ? window.guns[weapType] : false;
+function findBullet(weapon) {
+    return weapon ? window.bullets[weapon.bulletType] : null;
 }
-
-function findBullet(curWeapon) {
-    return !!curWeapon ? window.bullets[curWeapon.bulletType] : false;
-}
-
-
-// // Вспомогательная функция для плавного изменения угла
-// function lerpAngle(current, target, factor) {
-//     const delta = target - current;
-//     return current + delta * factor;
-// }
-
-
-
 
 
 function updateOverlay() {
