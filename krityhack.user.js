@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.3
+// @version      0.1.4
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -516,7 +516,7 @@ function aimBot() {
         if (closestEnemy) {
             // const { x: screenTargetX, y: screenTargetY } = window.game.camera.pointToScreen(closestEnemy.pos);
 
-            const pos = posCalc(closestEnemy, me);
+            const pos = calculateAimbotTarget(closestEnemy, me);
 
             if (!pos) return;
 
@@ -565,55 +565,105 @@ function calcAngle(playerPos, mePos){
     return Math.atan2(dy, dx);
 }
 
-function posCalc(enemy, curPlayer) {
+function calculateAimbotTarget(enemy, curPlayer) {
     if (!enemy || !curPlayer) {
-        return;
+        console.log("Missing enemy or player data");
+        return null;
     }
 
     const { pos: enemyPos, posOld: enemyPosOld } = enemy;
     const { pos: playerPos, posOld: playerPosOld } = curPlayer;
 
     if (!enemyPosOld || !playerPosOld) {
-        return window.game.camera.pointToScreen({
-            x: enemyPos.x,
-            y: enemyPos.y,
-        });
+        console.log("Insufficient data for prediction, using current position");
+        return window.game.camera.pointToScreen(enemyPos);
     }
 
-    const curWeap = findWeap(curPlayer);
-    const curBullet = findBullet(curWeap);
-    const FPS = (Date.now() - date) * 1.6;
-    const bulletSpeed = curBullet ? curBullet.speed / FPS : 1000;
+    // Calculate player position and FPS adjustment
+    const deltaTime = (performance.now() - date) / 1000; // Time since last frame in seconds
+    // const FPS = 1 / deltaTime;
+    const FPS = 60;
 
-    const distance = Math.hypot(enemyPos.x - playerPos.x, enemyPos.y - playerPos.y);
-
-    const diffX = enemyPos.x - playerPos.x;
-    const diffY = enemyPos.y - playerPos.y;
-    const enemyDirX = enemyPos.x - enemyPosOld.x;
-    const enemyDirY = enemyPos.y - enemyPosOld.y;
-
-    const a = enemyDirX ** 2 + enemyDirY ** 2 - bulletSpeed ** 2;
-    const b = diffX * enemyDirX + diffY * enemyDirY;
-    const c = diffX ** 2 + diffY ** 2;
-    let d = b ** 2 - a * c;
-
-    if (d < 0) {
-        return;
-    }
-
-    d = Math.sqrt(d);
-    const t = -(b + d) / a;
-    const bulletAngle = Math.atan2(
-        diffY + enemyDirY * t,
-        diffX + enemyDirX * t
-    );
-
-    const pos = {
-        x: playerPos.x + Math.cos(bulletAngle) * distance,
-        y: playerPos.y + Math.sin(bulletAngle) * distance,
+    // Calculate enemy velocity
+    const enemyVelocity = {
+        x: (enemyPos.x - enemyPosOld.x) * FPS,
+        y: (enemyPos.y - enemyPosOld.y) * FPS,
     };
 
-    return window.game.camera.pointToScreen(pos);
+
+    // Get weapon and bullet data
+    const weapon = findWeap(curPlayer);
+    const bullet = findBullet(weapon);
+    // const bulletSpeed = bullet.speed / FPS;
+    // const bulletSpeed = bullet.speed;
+    let bulletSpeed;
+    if (!bullet) {
+        console.log("No bullet data, using current enemy position");
+        bulletSpeed = 1000;
+        // return window.game.camera.pointToScreen(enemyPos);
+    }else{
+        bulletSpeed = bullet.speed;
+    }
+
+
+    // Calculate relative position and distance
+    const diffX = enemyPos.x - playerPos.x;
+    const diffY = enemyPos.y - playerPos.y;
+    const distance = Math.hypot(diffX, diffY);
+
+    // Quadratic equation for time prediction
+    const vx = enemyVelocity.x;
+    const vy = enemyVelocity.y;
+    const dx = diffX;
+    const dy = diffY;
+
+    // const a = vx ** 2 + vy ** 2 - bulletSpeed ** 2;
+    // const b = 2 * (dx * vx + dy * vy);
+    // const c = dx ** 2 + dy ** 2;
+
+    const a = bulletSpeed ** 2 - vx ** 2 - vy ** 2;
+    const b = -2 * (vx * dx + vy * dy);
+    const c = -(dx ** 2) - (dy**2);
+
+    let t;
+
+    if (Math.abs(a) < 1e-6) {
+        // Linear solution if bullet speed is much greater than velocity
+        console.log('Linear solution bullet speed is much greater than velocity')
+        t = -c / b;
+    } else {
+        const discriminant = b ** 2 - 4 * a * c;
+
+        if (discriminant < 0) {
+            console.log("No solution, shooting at current position");
+            return window.game.camera.pointToScreen(enemyPos);
+        }
+
+        const sqrtD = Math.sqrt(discriminant);
+        const t1 = (-b - sqrtD) / (2 * a);
+        const t2 = (-b + sqrtD) / (2 * a);
+
+        t = Math.min(t1, t2) > 0 ? Math.min(t1, t2) : Math.max(t1, t2);
+    }
+
+    if (t < 0) {
+        console.log("Negative time, shooting at current position");
+        return window.game.camera.pointToScreen(enemyPos);
+    }
+
+   
+
+    console.log(`Пуля с врагом столкнется через ${t}`)
+
+    // Calculate predicted position
+    const predictedPos = {
+        x: enemyPos.x + vx * t,
+        y: enemyPos.y + vy * t,
+    };
+
+    console.log("Predicted position:", predictedPos);
+
+    return window.game.camera.pointToScreen(predictedPos);
 }
 
 function findWeap(player) {
