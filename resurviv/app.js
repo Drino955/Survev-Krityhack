@@ -6,7 +6,12 @@ var hr = (u, e, t) => e in u ? nr(u, e, {
     value: t
 }) : u[e] = t;
 var s = (u, e, t) => hr(u, typeof e != "symbol" ? e + "" : e, t);
-import {$ as c, i as Fe, C as ie, T as X, S as re, G as Se, a as cr, b as Qe, R as ur, c as dr, P as At, d as nt, B as Vt, e as Wt, f as pr, s as fr, g as wr, A as gr} from "http://resurviv.biz/js/vendor-taVxPZ7O.js"; // metka mod
+const krityhack__links = Array.from(document.querySelectorAll('link[rel="modulepreload"][href]'));
+const krityhack__vendorLink = links.find(link => link.href.includes('vendor-'));
+if (!vendorLink) {
+    console.error('Error, not vendor');
+}
+import {$ as c, i as Fe, C as ie, T as X, S as re, G as Se, a as cr, b as Qe, R as ur, c as dr, P as At, d as nt, B as Vt, e as Wt, f as pr, s as fr, g as wr, A as gr} from krityhack__vendorLink.href; // metka mod
 import {G as N, a as F, u as x, m as I, v as h, C as Je, c as U, P as $e, E as fe, b as Ve, I as R, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Bi, h as Ke, i as Sr, j as yr, B as ht, k as jt, l as xr, A as ce, n as se, H as We, o as dt, R as Ri, S as kt, p as vt, D as je, q as Le, J as zr, r as ue, s as Ut, t as Gt, W as rt, U as br, w as kr, x as vr, y as _r, z as $t, F as Ir, K as Mr, L as Tr, N as Pr, Q as Cr, V as Dr, X as Lr, Y as Ar, Z as Br, _ as Rr, $ as _t, a0 as Er, a1 as Or, a2 as Me, a3 as Bt, a4 as Ht} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/resurviv/shared.js"; // metka mod
 (function() {
     const e = document.createElement("link").relList;
@@ -12310,6 +12315,19 @@ class as {
         if (this.posOld = h.copy(this.pos),
         this.dirOld = h.copy(this.dir),
         this.pos = h.copy(this.netData.pos),
+        // metka mod
+        this.posOld._x = this.pos._x,
+        this.posOld._y = this.pos._y,
+        this.pos._x = this.netData.pos.x,
+        this.pos._y = this.netData.pos.y,
+        (window.gameOptimization) &&
+            !(
+                Math.abs(this.pos.x - this.posOld.x) > 18 ||
+                Math.abs(this.pos.y - this.posOld.y) > 18
+            ) &&
+                //movement interpolation
+                ((this.pos.x += (this.posOld.x - this.pos.x) * 0.5),
+                (this.pos.y += (this.posOld.y - this.pos.y) * 0.5)),
         this.dir = h.copy(this.netData.dir),
         this.layer = this.netData.layer,
         this.downed = this.netData.downed,
@@ -12845,6 +12863,20 @@ class as {
         this.handLContainer.position.x -= this.gunRecoilL * 1.125,
         this.handRContainer.position.x -= this.gunRecoilR * 1.125,
         this.bodyContainer.rotation = -Math.atan2(this.dir.y, this.dir.x)
+
+        if (window.gameOptimization){ // metka mod
+            const mouseX = window.game.input.mousePos.x;
+            const mouseY = window.game.input.mousePos.y;
+            //local rotation
+            if (window.game.activeId == this.__id && !window.game.spectating) {
+            this.bodyContainer.rotation = Math.atan2(
+                mouseY - window.innerHeight / 2,
+                mouseX - window.innerWidth / 2,
+            );
+            } else if (window.game.activeId != this.__id) {
+            this.bodyContainer.rotation = -Math.atan2(this.dir.y, this.dir.x);
+            }
+        }
     }
     playActionStartEffect(e, t, i) {
         let r = null;
@@ -21803,3 +21835,670 @@ var Ai;
         e.unregister()
 }
 );
+
+
+
+window.GameMod = class GameMod { // metka mod
+    constructor() {
+        this.lastFrameTime = performance.now();
+        this.frameCount = 0;
+        this.fps = 0;
+        this.kills = 0;
+        this.setAnimationFrameCallback();
+        this.isFpsVisible = true;
+        this.isPingVisible = true;
+        this.isKillsVisible = true;
+        this.isMenuVisible = true;
+        this.isClean = false;
+
+
+        this.initCounter("fpsCounter", "isFpsVisible", this.updateFpsVisibility.bind(this));
+        this.initCounter("pingCounter", "isPingVisible", this.updatePingVisibility.bind(this));
+        this.initCounter("killsCounter", "isKillsVisible", this.updateKillsVisibility.bind(this));
+
+        this.initMenu();
+        this.loadBackgroundFromLocalStorage();
+        this.loadLocalStorage();
+        this.startUpdateLoop();
+        this.setupWeaponBorderHandler();
+        this.setupKeyListeners();
+    }
+
+    initCounter(id, visibilityKey, updateVisibilityFn) {
+        this[id] = document.createElement("div");
+        this[id].id = id;
+        Object.assign(this[id].style, {
+            color: "white",
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            padding: "5px 10px",
+            marginTop: "10px",
+            borderRadius: "5px",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "14px",
+            zIndex: "10000",
+            pointerEvents: "none",
+        });
+
+        const uiTopLeft = document.getElementById("ui-top-left");
+        if (uiTopLeft) {
+            uiTopLeft.appendChild(this[id]);
+        }
+
+        updateVisibilityFn();
+    }
+
+    updateFpsVisibility() {
+        this.updateVisibility("fpsCounter", this.isFpsVisible);
+    }
+
+    updatePingVisibility() {
+        this.updateVisibility("pingCounter", this.isPingVisible);
+    }
+
+    updateKillsVisibility() {
+        this.updateVisibility("killsCounter", this.isKillsVisible);
+    }
+
+
+    updateVisibility(id, isVisible) {
+        if (this[id]) {
+            this[id].style.display = isVisible ? "block" : "none";
+            this[id].style.backgroundColor = isVisible
+                ? "rgba(0, 0, 0, 0.2)"
+                : "transparent";
+        }
+    }
+
+    toggleFpsDisplay() {
+      this.isFpsVisible = !this.isFpsVisible;
+      this.updateFpsVisibility();
+    }
+    
+    setAnimationFrameCallback() {
+        this.animationFrameCallback = (callback) => setTimeout(callback, 1);
+    }
+
+
+    togglePingDisplay() {
+      this.isPingVisible = !this.isPingVisible;
+      this.updatePingVisibility();
+    }
+
+    toggleKillsDisplay() {
+      this.isKillsVisible = !this.isKillsVisible;
+      this.updateKillsVisibility();
+    }
+
+    getKills() {
+      const killElement = document.querySelector(
+        ".ui-player-kills.js-ui-player-kills",
+      );
+      if (killElement) {
+        const kills = parseInt(killElement.textContent, 10);
+        return isNaN(kills) ? 0 : kills;
+      }
+      return 0;
+    }
+
+    getRegionFromLocalStorage() {
+      let config = localStorage.getItem("surviv_config");
+      if (config) {
+        let configObject = JSON.parse(config);
+        return configObject.region;
+      }
+      return null;
+    }
+
+    startPingTest() {
+      const currentUrl = window.location.href;
+      const isSpecialUrl = /\/#\w+/.test(currentUrl);
+
+      const teamSelectElement = document.getElementById("team-server-select");
+      const mainSelectElement = document.getElementById("server-select-main");
+
+      const region =
+        isSpecialUrl && teamSelectElement
+          ? teamSelectElement.value
+          : mainSelectElement
+            ? mainSelectElement.value
+            : null;
+
+      if (region && region !== this.currentServer) {
+        this.currentServer = region;
+        this.resetPing();
+
+        const servers = [
+          { region: "NA", url: "usr.mathsiscoolfun.com:8001" },
+          { region: "EU", url: "eur.mathsiscoolfun.com:8001" },
+          { region: "Asia", url: "asr.mathsiscoolfun.com:8001" },
+          { region: "SA", url: "sa.mathsiscoolfun.com:8001" },
+        ];
+
+        const selectedServer = servers.find(
+          (server) => region.toUpperCase() === server.region.toUpperCase(),
+        );
+
+        if (selectedServer) {
+          this.pingTest = new PingTest(selectedServer);
+          this.pingTest.startPingTest();
+        } else {
+          this.resetPing();
+        }
+      }
+    }
+
+    resetPing() {
+      if (this.pingTest && this.pingTest.test.ws) {
+        this.pingTest.test.ws.close();
+        this.pingTest.test.ws = null;
+      }
+      this.pingTest = null;
+    }
+
+
+    saveBackgroundToLocalStorage(url) {
+      localStorage.setItem("lastBackgroundUrl", url);
+    }
+
+    saveBackgroundToLocalStorage(image) {
+      if (typeof image === "string") {
+        localStorage.setItem("lastBackgroundType", "url");
+        localStorage.setItem("lastBackgroundValue", image);
+      } else {
+        localStorage.setItem("lastBackgroundType", "local");
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem("lastBackgroundValue", reader.result);
+        };
+        reader.readAsDataURL(image);
+      }
+    }
+
+    loadBackgroundFromLocalStorage() {
+      const backgroundType = localStorage.getItem("lastBackgroundType");
+      const backgroundValue = localStorage.getItem("lastBackgroundValue");
+
+      const backgroundElement = document.getElementById("background");
+      if (backgroundElement && backgroundType && backgroundValue) {
+        if (backgroundType === "url") {
+          backgroundElement.style.backgroundImage = `url(${backgroundValue})`;
+        } else if (backgroundType === "local") {
+          backgroundElement.style.backgroundImage = `url(${backgroundValue})`;
+        }
+      }
+    }
+    loadLocalStorage() {
+        const savedSettings = JSON.parse(localStorage.getItem("userSettings"));
+        if (savedSettings) {
+            this.isFpsVisible = savedSettings.isFpsVisible ?? this.isFpsVisible;
+            this.isPingVisible = savedSettings.isPingVisible ?? this.isPingVisible;
+            this.isKillsVisible = savedSettings.isKillsVisible ?? this.isKillsVisible;
+            this.isClean = savedSettings.isClean ?? this.isClean;
+        }
+
+        this.updateKillsVisibility();
+        this.updateFpsVisibility();
+        this.updatePingVisibility();
+    }
+
+    updateHealthBars() {
+      const healthBars = document.querySelectorAll("#ui-health-container");
+      healthBars.forEach((container) => {
+        const bar = container.querySelector("#ui-health-actual");
+        if (bar) {
+          const width = Math.round(parseFloat(bar.style.width));
+          let percentageText = container.querySelector(".health-text");
+
+          if (!percentageText) {
+            percentageText = document.createElement("span");
+            percentageText.classList.add("health-text");
+            Object.assign(percentageText.style, {
+              width: "100%",
+              textAlign: "center",
+              marginTop: "5px",
+              color: "#333",
+              fontSize: "20px",
+              fontWeight: "bold",
+              position: "absolute",
+              zIndex: "10",
+            });
+            container.appendChild(percentageText);
+          }
+
+          percentageText.textContent = `${width}%`;
+        }
+      });
+    }
+
+    updateBoostBars() {
+      const boostCounter = document.querySelector("#ui-boost-counter");
+      if (boostCounter) {
+        const boostBars = boostCounter.querySelectorAll(
+          ".ui-boost-base .ui-bar-inner",
+        );
+
+        let totalBoost = 0;
+        const weights = [25, 25, 40, 10];
+
+        boostBars.forEach((bar, index) => {
+          const width = parseFloat(bar.style.width);
+          if (!isNaN(width)) {
+            totalBoost += width * (weights[index] / 100);
+          }
+        });
+
+        const averageBoost = Math.round(totalBoost);
+        let boostDisplay = boostCounter.querySelector(".boost-display");
+
+        if (!boostDisplay) {
+          boostDisplay = document.createElement("div");
+          boostDisplay.classList.add("boost-display");
+          Object.assign(boostDisplay.style, {
+            position: "absolute",
+            bottom: "75px",
+            right: "335px",
+            color: "#FF901A",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            padding: "5px 10px",
+            borderRadius: "5px",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "14px",
+            zIndex: "10",
+            textAlign: "center",
+          });
+
+          boostCounter.appendChild(boostDisplay);
+        }
+
+        boostDisplay.textContent = `AD: ${averageBoost}%`;
+      }
+    }
+
+    setupWeaponBorderHandler() {
+        const weaponContainers = Array.from(
+          document.getElementsByClassName("ui-weapon-switch"),
+        );
+        weaponContainers.forEach((container) => {
+          if (container.id === "ui-weapon-id-4") {
+            container.style.border = "3px solid #2f4032";
+          } else {
+            container.style.border = "3px solid #FFFFFF";
+          }
+        });
+  
+        const weaponNames = Array.from(
+          document.getElementsByClassName("ui-weapon-name"),
+        );
+        weaponNames.forEach((weaponNameElement) => {
+          const weaponContainer = weaponNameElement.closest(".ui-weapon-switch");
+          const observer = new MutationObserver(() => {
+            const weaponName = weaponNameElement.textContent.trim();
+            let border = "#FFFFFF";
+  
+            switch (weaponName.toUpperCase()) { 
+              //yellow
+              case "CZ-3A1": case "G18C": case "M9": case "M93R": case "MAC-10": case "MP5": case "P30L": case "DUAL P30L": case "UMP9": case "VECTOR": case "VSS": case "FLAMETHROWER": border = "#FFAE00"; break;
+              //blue 
+              case "AK-47": case "OT-38": case "OTS-38": case "M39 EMR": case "DP-28": case "MOSIN-NAGANT": case "SCAR-H": case "SV-98": case "M1 GARAND": case "PKP PECHENEG": case "AN-94": case "BAR M1918": case "BLR 81": case "SVD-63": case "M134": case "GROZA": case "GROZA-S": border = "#007FFF"; break;
+              //green
+              case "FAMAS": case "M416": case "M249": case "QBB-97": case "MK 12 SPR": case "M4A1-S": case "SCOUT ELITE": case "L86A2": border = "#0f690d"; break;
+              //red 
+              case "M870": case "MP220": case "SAIGA-12": case "SPAS-12": case "USAS-12": case "SUPER 90": case "LASR GUN": case "M1100": border = "#FF0000"; break;
+              //purple
+              case "MODEL 94": case "PEACEMAKER": case "VECTOR (.45 ACP)": case "M1911": case "M1A1": border = "#800080"; break;
+              //black
+              case "DEAGLE 50": case "RAINBOW BLASTER": border = "#000000"; break;
+              //olive
+              case "AWM-S": case "MK 20 SSR": border = "#808000"; break; 
+              //brown
+              case "POTATO CANNON": case "SPUD GUN": border = "#A52A2A"; break;
+              //other Guns
+              case "FLARE GUN": border = "#FF4500"; break; case "M79": border = "#008080"; break; case "HEART CANNON": border = "#FFC0CB"; break; 
+              default: border = "#FFFFFF"; break; }
+  
+            if (weaponContainer.id !== "ui-weapon-id-4") {
+              weaponContainer.style.border = `3px solid ${border}`;
+            }
+          });
+  
+          observer.observe(weaponNameElement, {
+            childList: true,
+            characterData: true,
+            subtree: true,
+          });
+        });
+      }
+
+    updateUiElements() {
+      const currentUrl = window.location.href;
+
+      const isSpecialUrl = /\/#\w+/.test(currentUrl);
+
+      const playerOptions = document.getElementById("player-options");
+      const teamMenuContents = document.getElementById("team-menu-contents");
+      const startMenuContainer = document.querySelector(
+        "#start-menu .play-button-container",
+      );
+
+      if (!playerOptions) return;
+
+      if (
+        isSpecialUrl &&
+        teamMenuContents &&
+        playerOptions.parentNode !== teamMenuContents
+      ) {
+        teamMenuContents.appendChild(playerOptions);
+      } else if (
+        !isSpecialUrl &&
+        startMenuContainer &&
+        playerOptions.parentNode !== startMenuContainer
+      ) {
+        const firstChild = startMenuContainer.firstChild;
+        startMenuContainer.insertBefore(playerOptions, firstChild);
+      }
+      const teamMenu = document.getElementById("team-menu");
+      if (teamMenu) {
+        teamMenu.style.height = "355px";
+      }
+      const menuBlocks = document.querySelectorAll(".menu-block");
+      menuBlocks.forEach((block) => {
+        block.style.maxHeight = "355px";
+      });
+      const leftColumn = document.getElementById("left-column");
+      const newsBlock = document.getElementById("news-block");
+      //scalable?
+    }
+
+    updateCleanMode() {
+        const leftColumn = document.getElementById("left-column");
+        const newsBlock = document.getElementById("news-block");
+
+        if (this.isClean) {
+            if (leftColumn) leftColumn.style.display = "none";
+            if (newsBlock) newsBlock.style.display = "none";
+        } else {
+            if (leftColumn) leftColumn.style.display = "block";
+            if (newsBlock) newsBlock.style.display = "block";
+        }
+    }
+
+    updateMenuButtonText() {
+      const hideButton = document.getElementById("hideMenuButton");
+      hideButton.textContent = this.isMenuVisible
+        ? "Hide Menu [P]"
+        : "Show Menu [P]";
+    }
+
+    setupKeyListeners() {
+      document.addEventListener("keydown", (event) => {
+        if (event.key.toLowerCase() === "p") {
+          this.toggleMenuVisibility();
+        }
+      });
+    }
+    //menu
+    initMenu() {
+        const menu = document.createElement("div");
+        menu.id = "soyAlguienMenu";
+        Object.assign(menu.style, {
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          padding: "15px",
+          marginLeft: "15px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+          zIndex: "10001",
+          width: "250px",
+          fontFamily: "Arial, sans-serif",
+          color: "#fff",
+          maxHeight: "400px",
+          overflowY: "auto",
+        });
+      
+        const title = document.createElement("h2");
+        title.textContent = "SoyAlguien Client";
+        Object.assign(title.style, {
+          margin: "0 0 10px",
+          textAlign: "center",
+          fontSize: "18px",
+          color: "#FFAE00",
+        });
+        menu.appendChild(title);
+      
+        const updateLocalStorage = () => {
+          localStorage.setItem(
+            "userSettings",
+            JSON.stringify({
+              isFpsVisible: this.isFpsVisible,
+              isPingVisible: this.isPingVisible,
+              isKillsVisible: this.isKillsVisible,
+              isClean: this.isClean
+            })
+          );
+        };
+      
+        this.loadLocalStorage();
+      
+        const createToggleButton = (text, stateKey, onClick) => {
+          const button = document.createElement("button");
+          button.textContent = `${text} ${this[stateKey] ? "✅" : "❌"}`;
+          Object.assign(button.style, {
+            backgroundColor: this[stateKey] ? "#4CAF50" : "#FF0000",
+            border: "none",
+            color: "#fff",
+            padding: "10px",
+            borderRadius: "5px",
+            width: "100%",
+            marginBottom: "10px",
+            fontSize: "14px",
+            cursor: "pointer",
+          });
+          button.onclick = () => {
+            this[stateKey] = !this[stateKey];
+            onClick();
+            button.textContent = `${text} ${this[stateKey] ? "✅" : "❌"}`;
+            button.style.backgroundColor = this[stateKey] ? "#4CAF50" : "#FF0000";
+            updateLocalStorage();
+          };
+          return button;
+        };
+      
+        menu.appendChild(createToggleButton("Show FPS", "isFpsVisible", this.updateFpsVisibility.bind(this)));
+        menu.appendChild(createToggleButton("Show Ping", "isPingVisible", this.updatePingVisibility.bind(this)));
+        menu.appendChild(createToggleButton("Show Kills", "isKillsVisible", this.updateKillsVisibility.bind(this)));
+        menu.appendChild(createToggleButton("Clean Menu", "isClean", this.updateCleanMode.bind(this)));
+      
+        const hideShowToggle = document.createElement("button");
+        hideShowToggle.textContent = `👀 Hide/Show Menu [P]`;
+        Object.assign(hideShowToggle.style, {
+          backgroundColor: "#6F42C1",
+          border: "none",
+          color: "#fff",
+          padding: "10px",
+          borderRadius: "5px",
+          width: "100%",
+          marginBottom: "10px",
+          fontSize: "14px",
+          cursor: "pointer",
+        });
+        hideShowToggle.onclick = () => this.toggleMenuVisibility();
+        menu.appendChild(hideShowToggle);
+      
+        const backgroundToggle = document.createElement("button");
+        backgroundToggle.textContent = `🎨 Change Background`;
+        Object.assign(backgroundToggle.style, {
+          backgroundColor: "#007BFF",
+          border: "none",
+          color: "#fff",
+          padding: "10px",
+          borderRadius: "5px",
+          width: "100%",
+          marginBottom: "10px",
+          fontSize: "14px",
+          cursor: "pointer",
+        });
+        backgroundToggle.onclick = () => {
+          const backgroundElement = document.getElementById("background");
+          if (!backgroundElement) {
+            alert("Element with id 'background' not found.");
+            return;
+          }
+          const choice = prompt(
+            "Enter '1' to provide a URL or '2' to upload a local image:"
+          );
+      
+          if (choice === "1") {
+            const newBackgroundUrl = prompt("Enter the URL of the new background image:");
+            if (newBackgroundUrl) {
+              backgroundElement.style.backgroundImage = `url(${newBackgroundUrl})`;
+              this.saveBackgroundToLocalStorage(newBackgroundUrl);
+              alert("Background updated successfully!");
+            }
+          } else if (choice === "2") {
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = "image/*";
+            fileInput.onchange = (event) => {
+              const file = event.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  backgroundElement.style.backgroundImage = `url(${reader.result})`;
+                  this.saveBackgroundToLocalStorage(file);
+                  alert("Background updated successfully!");
+                };
+                reader.readAsDataURL(file);
+              }
+            };
+            fileInput.click();
+          }
+        };
+        menu.appendChild(backgroundToggle);
+      
+        window.onload = () => {
+          const savedBackground = localStorage.getItem("backgroundImage");
+          if (savedBackground) {
+            const backgroundElement = document.getElementById("background");
+            if (backgroundElement) {
+              backgroundElement.style.backgroundImage = `url(${savedBackground})`;
+            }
+          }
+        };
+      
+        const startRowTop = document.getElementById("start-row-top");
+        if (startRowTop) {
+          startRowTop.appendChild(menu);
+        }
+      
+        this.menu = menu;
+      }
+
+    toggleMenuVisibility() {
+      const isVisible = this.menu.style.display !== "none";
+      this.menu.style.display = isVisible ? "none" : "block";
+    }
+
+    startUpdateLoop() {
+      const now = performance.now();
+      const delta = now - this.lastFrameTime;
+
+      this.frameCount++;
+
+      if (delta >= 1000) {
+        this.fps = Math.round((this.frameCount * 1000) / delta);
+        this.frameCount = 0;
+        this.lastFrameTime = now;
+
+        this.kills = this.getKills();
+
+        if (this.isFpsVisible && this.fpsCounter) {
+          this.fpsCounter.textContent = `FPS: ${this.fps}`;
+        }
+
+        if (this.isKillsVisible && this.killsCounter) {
+          this.killsCounter.textContent = `Kills: ${this.kills}`;
+        }
+
+        if (this.isPingVisible && this.pingCounter && this.pingTest) {
+          const result = this.pingTest.getPingResult();
+          this.pingCounter.textContent = `PING: ${result.ping} ms`;
+        }
+      }
+
+      this.startPingTest();
+      this.animationFrameCallback(() => this.startUpdateLoop());
+      this.updateUiElements();
+      this.updateCleanMode();
+      this.updateBoostBars();
+      this.updateHealthBars();
+    }
+    
+  }
+
+window.PingTest = class PingTest {
+    constructor(selectedServer) {
+      this.ptcDataBuf = new ArrayBuffer(1);
+      this.test = {
+        region: selectedServer.region,
+        url: `wss://${selectedServer.url}/ptc`,
+        ping: 9999,
+        ws: null,
+        sendTime: 0,
+        retryCount: 0,
+      };
+    }
+
+    startPingTest() {
+      if (!this.test.ws) {
+        const ws = new WebSocket(this.test.url);
+        ws.binaryType = "arraybuffer";
+
+        ws.onopen = () => {
+          this.sendPing();
+          this.test.retryCount = 0;
+        };
+
+        ws.onmessage = () => {
+          const elapsed = (Date.now() - this.test.sendTime) / 1e3;
+          this.test.ping = Math.round(elapsed * 1000);
+          this.test.retryCount = 0;
+          setTimeout(() => this.sendPing(), 200);
+        };
+
+        ws.onerror = () => {
+          this.test.ping = "Error";
+          this.test.retryCount++;
+          if (this.test.retryCount < 5) {
+            setTimeout(() => this.startPingTest(), 2000);
+          } else {
+            this.test.ws.close();
+            this.test.ws = null;
+          }
+        };
+
+        ws.onclose = () => {
+          this.test.ws = null;
+        };
+
+        this.test.ws = ws;
+      }
+    }
+
+    sendPing() {
+      if (this.test.ws.readyState === WebSocket.OPEN) {
+        this.test.sendTime = Date.now();
+        this.test.ws.send(this.ptcDataBuf);
+      }
+    }
+
+    getPingResult() {
+      return {
+        region: this.test.region,
+        ping: this.test.ping,
+      };
+    }
+  }
+
+
+if (AlguienClientEnabled){
+    const gameMod = new GameMod();
+}

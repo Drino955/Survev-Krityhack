@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.5
+// @version      0.1.6
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
 // @match        *://resurviv.biz/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
 // @grant        none
-// @run-at       document-end
+// @run-at       document-start
 // @webRequest   [{"selector":"*app-*.js","action":"cancel"}]
 // @webRequest   [{"selector":"*shared-*.js","action":"cancel"}]
 // @homepageURL  https://github.com/Drino955/survev-krityhack
@@ -21,6 +21,7 @@
 console.log('Script injecting...')
 
 window.AlguienClientEnabled = true;
+window.gameOptimization = true;
 window.ping = {};
 
 // cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
@@ -34,37 +35,38 @@ if (window.location.hostname === 'survev.io') {
     console.log('Resurviv.biz detected');
     appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/resurviv/app.js';
 } else if(window.location.hostname == 'localhost') {
-    servMenu = document.querySelector('#server-select-main');
-    servMenu.innerHTML = `<optgroup id="server-opts" label="Region" data-l10n="index-region">
-                  <option value="local" data-l10n="index-local" data-label="Local">Local [0 players]</option></optgroup>`;
+    document.addEventListener('DOMContentLoaded', () => {
+        const servMenu = document.querySelector('#server-select-main');
+        servMenu.innerHTML = `<optgroup id="server-opts" label="Region" data-l10n="index-region">
+                      <option value="local" data-l10n="index-local" data-label="Local">Local [0 players]</option></optgroup>`;
+    });
 }
 
 appScript.onload = () => console.log('app.js loaded');
 appScript.onerror = (err) => console.error('Error in app.js loading:', err);
-document.head.append(appScript);
 
 const pixiScript = document.createElement('script');
 pixiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.0.3/pixi.min.js';
 pixiScript.onload = () => console.log('pixi.js loaded');
 pixiScript.onerror = (err) => console.error('Error in pixi.js loading:', err);
-document.head.append(pixiScript);
+
+let aimBotEnabled = true;
+let zoomEnabled = true;
+let mobileAttackEnabled = true;
+let spinBot = true;
 
 let espEnabled = true;
-let aimBotEnabled = true;
 let xrayEnabled = true;
-let zoomEnabled = true;
 
 const version = GM_info.script.version;
 
 
 const overlay = document.createElement('div');
 overlay.className = 'krity-overlay';
-document.querySelector('#ui-game').appendChild(overlay);
 
 const krityTitle = document.createElement('h3');
 krityTitle.className = 'krity-title';
 krityTitle.innerText = `KrityHack ${version}`;
-document.querySelector('#ui-top-left').insertBefore(krityTitle, document.querySelector('#ui-top-left').firstChild);
 
 
 
@@ -111,31 +113,47 @@ styles.innerHTML = `
     display: none;
 }
 `;
-document.head.append(styles);
 
 
 const aimbotDot = document.createElement('div')
 aimbotDot.className = 'aimbotDot';
-document.querySelector('#ui-game').appendChild(aimbotDot);
-
 
 window.addEventListener('keyup', function (event) {
+    if (!window?.game?.ws) return;
+
     switch (String.fromCharCode(event.keyCode)) {
-        case 'N': espEnabled = !espEnabled; break;
         case 'B': 
             aimBotEnabled = !aimBotEnabled; 
             aimbotDot.style.display = 'None';
             window.lastAimPos = null;
             window.aimTouchMoveDir = null;
             break;
-        case 'H': xrayEnabled = !xrayEnabled; break;
         case 'Z': zoomEnabled = !zoomEnabled; break;
+        case 'M': 
+            mobileAttackEnabled = !mobileAttackEnabled;
+            window.aimTouchMoveDir = null;
+            event.stopImmediatePropagation()
+            event.stopPropagation();
+            event.preventDefault();
+            break;
+        case 'X': spinBot = !spinBot; break;
+        // case 'O': window.gameOptimization = !window.gameOptimization; break;
     }
     updateOverlay();
 });
 
-updateOverlay();
+window.addEventListener('keydown', function (event) {
+    if (!window?.game?.ws) return;
 
+    switch (String.fromCharCode(event.keyCode)) {
+        case 'M': 
+            event.stopImmediatePropagation()
+            event.stopPropagation();
+            event.preventDefault();
+            break;
+    }
+    updateOverlay();
+});
 
 
 // remove ceilings
@@ -233,7 +251,7 @@ function initGame() {
     ];
 
     (function checkLocalData(){
-        if(!window.game.ws) return;
+        if(!window?.game?.ws) return;
 
         console.log('Checking local data')
 
@@ -409,10 +427,10 @@ function visibleNames(){
 
 function esp(){
     const pixi = window.game.pixi; 
-    const me = window.game.activePlayer; // Текущий игрок
-    const players = window.game.playerBarn.playerPool.pool; // Список игроков
+    const me = window.game.activePlayer;
+    const players = window.game.playerBarn.playerPool.pool;
 
-    // Проверяем, есть ли объект PIXI, иначе создаем новый
+    // We check if there is an object of Pixi, otherwise we create a new
     if (!pixi || me?.container == undefined) {
         console.error("PIXI object not found in game.");
         return;
@@ -421,22 +439,22 @@ function esp(){
     
     try{
 
-    // Создаем графический объект, если он не существует
+    // Create a graphic object if it does not exist
     if (!me.container.lineDrawer) {
         me.container.lineDrawer = new PIXI.Graphics();
         me.container.addChild(me.container.lineDrawer);
     }
         
     const lineDrawer = me.container.lineDrawer;
-    lineDrawer.clear(); // Очистка предыдущих линий
+    lineDrawer.clear(); // Cleaning previous lines
     const meX = me.pos.x;
     const meY = me.pos.y;
 
     const meTeam = getTeam(me);
 
-    // Проходим по каждому игроку
+    // For each player
     players.forEach((player) => {
-        // Пропускаем неактивных или мертвых игроков
+        // We miss inactive or dead players
         if (!player.active || player.netData.dead || me.__id == player.__id) return;
 
         const playerX = player.pos.x;
@@ -444,12 +462,12 @@ function esp(){
 
         const playerTeam = getTeam(player);
 
-        // Вычисляем цвет линии (например, красный для врагов)
-        const lineColor = playerTeam === meTeam ? BLUE : me.layer === player.layer ? RED : WHITE; // green/red
+        // We calculate the color of the line (for example, red for enemies)
+        const lineColor = playerTeam === meTeam ? BLUE : me.layer === player.layer ? RED : WHITE;
 
-        // Рисуем линию от текущего игрока к другому игроку
+        // We draw a line from the current player to another player
         lineDrawer.lineStyle(2, lineColor, 1);
-        lineDrawer.moveTo(0, 0); // Центр контейнера текущего игрока
+        lineDrawer.moveTo(0, 0); // Container Container Center
         lineDrawer.lineTo(
             (playerX - meX) * 16,
             (meY - playerY) * 16
@@ -461,6 +479,7 @@ function esp(){
 
 window.initGameControls = function(gameControls){
     if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
+        window.gameControls.addInput(13); // melee
         gameControls.touchMoveActive = true;
         gameControls.touchMoveLen = 255;
         gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
@@ -469,6 +488,13 @@ window.initGameControls = function(gameControls){
     return gameControls
 }
 
+function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+let spinAngle = 0;
+const radius = 100; // The radius of the circle
+const spinSpeed = 37.5; // Rotation speed (increase for faster speed)
 let date = performance.now();
 function aimBot() {
 
@@ -476,7 +502,11 @@ function aimBot() {
 
     Object.defineProperty(window.game.input.mousePos, 'x', {
         get(){
-            if (window.game.input.mouseButtons['0'] && window.lastAimPos) return window.lastAimPos.clientX;
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) return window.lastAimPos.clientX;
+            if (!window.game.input.mouseButtons['0'] && !window.game.input.mouseButtons['2'] && window.game.activePlayer.localData.curWeapIdx != 3 && spinBot) {
+                spinAngle += spinSpeed;
+                return Math.cos(degreesToRadians(spinAngle)) * radius + window.innerWidth / 2;
+            }
             return this._x;
         },
         set(value){
@@ -486,7 +516,10 @@ function aimBot() {
 
     Object.defineProperty(window.game.input.mousePos, 'y', {
         get(){
-            if (window.game.input.mouseButtons['0'] && window.lastAimPos) return window.lastAimPos.clientY;
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) return window.lastAimPos.clientY;
+            if (!window.game.input.mouseButtons['0'] && !window.game.input.mouseButtons['2'] && window.game.activePlayer.localData.curWeapIdx != 3 && spinBot) {
+                return Math.sin(degreesToRadians(spinAngle)) * radius + window.innerHeight / 2;
+            }
             return this._y;
         },
         set(value){
@@ -498,8 +531,8 @@ function aimBot() {
     const me = window.game.activePlayer;
 
     try {
-        const meX = me.pos.x;
-        const meY = me.pos.y;
+        const meX = me.pos._x;
+        const meY = me.pos._y;
         const meTeam = getTeam(me);
 
         let closestEnemy = null;
@@ -507,17 +540,16 @@ function aimBot() {
         let minDistanceToPlayerFromMouse = Infinity;
 
         players.forEach((player) => {
-            // Пропускаем неактивных или мертвых игроков
-            if (!player.active || player.netData.dead || me.__id === player.__id || me.layer !== player.layer) return; // добавить еще проверку если под землей
+            // We miss inactive or dead players
+            if (!player.active || player.netData.dead || me.__id === player.__id || me.layer !== player.layer) return;
 
             const playerTeam = getTeam(player);
-            if (playerTeam === meTeam) return; // Пропускаем союзников
+            if (playerTeam === meTeam) return; // We miss the allies
 
-            const playerX = player.pos.x;
-            const playerY = player.pos.y;
+            const playerX = player.pos._x;
+            const playerY = player.pos._y;
             const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
-            const screenPlayerPos = window.game.camera.pointToScreen(player.pos);
-            // const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos.x, screenPlayerPos.y - window.game.input.mousePos.y);
+            const screenPlayerPos = window.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
             const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos._x, screenPlayerPos.y - window.game.input.mousePos._y);
 
             if (distanceToPlayerFromMouse < minDistanceToPlayerFromMouse) {
@@ -528,24 +560,18 @@ function aimBot() {
         });
 
         if (closestEnemy) {
-            // const { x: screenTargetX, y: screenTargetY } = window.game.camera.pointToScreen(closestEnemy.pos);
+            const predictedEnemyPos = calculateAimbotTarget(closestEnemy, me);
 
-            const pos = calculateAimbotTarget(closestEnemy, me);
+            if (!predictedEnemyPos) return;
 
-            if (!pos) return;
-
-
-            // window.lastAimPos = {
-            //     clientX: screenTargetX,
-            //     clientY: screenTargetY,
-            // }
             window.lastAimPos = {
-                clientX: pos.x,
-                clientY: pos.y,
+                clientX: predictedEnemyPos.x,
+                clientY: predictedEnemyPos.y,
             }
             
-            // autoattack with mobile movement
-            if(distanceToEnemy <= 8) {
+            // Autoattack with mobile movement
+            if(mobileAttackEnabled && distanceToEnemy <= 8) {
+                window.game.activePlayer.localData.curWeapIdx = 2; // fists/katana/...
                 const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
                 window.gameControls.touchMoveActive = true;
 
@@ -553,28 +579,18 @@ function aimBot() {
                     x: Math.cos(moveAngle),
                     y: Math.sin(moveAngle),
                 }
+            }else{
+                window.aimTouchMoveDir = null;
             }
 
-            // aimbotDot.style.left = screenTargetX + 'px';
-            // aimbotDot.style.top = screenTargetY + 'px';
-            aimbotDot.style.left = pos.x + 'px';
-            aimbotDot.style.top = pos.y + 'px';
+            aimbotDot.style.left = predictedEnemyPos.x + 'px';
+            aimbotDot.style.top = predictedEnemyPos.y + 'px';
             aimbotDot.style.display = 'block';
         }else{
             window.aimTouchMoveDir = null;
             window.lastAimPos = null;
             aimbotDot.style.display = 'none';
         }
-
-        // players.forEach((player) => {
-        //     player.posOldOldOldOld = player.posOldOldOld;
-        // });
-        // players.forEach((player) => {
-        //     player.posOldOldOld = player.posOldOld;
-        // });
-        // players.forEach((player) => {
-        //     player.posOldOld = player.posOld;
-        // });
 
         date = performance.now();
     } catch (error) {
@@ -583,136 +599,11 @@ function aimBot() {
 }
 
 function calcAngle(playerPos, mePos){
-    const dx = mePos.x - playerPos.x;
-    const dy = mePos.y - playerPos.y;
+    const dx = mePos._x - playerPos._x;
+    const dy = mePos._y - playerPos._y;
 
     return Math.atan2(dy, dx);
 }
-
-/*
-shit
-function calculateAimbotTargett(enemy, curPlayer) {
-    if (!enemy || !curPlayer) {
-        console.log("Missing enemy or player data");
-        return null;
-    }
-
-    const { pos: enemyPos, posOld: enemyPosOld, posOldOld: enemyPosOldOld, posOldOldOld: enemyPosOldOldOld, posOldOldOldOld: enemyPosOldOldOldOld} = enemy;
-    const { pos: curPlayerPos, posOld: curPlayerPosOld, posOldOld: curPlayerPosOldOld } = curPlayer;
-
-    if (!enemyPosOld || !curPlayerPosOld || !curPlayerPosOldOld || !enemyPosOldOld || !enemyPosOldOldOld || !enemyPosOldOldOldOld) {
-        console.log("Insufficient data for prediction, using current position");
-        return window.game.camera.pointToScreen(enemyPos);
-    }
-
-    // Calculate player position and FPS adjustment
-    const deltaTime = (performance.now() - date) / 1000; // Time since last frame in seconds
-    // const FPS = 1 / deltaTime;
-    const FPS = 60;
-    const pingSeconds = Awindow.ping.p95 / 1000; 
-
-    // Calculate enemy velocity
-    const enemyVelocity = {
-        x: (enemyPos.x - enemyPosOldOldOldOld.x) * (FPS / 4),
-        y: (enemyPos.y - enemyPosOldOldOldOld.y) * (FPS / 4),
-    };
-
-    const curPlayerVelocity = {
-        x: (curPlayerPos.x - curPlayerPosOldOld.x) * FPS,
-        y: (curPlayerPos.y - curPlayerPosOldOld.y) * FPS,
-    };
-
-
-    // Get weapon and bullet data
-    const weapon = findWeap(curPlayer);
-    const bullet = findBullet(weapon);
-    // const bulletSpeed = bullet.speed / FPS;
-    // const bulletSpeed = bullet.speed;
-    let bulletSpeed;
-    if (!bullet) {
-        // console.log("No bullet data, using current enemy position");
-        bulletSpeed = 1000;
-        // return window.game.camera.pointToScreen(enemyPos);
-    }else{
-        bulletSpeed = bullet.speed;
-    }
-
-
-    // const distance = Math.hypot(diffX, diffY);
-
-    // Quadratic equation for time prediction
-    const dvx = enemyVelocity.x - curPlayerVelocity.x;
-    const dvy = enemyVelocity.y - curPlayerVelocity.y;
-    const vex = enemyVelocity.x;
-    const vey = enemyVelocity.y;
-    const vpx = curPlayerVelocity.x;
-    const vpy = curPlayerVelocity.y;
-    const tp = pingSeconds;
-    // const dx = (enemyPos.x + vex * tp) - (curPlayerPos.x + vpx * tp);
-    // const dy = (enemyPos.y + vey * tp) - (curPlayerPos.y + vpy * tp);
-    const dx = enemyPos.x - curPlayerPos.x;
-    const dy = enemyPos.y - curPlayerPos.y;
-    const vb = bulletSpeed;
-
-    // const a = vex ** 2 + vey ** 2 - vb ** 2;
-    // const b = 2 * (dx * vex + dy * vey);
-    // const c = dx ** 2 + dy ** 2;
-
-    // const a = vb ** 2 - vex ** 2 - vey ** 2;
-    // const b = -2 * (vex * dx + vey * dy);
-    // const c = -(dx ** 2) - (dy ** 2);
-
-    // const a = dvx ** 2 + dvy ** 2 - bulletSpeed ** 2 ;
-    // const b = 2 * (dvx * dx + dvy * dy);
-    // const c = dx ** 2 + dy**2;
-
-
-    const a = vex ** 2 + vey ** 2;
-    const b = 2 * tp * (dvx * vex + dvy * vey) + 2 * (dx * vex + dy * vey) - vb;
-    const c = dx ** 2 + dy ** 2 + tp * (2 * (dx * dvx + dy * dvy) + vb) + tp ** 2 * (dvx ** 2 + dvy ** 2);
-
-    let t; 
-
-    if (Math.abs(a) < 1e-6) {
-        // Linear solution if bullet speed is much greater than velocity
-        console.log('Linear solution bullet speed is much greater than velocity')
-        t = -c / b;
-    } else {
-        const discriminant = b ** 2 - 4 * a * c;
-
-        if (discriminant < 0) {
-            console.log("No solution, shooting at current position");
-            return window.game.camera.pointToScreen(enemyPos);
-        }
-
-        const sqrtD = Math.sqrt(discriminant);
-        const t1 = (-b - sqrtD) / (2 * a);
-        const t2 = (-b + sqrtD) / (2 * a);
-
-        t = Math.min(t1, t2) > 0 ? Math.min(t1, t2) : Math.max(t1, t2);
-    }
-
-    if (t < 0) {
-        console.log("Negative time, shooting at current position");
-        return window.game.camera.pointToScreen(enemyPos);
-    }
-
-    const tt = t + tp;
-
-    console.log(`Пуля с врагом столкнется через ${tt}`)
-
-    // Calculate predicted position
-    const predictedPos = {
-        x: enemyPos.x + vex * tt,
-        y: enemyPos.y + vey * tt,
-    };
-
-    console.log("Predicted position:", predictedPos);
-
-    return window.game.camera.pointToScreen(predictedPos);
-}
-
-*/
 
 let lastFrames = {
     enemy: []
@@ -732,21 +623,19 @@ function calculateAimbotTarget(enemy, curPlayer) {
 
     if (!enemyPosOld || !curPlayerPosOld || lastFrames.enemy.length < 10) {
         console.log("Insufficient data for prediction, using current position");
-        return window.game.camera.pointToScreen(enemyPos);
+        return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
 
     if (lastFrames.enemy.length > 10){
         lastFrames.enemy.shift()
     }
 
-    // Calculate player position and FPS adjustment
-    // const deltaTime = (dateNow - date) / 1000; // Time since last frame in seconds
     const deltaTime = (dateNow - lastFrames.enemy[0][0]) / 1000; // Time since last frame in seconds
 
     // Calculate enemy velocity
     const enemyVelocity = {
-        x: (enemyPos.x - lastFrames.enemy[0][1].x) / deltaTime,
-        y: (enemyPos.y - lastFrames.enemy[0][1].y) / deltaTime,
+        x: (enemyPos._x - lastFrames.enemy[0][1]._x) / deltaTime,
+        y: (enemyPos._y - lastFrames.enemy[0][1]._y) / deltaTime,
     };
 
     // Get weapon and bullet data
@@ -755,16 +644,17 @@ function calculateAimbotTarget(enemy, curPlayer) {
 
     let bulletSpeed;
     if (!bullet) {
-        bulletSpeed = 1000;
-    }else{
-        bulletSpeed = bullet.speed;
+        console.log("Not finded bullet speed, using current position");
+        return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
+
+    bulletSpeed = bullet.speed;
 
     // Quadratic equation for time prediction
     const vex = enemyVelocity.x;
     const vey = enemyVelocity.y;
-    const dx = enemyPos.x - curPlayerPos.x;
-    const dy = enemyPos.y - curPlayerPos.y;
+    const dx = enemyPos._x - curPlayerPos._x;
+    const dy = enemyPos._y - curPlayerPos._y;
     const vb = bulletSpeed;
 
     const a = vb ** 2 - vex ** 2 - vey ** 2;
@@ -781,7 +671,7 @@ function calculateAimbotTarget(enemy, curPlayer) {
 
         if (discriminant < 0) {
             console.log("No solution, shooting at current position");
-            return window.game.camera.pointToScreen(enemyPos);
+            return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
         }
 
         const sqrtD = Math.sqrt(discriminant);
@@ -794,15 +684,15 @@ function calculateAimbotTarget(enemy, curPlayer) {
 
     if (t < 0) {
         console.log("Negative time, shooting at current position");
-        return window.game.camera.pointToScreen(enemyPos);
+        return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
 
-    console.log(`Пуля с врагом столкнется через ${t}`)
+    // console.log(`A bullet with the enemy will collide through ${t}`)
 
     // Calculate predicted position
     const predictedPos = {
-        x: enemyPos.x + vex * t,
-        y: enemyPos.y + vey * t,
+        x: enemyPos._x + vex * t,
+        y: enemyPos._y + vey * t,
     };
 
     return window.game.camera.pointToScreen(predictedPos);
@@ -819,14 +709,14 @@ function findBullet(weapon) {
 
 
 function updateOverlay() {
-    overlay.innerHTML = `
-    `;
+    overlay.innerHTML = ``;
 
     const controls = [
         [ '[B] AimBot:', aimBotEnabled ],
-        // [ '[N] ESP:', espEnabled ],
-        // [ '[H] X-Ray:', xrayEnabled ]
-        [ '[Z] Zoom:', zoomEnabled ]
+        [ '[Z] Zoom:', zoomEnabled ],
+        [ '[M] MobileAtk:', mobileAttackEnabled ],
+        [ '[X] SpinBot:', spinBot ],
+        // [ '[O] gameOptimization:', gameOptimization ],
     ];
 
     controls.forEach((control, index) => {
@@ -841,5 +731,39 @@ function updateOverlay() {
         overlay.appendChild(line);
     });
 }
+
+
+const ammo = [
+    {
+        name: "",
+        ammo: 0,
+    },
+    {
+        name: "",
+        ammo: 0,
+    },
+    {
+        name: "",
+        ammo: 0,
+    },
+    {
+        name: "",
+        ammo: 0,
+    },
+]
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.head.append(styles);
+    document.head.append(appScript);
+    document.head.append(pixiScript);
+    document.querySelector('#ui-game').append(overlay);
+    document.querySelector('#ui-top-left').insertBefore(krityTitle, document.querySelector('#ui-top-left').firstChild);
+    document.querySelector('#ui-game').append(aimbotDot);
+    updateOverlay();
+
+});
 
 console.log('Script injected')

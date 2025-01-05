@@ -1,6 +1,6 @@
 # Survev-Krityhack 🎯
 
-**Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io by providing various hacks and modifications.
+**Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.
 
 ## Features ✨
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
@@ -24,10 +24,10 @@
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
 YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
 2. Install script from [click](https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js).
-3. Refresh the survev.io page to activate the hack.
+3. Refresh the survev.io/resurviv.biz page to activate the hack.
 
 ## Usage 🚀
-1. Launch survev.io in your browser.
+1. Launch survev.io/resurviv.biz in your browser.
 2. Run the hack executable.
 3. Enjoy the enhanced gameplay!
 
