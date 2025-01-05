@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.6
+// @version      0.1.7
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -136,7 +136,7 @@ window.addEventListener('keyup', function (event) {
             event.stopPropagation();
             event.preventDefault();
             break;
-        case 'C': spinBot = !spinBot; break;
+        case 'Y': spinBot = !spinBot; break;
         // case 'O': window.gameOptimization = !window.gameOptimization; break;
     }
     updateOverlay();
@@ -479,11 +479,13 @@ function esp(){
 
 window.initGameControls = function(gameControls){
     if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
-        window.gameControls.addInput(13); // melee
-        gameControls.touchMoveActive = true;
-        gameControls.touchMoveLen = 255;
-        gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
-        gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+        if (window.aimTouchDistanceToEnemy < 4) window.gameControls.addInput(13); // melee
+        if(window.game.activePlayer.localData.curWeapIdx == 2){
+            gameControls.touchMoveActive = true;
+            gameControls.touchMoveLen = 255;
+            gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
+            gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+        }
     }
     return gameControls
 }
@@ -571,16 +573,16 @@ function aimBot() {
             
             // Autoattack with mobile movement
             if(mobileAttackEnabled && distanceToEnemy <= 8) {
-                window.game.activePlayer.localData.curWeapIdx = 2; // fists/katana/...
                 const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
                 window.gameControls.touchMoveActive = true;
-
                 window.aimTouchMoveDir = {
                     x: Math.cos(moveAngle),
                     y: Math.sin(moveAngle),
                 }
+                window.aimTouchDistanceToEnemy = distanceToEnemy;
             }else{
                 window.aimTouchMoveDir = null;
+                window.aimTouchDistanceToEnemy = null;
             }
 
             aimbotDot.style.left = predictedEnemyPos.x + 'px';
@@ -644,7 +646,7 @@ function calculateAimbotTarget(enemy, curPlayer) {
 
     let bulletSpeed;
     if (!bullet) {
-        console.log("Not finded bullet speed, using current position");
+        // console.log("Not finded bullet speed, using current position");
         return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
 
@@ -715,7 +717,7 @@ function updateOverlay() {
         [ '[B] AimBot:', aimBotEnabled ],
         [ '[Z] Zoom:', zoomEnabled ],
         [ '[M] MobileAtk:', mobileAttackEnabled ],
-        [ '[C] SpinBot:', spinBot ],
+        [ '[Y] SpinBot:', spinBot ],
         // [ '[O] gameOptimization:', gameOptimization ],
     ];
 
