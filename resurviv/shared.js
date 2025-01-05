@@ -1,62 +1,62 @@
-var ya = Object.defineProperty;
-var fa = (t, a, o) => a in t ? ya(t, a, {
+var Ta = Object.defineProperty;
+var Sa = (t, a, o) => a in t ? Ta(t, a, {
     enumerable: !0,
     configurable: !0,
     writable: !0,
     value: o
 }) : t[a] = o;
-var g = (t, a, o) => fa(t, typeof a != "symbol" ? a + "" : a, o);
-var xa = (t => (t[t.Solo = 1] = "Solo",
+var g = (t, a, o) => Sa(t, typeof a != "symbol" ? a + "" : a, o);
+var Ia = (t => (t[t.Solo = 1] = "Solo",
 t[t.Duo = 2] = "Duo",
 t[t.Squad = 4] = "Squad",
-t))(xa || {})
-  , Jt = (t => (t[t.Top = 0] = "Top",
+t))(Ia || {})
+  , Yt = (t => (t[t.Top = 0] = "Top",
 t[t.Right = 1] = "Right",
 t[t.Bottom = 2] = "Bottom",
 t[t.Left = 3] = "Left",
 t[t.Win = 4] = "Win",
 t[t.Death = 5] = "Death",
 t[t.Count = 6] = "Count",
-t))(Jt || {})
-  , dt = (t => (t[t.Player = 0] = "Player",
+t))(Yt || {})
+  , gt = (t => (t[t.Player = 0] = "Player",
 t[t.Bleeding = 1] = "Bleeding",
 t[t.Gas = 2] = "Gas",
 t[t.Airdrop = 3] = "Airdrop",
 t[t.Airstrike = 4] = "Airstrike",
-t))(dt || {})
-  , Yt = (t => (t[t.None = 0] = "None",
+t))(gt || {})
+  , ea = (t => (t[t.None = 0] = "None",
 t[t.Reload = 1] = "Reload",
 t[t.ReloadAlt = 2] = "ReloadAlt",
 t[t.UseItem = 3] = "UseItem",
 t[t.Revive = 4] = "Revive",
-t))(Yt || {})
-  , ea = (t => (t[t.Primary = 0] = "Primary",
+t))(ea || {})
+  , ta = (t => (t[t.Primary = 0] = "Primary",
 t[t.Secondary = 1] = "Secondary",
 t[t.Melee = 2] = "Melee",
 t[t.Throwable = 3] = "Throwable",
 t[t.Count = 4] = "Count",
-t))(ea || {})
-  , ta = (t => (t[t.Inactive = 0] = "Inactive",
+t))(ta || {})
+  , aa = (t => (t[t.Inactive = 0] = "Inactive",
 t[t.Waiting = 1] = "Waiting",
 t[t.Moving = 2] = "Moving",
-t))(ta || {})
-  , aa = (t => (t[t.None = 0] = "None",
+t))(aa || {})
+  , ra = (t => (t[t.None = 0] = "None",
 t[t.Melee = 1] = "Melee",
 t[t.Cook = 2] = "Cook",
 t[t.Throw = 3] = "Throw",
 t[t.CrawlForward = 4] = "CrawlForward",
 t[t.CrawlBackward = 5] = "CrawlBackward",
 t[t.Revive = 6] = "Revive",
-t))(aa || {})
-  , ra = (t => (t[t.Airdrop = 0] = "Airdrop",
-t[t.Airstrike = 1] = "Airstrike",
 t))(ra || {})
-  , qe = (t => (t[t.None = 0] = "None",
+  , oa = (t => (t[t.Airdrop = 0] = "Airdrop",
+t[t.Airstrike = 1] = "Airstrike",
+t))(oa || {})
+  , Le = (t => (t[t.None = 0] = "None",
 t[t.Windwalk = 1] = "Windwalk",
 t[t.Takedown = 2] = "Takedown",
 t[t.Inspire = 3] = "Inspire",
-t))(qe || {})
-  , oa = (t => (t[t.MoveLeft = 0] = "MoveLeft",
+t))(Le || {})
+  , ia = (t => (t[t.MoveLeft = 0] = "MoveLeft",
 t[t.MoveRight = 1] = "MoveRight",
 t[t.MoveUp = 2] = "MoveUp",
 t[t.MoveDown = 3] = "MoveDown",
@@ -93,19 +93,21 @@ t[t.Fullscreen = 33] = "Fullscreen",
 t[t.HideUI = 34] = "HideUI",
 t[t.TeamPingSingle = 35] = "TeamPingSingle",
 t[t.Count = 36] = "Count",
-t))(oa || {});
-const le = {
+t))(ia || {});
+const ie = {
     protocolVersion: 78,
-    Input: oa,
-    EmoteSlot: Jt,
-    WeaponSlot: ea,
+    Input: ia,
+    EmoteSlot: Yt,
+    WeaponSlot: ta,
     WeaponType: ["gun", "gun", "melee", "throwable"],
-    DamageType: dt,
-    Action: Yt,
-    Anim: aa,
-    GasMode: ta,
-    Plane: ra,
-    HasteType: qe,
+    DamageType: gt,
+    Action: ea,
+    Anim: ra,
+    GasMode: aa,
+    Plane: oa,
+    HasteType: Le,
+    disableKnocking: !1,
+    disableGroupSpectate: !1,
     gas: {
         damageTickRate: 2
     },
@@ -327,159 +329,159 @@ const le = {
         xp: 1
     }
 };
-function gt(t, a, o) {
+function ht(t, a, o) {
     o = o || 2;
-    const l = a == null ? void 0 : a.length
-      , i = l ? a[0] * o : t.length;
-    let s = la(t, 0, i, o, !0);
+    const i = a == null ? void 0 : a.length
+      , l = i ? a[0] * o : t.length;
+    let s = la(t, 0, l, o, !0);
     const c = [];
     if (!s)
         return c;
-    let m, u, b, x, y, T, v;
-    if (l && (s = Sa(t, a, s, o)),
+    let m, u, b, w, y, T, v;
+    if (i && (s = Da(t, a, s, o)),
     t.length > 80 * o) {
         m = b = t[0],
-        u = x = t[1];
-        for (let S = o; S < i; S += o)
+        u = w = t[1];
+        for (let S = o; S < l; S += o)
             y = t[S],
             T = t[S + 1],
             y < m && (m = y),
             T < u && (u = T),
             y > b && (b = y),
-            T > x && (x = T);
-        v = Math.max(b - m, x - u),
+            T > w && (w = T);
+        v = Math.max(b - m, w - u),
         v = v !== 0 ? 1 / v : 0
     }
-    return Ee(s, c, o, m, u, v),
+    return De(s, c, o, m, u, v),
     c
 }
-function la(t, a, o, l, i) {
+function la(t, a, o, i, l) {
     let s, c;
-    if (i === _t(t, a, o, l) > 0)
-        for (s = a; s < o; s += l)
-            c = yt(s, t[s], t[s + 1], c);
+    if (l === ut(t, a, o, i) > 0)
+        for (s = a; s < o; s += i)
+            c = ft(s, t[s], t[s + 1], c);
     else
-        for (s = o - l; s >= a; s -= l)
-            c = yt(s, t[s], t[s + 1], c);
-    return c && ge(c, c.next) && (De(c),
+        for (s = o - i; s >= a; s -= i)
+            c = ft(s, t[s], t[s + 1], c);
+    return c && he(c, c.next) && (Pe(c),
     c = c.next),
     c
 }
-function Ce(t, a) {
+function Ee(t, a) {
     if (!t)
         return t;
     a || (a = t);
-    let o = t, l;
+    let o = t, i;
     do
-        if (l = !1,
-        !o.steiner && (ge(o, o.next) || Z(o.prev, o, o.next) === 0)) {
-            if (De(o),
+        if (i = !1,
+        !o.steiner && (he(o, o.next) || K(o.prev, o, o.next) === 0)) {
+            if (Pe(o),
             o = a = o.prev,
             o === o.next)
                 break;
-            l = !0
+            i = !0
         } else
             o = o.next;
-    while (l || o !== a);
+    while (i || o !== a);
     return a
 }
-function Ee(t, a, o, l, i, s, c) {
+function De(t, a, o, i, l, s, c) {
     if (!t)
         return;
-    !c && s && Ca(t, l, i, s);
+    !c && s && Ba(t, i, l, s);
     let m = t, u, b;
     for (; t.prev !== t.next; ) {
         if (u = t.prev,
         b = t.next,
-        s ? ka(t, l, i, s) : wa(t)) {
+        s ? Oa(t, i, l, s) : Aa(t)) {
             a.push(u.i / o),
             a.push(t.i / o),
             a.push(b.i / o),
-            De(t),
+            Pe(t),
             t = b.next,
             m = b.next;
             continue
         }
         if (t = b,
         t === m) {
-            c ? c === 1 ? (t = va(t, a, o),
-            Ee(t, a, o, l, i, s, 2)) : c === 2 && Ta(t, a, o, l, i, s) : Ee(Ce(t), a, o, l, i, s, 1);
+            c ? c === 1 ? (t = Ca(t, a, o),
+            De(t, a, o, i, l, s, 2)) : c === 2 && Ea(t, a, o, i, l, s) : De(Ee(t), a, o, i, l, s, 1);
             break
         }
     }
 }
-function wa(t) {
+function Aa(t) {
     const a = t.prev
       , o = t
-      , l = t.next;
-    if (Z(a, o, l) >= 0)
+      , i = t.next;
+    if (K(a, o, i) >= 0)
         return !1;
-    let i = t.next.next;
-    for (; i !== t.prev; ) {
-        if (xe(a.x, a.y, o.x, o.y, l.x, l.y, i.x, i.y) && Z(i.prev, i, i.next) >= 0)
+    let l = t.next.next;
+    for (; l !== t.prev; ) {
+        if (we(a.x, a.y, o.x, o.y, i.x, i.y, l.x, l.y) && K(l.prev, l, l.next) >= 0)
             return !1;
-        i = i.next
+        l = l.next
     }
     return !0
 }
-function ka(t, a, o, l) {
-    const i = t.prev
+function Oa(t, a, o, i) {
+    const l = t.prev
       , s = t
       , c = t.next;
-    if (Z(i, s, c) >= 0)
+    if (K(l, s, c) >= 0)
         return !1;
-    const m = i.x < s.x ? i.x < c.x ? i.x : c.x : s.x < c.x ? s.x : c.x
-      , u = i.y < s.y ? i.y < c.y ? i.y : c.y : s.y < c.y ? s.y : c.y
-      , b = i.x > s.x ? i.x > c.x ? i.x : c.x : s.x > c.x ? s.x : c.x
-      , x = i.y > s.y ? i.y > c.y ? i.y : c.y : s.y > c.y ? s.y : c.y
-      , y = pt(m, u, a, o, l)
-      , T = pt(b, x, a, o, l);
+    const m = l.x < s.x ? l.x < c.x ? l.x : c.x : s.x < c.x ? s.x : c.x
+      , u = l.y < s.y ? l.y < c.y ? l.y : c.y : s.y < c.y ? s.y : c.y
+      , b = l.x > s.x ? l.x > c.x ? l.x : c.x : s.x > c.x ? s.x : c.x
+      , w = l.y > s.y ? l.y > c.y ? l.y : c.y : s.y > c.y ? s.y : c.y
+      , y = mt(m, u, a, o, i)
+      , T = mt(b, w, a, o, i);
     let v = t.prevZ
       , S = t.nextZ;
     for (; v && v.z >= y && S && S.z <= T; ) {
-        if (v !== t.prev && v !== t.next && xe(i.x, i.y, s.x, s.y, c.x, c.y, v.x, v.y) && Z(v.prev, v, v.next) >= 0 || (v = v.prevZ,
-        S !== t.prev && S !== t.next && xe(i.x, i.y, s.x, s.y, c.x, c.y, S.x, S.y) && Z(S.prev, S, S.next) >= 0))
+        if (v !== t.prev && v !== t.next && we(l.x, l.y, s.x, s.y, c.x, c.y, v.x, v.y) && K(v.prev, v, v.next) >= 0 || (v = v.prevZ,
+        S !== t.prev && S !== t.next && we(l.x, l.y, s.x, s.y, c.x, c.y, S.x, S.y) && K(S.prev, S, S.next) >= 0))
             return !1;
         S = S.nextZ
     }
     for (; v && v.z >= y; ) {
-        if (v !== t.prev && v !== t.next && xe(i.x, i.y, s.x, s.y, c.x, c.y, v.x, v.y) && Z(v.prev, v, v.next) >= 0)
+        if (v !== t.prev && v !== t.next && we(l.x, l.y, s.x, s.y, c.x, c.y, v.x, v.y) && K(v.prev, v, v.next) >= 0)
             return !1;
         v = v.prevZ
     }
     for (; S && S.z <= T; ) {
-        if (S !== t.prev && S !== t.next && xe(i.x, i.y, s.x, s.y, c.x, c.y, S.x, S.y) && Z(S.prev, S, S.next) >= 0)
+        if (S !== t.prev && S !== t.next && we(l.x, l.y, s.x, s.y, c.x, c.y, S.x, S.y) && K(S.prev, S, S.next) >= 0)
             return !1;
         S = S.nextZ
     }
     return !0
 }
-function va(t, a, o) {
-    let l = t;
+function Ca(t, a, o) {
+    let i = t;
     do {
-        const i = l.prev
-          , s = l.next.next;
-        !ge(i, s) && ia(i, l, l.next, s) && Me(i, s) && Me(s, i) && (a.push(i.i / o),
-        a.push(l.i / o),
+        const l = i.prev
+          , s = i.next.next;
+        !he(l, s) && sa(l, i, i.next, s) && Me(l, s) && Me(s, l) && (a.push(l.i / o),
+        a.push(i.i / o),
         a.push(s.i / o),
-        De(l),
-        De(l.next),
-        l = t = s),
-        l = l.next
-    } while (l !== t);
-    return l
+        Pe(i),
+        Pe(i.next),
+        i = t = s),
+        i = i.next
+    } while (i !== t);
+    return i
 }
-function Ta(t, a, o, l, i, s) {
+function Ea(t, a, o, i, l, s) {
     let c = t;
     do {
         let m = c.next.next;
         for (; m !== c.prev; ) {
-            if (c.i !== m.i && Da(c, m)) {
-                let u = sa(c, m);
-                c = Ce(c, c.next),
-                u = Ce(u, u.next),
-                Ee(c, a, o, l, i, s),
-                Ee(u, a, o, l, i, s);
+            if (c.i !== m.i && La(c, m)) {
+                let u = ca(c, m);
+                c = Ee(c, c.next),
+                u = Ee(u, u.next),
+                De(c, a, o, i, l, s),
+                De(u, a, o, i, l, s);
                 return
             }
             m = m.next
@@ -487,46 +489,46 @@ function Ta(t, a, o, l, i, s) {
         c = c.next
     } while (c !== t)
 }
-function Sa(t, a, o, l) {
-    const i = [];
+function Da(t, a, o, i) {
+    const l = [];
     let s, c, m, u, b;
     for (s = 0,
     c = a.length; s < c; s++)
-        m = a[s] * l,
-        u = s < c - 1 ? a[s + 1] * l : t.length,
-        b = la(t, m, u, l, !1),
+        m = a[s] * i,
+        u = s < c - 1 ? a[s + 1] * i : t.length,
+        b = la(t, m, u, i, !1),
         b === b.next && (b.steiner = !0),
-        i.push(Ma(b));
-    for (i.sort(Aa),
-    s = 0; s < i.length; s++)
-        Ia(i[s], o),
-        o = Ce(o, o.next);
+        l.push(qa(b));
+    for (l.sort(Ma),
+    s = 0; s < l.length; s++)
+        Pa(l[s], o),
+        o = Ee(o, o.next);
     return o
 }
-function Aa(t, a) {
+function Ma(t, a) {
     return t.x - a.x
 }
-function Ia(t, a) {
-    if (a = Oa(t, a),
+function Pa(t, a) {
+    if (a = za(t, a),
     a) {
-        const o = sa(a, t);
-        Ce(o, o.next)
+        const o = ca(a, t);
+        Ee(o, o.next)
     }
 }
-function Oa(t, a) {
+function za(t, a) {
     let o = a;
-    const l = t.x
-      , i = t.y;
+    const i = t.x
+      , l = t.y;
     let s = -1 / 0, c;
     do {
-        if (i <= o.y && i >= o.next.y && o.next.y !== o.y) {
-            const T = o.x + (i - o.y) * (o.next.x - o.x) / (o.next.y - o.y);
-            if (T <= l && T > s) {
+        if (l <= o.y && l >= o.next.y && o.next.y !== o.y) {
+            const T = o.x + (l - o.y) * (o.next.x - o.x) / (o.next.y - o.y);
+            if (T <= i && T > s) {
                 if (s = T,
-                T === l) {
-                    if (i === o.y)
+                T === i) {
+                    if (l === o.y)
                         return o;
-                    if (i === o.next.y)
+                    if (l === o.next.y)
                         return o.next
                 }
                 c = o.x < o.next.x ? o : o.next
@@ -536,64 +538,64 @@ function Oa(t, a) {
     } while (o !== a);
     if (!c)
         return null;
-    if (l === s)
+    if (i === s)
         return c.prev;
     const m = c
       , u = c.x
       , b = c.y;
-    let x = 1 / 0, y;
+    let w = 1 / 0, y;
     for (o = c.next; o !== m; )
-        l >= o.x && o.x >= u && l !== o.x && xe(i < b ? l : s, i, u, b, i < b ? s : l, i, o.x, o.y) && (y = Math.abs(i - o.y) / (l - o.x),
-        (y < x || y === x && o.x > c.x) && Me(o, t) && (c = o,
-        x = y)),
+        i >= o.x && o.x >= u && i !== o.x && we(l < b ? i : s, l, u, b, l < b ? s : i, l, o.x, o.y) && (y = Math.abs(l - o.y) / (i - o.x),
+        (y < w || y === w && o.x > c.x) && Me(o, t) && (c = o,
+        w = y)),
         o = o.next;
     return c
 }
-function Ca(t, a, o, l) {
-    let i = t;
+function Ba(t, a, o, i) {
+    let l = t;
     do
-        i.z === null && (i.z = pt(i.x, i.y, a, o, l)),
-        i.prevZ = i.prev,
-        i.nextZ = i.next,
-        i = i.next;
-    while (i !== t);
-    i.prevZ.nextZ = null,
-    i.prevZ = null,
-    Ea(i)
+        l.z === null && (l.z = mt(l.x, l.y, a, o, i)),
+        l.prevZ = l.prev,
+        l.nextZ = l.next,
+        l = l.next;
+    while (l !== t);
+    l.prevZ.nextZ = null,
+    l.prevZ = null,
+    Ra(l)
 }
-function Ea(t) {
-    let a, o, l, i, s, c, m, u, b = 1;
+function Ra(t) {
+    let a, o, i, l, s, c, m, u, b = 1;
     do {
         for (o = t,
         t = null,
         s = null,
         c = 0; o; ) {
             for (c++,
-            l = o,
+            i = o,
             m = 0,
             a = 0; a < b && (m++,
-            l = l.nextZ,
-            !!l); a++)
+            i = i.nextZ,
+            !!i); a++)
                 ;
-            for (u = b; m > 0 || u > 0 && l; )
-                m !== 0 && (u === 0 || !l || o.z <= l.z) ? (i = o,
+            for (u = b; m > 0 || u > 0 && i; )
+                m !== 0 && (u === 0 || !i || o.z <= i.z) ? (l = o,
                 o = o.nextZ,
-                m--) : (i = l,
-                l = l.nextZ,
+                m--) : (l = i,
+                i = i.nextZ,
                 u--),
-                s ? s.nextZ = i : t = i,
-                i.prevZ = s,
-                s = i;
-            o = l
+                s ? s.nextZ = l : t = l,
+                l.prevZ = s,
+                s = l;
+            o = i
         }
         s.nextZ = null,
         b *= 2
     } while (c > 1);
     return t
 }
-function pt(t, a, o, l, i) {
-    return t = 32767 * (t - o) * i,
-    a = 32767 * (a - l) * i,
+function mt(t, a, o, i, l) {
+    return t = 32767 * (t - o) * l,
+    a = 32767 * (a - i) * l,
     t = (t | t << 8) & 16711935,
     t = (t | t << 4) & 252645135,
     t = (t | t << 2) & 858993459,
@@ -604,7 +606,7 @@ function pt(t, a, o, l, i) {
     a = (a | a << 1) & 1431655765,
     t | a << 1
 }
-function Ma(t) {
+function qa(t) {
     let a = t
       , o = t;
     do
@@ -613,75 +615,75 @@ function Ma(t) {
     while (a !== t);
     return o
 }
-function xe(t, a, o, l, i, s, c, m) {
-    return (i - c) * (a - m) - (t - c) * (s - m) >= 0 && (t - c) * (l - m) - (o - c) * (a - m) >= 0 && (o - c) * (s - m) - (i - c) * (l - m) >= 0
+function we(t, a, o, i, l, s, c, m) {
+    return (l - c) * (a - m) - (t - c) * (s - m) >= 0 && (t - c) * (i - m) - (o - c) * (a - m) >= 0 && (o - c) * (s - m) - (l - c) * (i - m) >= 0
 }
-function Da(t, a) {
-    return t.next.i !== a.i && t.prev.i !== a.i && !Pa(t, a) && Me(t, a) && Me(a, t) && za(t, a)
+function La(t, a) {
+    return t.next.i !== a.i && t.prev.i !== a.i && !Ua(t, a) && Me(t, a) && Me(a, t) && Fa(t, a)
 }
-function Z(t, a, o) {
+function K(t, a, o) {
     return (a.y - t.y) * (o.x - a.x) - (a.x - t.x) * (o.y - a.y)
 }
-function ge(t, a) {
+function he(t, a) {
     return t.x === a.x && t.y === a.y
 }
-function ia(t, a, o, l) {
-    return ge(t, a) && ge(o, l) || ge(t, l) && ge(o, a) ? !0 : Z(t, a, o) > 0 != Z(t, a, l) > 0 && Z(o, l, t) > 0 != Z(o, l, a) > 0
+function sa(t, a, o, i) {
+    return he(t, a) && he(o, i) || he(t, i) && he(o, a) ? !0 : K(t, a, o) > 0 != K(t, a, i) > 0 && K(o, i, t) > 0 != K(o, i, a) > 0
 }
-function Pa(t, a) {
+function Ua(t, a) {
     let o = t;
     do {
-        if (o.i !== t.i && o.next.i !== t.i && o.i !== a.i && o.next.i !== a.i && ia(o, o.next, t, a))
+        if (o.i !== t.i && o.next.i !== t.i && o.i !== a.i && o.next.i !== a.i && sa(o, o.next, t, a))
             return !0;
         o = o.next
     } while (o !== t);
     return !1
 }
 function Me(t, a) {
-    return Z(t.prev, t, t.next) < 0 ? Z(t, a, t.next) >= 0 && Z(t, t.prev, a) >= 0 : Z(t, a, t.prev) < 0 || Z(t, t.next, a) < 0
+    return K(t.prev, t, t.next) < 0 ? K(t, a, t.next) >= 0 && K(t, t.prev, a) >= 0 : K(t, a, t.prev) < 0 || K(t, t.next, a) < 0
 }
-function za(t, a) {
+function Fa(t, a) {
     let o = t
-      , l = !1;
-    const i = (t.x + a.x) / 2
+      , i = !1;
+    const l = (t.x + a.x) / 2
       , s = (t.y + a.y) / 2;
     do
-        o.y > s != o.next.y > s && o.next.y !== o.y && i < (o.next.x - o.x) * (s - o.y) / (o.next.y - o.y) + o.x && (l = !l),
+        o.y > s != o.next.y > s && o.next.y !== o.y && l < (o.next.x - o.x) * (s - o.y) / (o.next.y - o.y) + o.x && (i = !i),
         o = o.next;
     while (o !== t);
-    return l
+    return i
 }
-function sa(t, a) {
-    const o = new mt(t.i,t.x,t.y)
-      , l = new mt(a.i,a.x,a.y)
-      , i = t.next
+function ca(t, a) {
+    const o = new _t(t.i,t.x,t.y)
+      , i = new _t(a.i,a.x,a.y)
+      , l = t.next
       , s = a.prev;
     return t.next = a,
     a.prev = t,
-    o.next = i,
-    i.prev = o,
-    l.next = o,
-    o.prev = l,
-    s.next = l,
-    l.prev = s,
-    l
-}
-function yt(t, a, o, l) {
-    const i = new mt(t,a,o);
-    return l ? (i.next = l.next,
-    i.prev = l,
-    l.next.prev = i,
-    l.next = i) : (i.prev = i,
-    i.next = i),
+    o.next = l,
+    l.prev = o,
+    i.next = o,
+    o.prev = i,
+    s.next = i,
+    i.prev = s,
     i
 }
-function De(t) {
+function ft(t, a, o, i) {
+    const l = new _t(t,a,o);
+    return i ? (l.next = i.next,
+    l.prev = i,
+    i.next.prev = l,
+    i.next = l) : (l.prev = l,
+    l.next = l),
+    l
+}
+function Pe(t) {
     t.next.prev = t.prev,
     t.prev.next = t.next,
     t.prevZ && (t.prevZ.nextZ = t.nextZ),
     t.nextZ && (t.nextZ.prevZ = t.prevZ)
 }
-function mt(t, a, o) {
+function _t(t, a, o) {
     this.i = t,
     this.x = a,
     this.y = o,
@@ -692,55 +694,55 @@ function mt(t, a, o) {
     this.nextZ = null,
     this.steiner = !1
 }
-gt.deviation = function(t, a, o, l) {
-    const i = a == null ? void 0 : a.length
-      , s = i ? a[0] * o : t.length;
-    let c = Math.abs(_t(t, 0, s, o));
-    if (i)
+ht.deviation = function(t, a, o, i) {
+    const l = a == null ? void 0 : a.length
+      , s = l ? a[0] * o : t.length;
+    let c = Math.abs(ut(t, 0, s, o));
+    if (l)
         for (let u = 0, b = a.length; u < b; u++) {
-            const x = a[u] * o
+            const w = a[u] * o
               , y = u < b - 1 ? a[u + 1] * o : t.length;
-            c -= Math.abs(_t(t, x, y, o))
+            c -= Math.abs(ut(t, w, y, o))
         }
     let m = 0;
-    for (let u = 0; u < l.length; u += 3) {
-        const b = l[u] * o
-          , x = l[u + 1] * o
-          , y = l[u + 2] * o;
-        m += Math.abs((t[b] - t[y]) * (t[x + 1] - t[b + 1]) - (t[b] - t[x]) * (t[y + 1] - t[b + 1]))
+    for (let u = 0; u < i.length; u += 3) {
+        const b = i[u] * o
+          , w = i[u + 1] * o
+          , y = i[u + 2] * o;
+        m += Math.abs((t[b] - t[y]) * (t[w + 1] - t[b + 1]) - (t[b] - t[w]) * (t[y + 1] - t[b + 1]))
     }
     return c === 0 && m === 0 ? 0 : Math.abs((m - c) / c)
 }
 ;
-function _t(t, a, o, l) {
-    let i = 0;
-    for (let s = a, c = o - l; s < o; s += l)
-        i += (t[c] - t[s]) * (t[s + 1] + t[c + 1]),
+function ut(t, a, o, i) {
+    let l = 0;
+    for (let s = a, c = o - i; s < o; s += i)
+        l += (t[c] - t[s]) * (t[s + 1] + t[c + 1]),
         c = s;
-    return i
+    return l
 }
-gt.flatten = function(t) {
+ht.flatten = function(t) {
     const a = t[0][0].length
       , o = {
         vertices: [],
         holes: [],
         dimensions: a
     };
-    let l = 0;
-    for (let i = 0; i < t.length; i++) {
-        for (let s = 0; s < t[i].length; s++)
+    let i = 0;
+    for (let l = 0; l < t.length; l++) {
+        for (let s = 0; s < t[l].length; s++)
             for (let c = 0; c < a; c++)
-                o.vertices.push(t[i][s][c]);
-        i > 0 && (l += t[i - 1].length,
-        o.holes.push(l))
+                o.vertices.push(t[l][s][c]);
+        l > 0 && (i += t[l - 1].length,
+        o.holes.push(i))
     }
     return o
 }
 ;
-function ft(t, a) {
+function xt(t, a) {
     return t < a ? t : a
 }
-function xt(t, a) {
+function wt(t, a) {
     return t > a ? t : a
 }
 const e = {
@@ -815,10 +817,10 @@ const e = {
         x: 1,
         y: 0
     }) {
-        const l = e.length(t);
+        const i = e.length(t);
         return {
-            x: l > 1e-6 ? t.x / l : a.x,
-            y: l > 1e-6 ? t.y / l : a.y
+            x: i > 1e-6 ? t.x / i : a.x,
+            y: i > 1e-6 ? t.y / i : a.y
         }
     },
     dot(t, a) {
@@ -835,10 +837,10 @@ const e = {
     },
     rotate(t, a) {
         const o = Math.cos(a)
-          , l = Math.sin(a);
+          , i = Math.sin(a);
         return {
-            x: t.x * o - t.y * l,
-            y: t.x * l + t.y * o
+            x: t.x * o - t.y * i,
+            y: t.x * i + t.y * o
         }
     },
     mulElems(t, a) {
@@ -855,14 +857,14 @@ const e = {
     },
     minElems(t, a) {
         return {
-            x: ft(t.x, a.x),
-            y: ft(t.y, a.y)
+            x: xt(t.x, a.x),
+            y: xt(t.y, a.y)
         }
     },
     maxElems(t, a) {
         return {
-            x: xt(t.x, a.x),
-            y: xt(t.y, a.y)
+            x: wt(t.x, a.x),
+            y: wt(t.y, a.y)
         }
     },
     randomUnit() {
@@ -875,21 +877,21 @@ const e = {
         return Math.abs(t.x - a.x) <= o && Math.abs(t.y - a.y) <= o
     }
 }
-  , He = 1e-6
-  , w = {
+  , Ge = 1e-6
+  , k = {
     clamp(t, a, o) {
         return t < o ? t > a ? t : a : o
     },
     v2Clamp(t, a, o) {
-        let l, i, s, c;
-        a.x > o.x ? (l = o.x,
-        s = a.x) : (l = a.x,
+        let i, l, s, c;
+        a.x > o.x ? (i = o.x,
+        s = a.x) : (i = a.x,
         s = o.x),
-        a.y > o.y ? (i = o.y,
-        c = a.y) : (i = a.y,
+        a.y > o.y ? (l = o.y,
+        c = a.y) : (l = a.y,
         c = o.y);
-        const m = t.x < s ? t.x > l ? t.x : l : s
-          , u = t.y < c ? t.y > i ? t.y : i : c;
+        const m = t.x < s ? t.x > i ? t.x : i : s
+          , u = t.y < c ? t.y > l ? t.y : l : c;
         return e.create(m, u)
     },
     min(t, a) {
@@ -902,14 +904,14 @@ const e = {
         return a * (1 - t) + o * t
     },
     delerp(t, a, o) {
-        return w.clamp((t - a) / (o - a), 0, 1)
+        return k.clamp((t - a) / (o - a), 0, 1)
     },
     v2lerp(t, a, o) {
-        return e.create(w.lerp(t, a.x, o.x), w.lerp(t, a.y, o.y))
+        return e.create(k.lerp(t, a.x, o.x), k.lerp(t, a.y, o.y))
     },
     smoothstep(t, a, o) {
-        const l = w.clamp((t - a) / (o - a), 0, 1);
-        return l * l * (3 - 2 * l)
+        const i = k.clamp((t - a) / (o - a), 0, 1);
+        return i * i * (3 - 2 * i)
     },
     easeOutElastic(t, a=.3) {
         return Math.pow(2, t * -10) * Math.sin((t - a / 4) * (Math.PI * 2) / a) + 1
@@ -923,14 +925,14 @@ const e = {
     easeOutQuart(t) {
         return 1 - Math.pow(1 - t, 4)
     },
-    remap(t, a, o, l, i) {
-        const s = w.clamp((t - a) / (o - a), 0, 1);
-        return w.lerp(s, l, i)
+    remap(t, a, o, i, l) {
+        const s = k.clamp((t - a) / (o - a), 0, 1);
+        return k.lerp(s, i, l)
     },
-    eqAbs(t, a, o=He) {
+    eqAbs(t, a, o=Ge) {
         return Math.abs(t - a) < o
     },
-    eqRel(t, a, o=He) {
+    eqRel(t, a, o=Ge) {
         return Math.abs(t - a) <= o * Math.max(Math.max(1, Math.abs(t)), Math.abs(a))
     },
     deg2rad(t) {
@@ -944,9 +946,9 @@ const e = {
         return t * 180 / Math.PI
     },
     rad2degFromDirection(t, a) {
-        let l = Math.atan2(t, a) * 180 / Math.PI;
-        return l < 0 && (l += 360),
-        l
+        let i = Math.atan2(t, a) * 180 / Math.PI;
+        return i < 0 && (i += 360),
+        i
     },
     fract(t) {
         return t - Math.floor(t)
@@ -961,7 +963,7 @@ const e = {
         return t - Math.floor(t / a) * a
     },
     angleDiff(t, a) {
-        const o = w.fmod(a - t + Math.PI, Math.PI * 2) - Math.PI;
+        const o = k.fmod(a - t + Math.PI, Math.PI * 2) - Math.PI;
         return o < -Math.PI ? o + Math.PI * 2 : o
     },
     oriToRad(t) {
@@ -971,23 +973,23 @@ const e = {
         return t * (180 / Math.PI)
     },
     radToOri(t) {
-        return Math.floor(w.fmod(t + Math.PI * .25, Math.PI * 2) / (Math.PI * .5))
+        return Math.floor(k.fmod(t + Math.PI * .25, Math.PI * 2) / (Math.PI * .5))
     },
-    quantize(t, a, o, l) {
-        te(t >= a && t <= o);
-        const i = (1 << l) - 1
-          , m = (w.clamp(t, a, o) - a) / (o - a) * i + .5
+    quantize(t, a, o, i) {
+        ae(t >= a && t <= o);
+        const l = (1 << i) - 1
+          , m = (k.clamp(t, a, o) - a) / (o - a) * l + .5
           , u = m < 0 ? Math.ceil(m) : Math.floor(m);
-        return a + u / i * (o - a)
+        return a + u / l * (o - a)
     },
-    v2Quantize(t, a, o, l, i, s) {
-        return e.create(w.quantize(t.x, a, l, s), w.quantize(t.y, o, i, s))
+    v2Quantize(t, a, o, i, l, s) {
+        return e.create(k.quantize(t.x, a, i, s), k.quantize(t.y, o, l, s))
     },
-    rayLineIntersect(t, a, o, l) {
-        const i = e.sub(l, o)
-          , s = e.create(i.y, -i.x)
+    rayLineIntersect(t, a, o, i) {
+        const l = e.sub(i, o)
+          , s = e.create(l.y, -l.x)
           , c = e.dot(a, s);
-        if (Math.abs(c) <= He)
+        if (Math.abs(c) <= Ge)
             return;
         const m = e.sub(o, t)
           , u = e.dot(s, m) / c
@@ -995,79 +997,79 @@ const e = {
         return u >= 0 && b >= 0 && b <= 1 ? u : void 0
     },
     rayPolygonIntersect(t, a, o) {
-        let l = Number.MAX_VALUE
-          , i = !1;
+        let i = Number.MAX_VALUE
+          , l = !1;
         for (let s = 0, c = o.length - 1; s < o.length; c = s++) {
             const m = this.rayLineIntersect(t, a, o[c], o[s]);
-            m !== void 0 && m < l && (i = !0,
-            l = m)
+            m !== void 0 && m < i && (l = !0,
+            i = m)
         }
-        return i ? l : void 0
+        return l ? i : void 0
     },
     pointInsidePolygon(t, a) {
         const {x: o} = t
-          , {y: l} = t;
-        let i = !1;
+          , {y: i} = t;
+        let l = !1;
         const s = a.length;
         for (let c = 0, m = s - 1; c < s; m = c++) {
             const u = a[c].x
               , b = a[c].y
-              , x = a[m].x
+              , w = a[m].x
               , y = a[m].y;
-            b > l != y > l && o < (x - u) * (l - b) / (y - b) + u && (i = !i)
+            b > i != y > i && o < (w - u) * (i - b) / (y - b) + u && (l = !l)
         }
-        return i
+        return l
     },
     distToSegmentSq(t, a, o) {
-        const l = e.sub(o, a)
-          , i = e.dot(e.sub(t, a), l) / e.dot(l, l)
-          , s = e.add(a, e.mul(l, w.clamp(i, 0, 1)))
+        const i = e.sub(o, a)
+          , l = e.dot(e.sub(t, a), i) / e.dot(i, i)
+          , s = e.add(a, e.mul(i, k.clamp(l, 0, 1)))
           , c = e.sub(s, t);
         return e.dot(c, c)
     },
     distToPolygon(t, a) {
         let o = Number.MAX_VALUE;
-        for (let l = 0; l < a.length; l++) {
-            const i = a[l]
-              , s = l === a.length - 1 ? a[0] : a[l + 1]
-              , c = w.distToSegmentSq(t, i, s);
+        for (let i = 0; i < a.length; i++) {
+            const l = a[i]
+              , s = i === a.length - 1 ? a[0] : a[i + 1]
+              , c = k.distToSegmentSq(t, l, s);
             c < o && (o = c)
         }
         return Math.sqrt(o)
     },
     polygonArea(t) {
         const a = [];
-        for (let i = 0; i < t.length; i++)
-            a.push(t[i].x),
-            a.push(t[i].y);
-        const o = gt(a);
-        let l = 0;
-        for (let i = 0; i < o.length; i += 3) {
-            const s = o[i + 0]
-              , c = o[i + 1]
-              , m = o[i + 2]
+        for (let l = 0; l < t.length; l++)
+            a.push(t[l].x),
+            a.push(t[l].y);
+        const o = ht(a);
+        let i = 0;
+        for (let l = 0; l < o.length; l += 3) {
+            const s = o[l + 0]
+              , c = o[l + 1]
+              , m = o[l + 2]
               , u = a[s * 2 + 0]
               , b = a[s * 2 + 1]
-              , x = a[c * 2 + 0]
+              , w = a[c * 2 + 0]
               , y = a[c * 2 + 1]
               , T = a[m * 2 + 0]
               , v = a[m * 2 + 1];
-            l += Math.abs((u * y + x * v + T * b - x * b - T * y - u * v) * .5)
+            i += Math.abs((u * y + w * v + T * b - w * b - T * y - u * v) * .5)
         }
-        return l
+        return i
     },
-    lineIntersects(t, a, o, l, i, s, c, m) {
-        if (t === o && a === l || i === c && s === m)
+    lineIntersects(t, a, o, i, l, s, c, m) {
+        if (t === o && a === i || l === c && s === m)
             return !1;
-        const u = (m - s) * (o - t) - (c - i) * (l - a);
+        const u = (m - s) * (o - t) - (c - l) * (i - a);
         if (u === 0)
             return !1;
-        const b = ((c - i) * (a - s) - (m - s) * (t - i)) / u
-          , x = ((o - t) * (a - s) - (l - a) * (t - i)) / u;
-        if (b < 0 || b > 1 || x < 0 || x > 1)
+        const b = ((c - l) * (a - s) - (m - s) * (t - l)) / u
+          , w = ((o - t) * (a - s) - (i - a) * (t - l)) / u;
+        if (b < 0 || b > 1 || w < 0 || w > 1)
             return !1;
         const y = t + b * (o - t)
-          , T = a + b * (l - a);
+          , T = a + b * (i - a);
         return {
             x: y,
             y: T
@@ -1076,29 +1078,29 @@ const e = {
     addAdjust(t, a, o) {
         if (o === 0)
             return e.add(t, a);
-        let l, i;
+        let i, l;
         switch (o) {
         case 1:
-            l = -a.y,
-            i = a.x;
+            i = -a.y,
+            l = a.x;
             break;
         case 2:
-            l = -a.x,
-            i = -a.y;
+            i = -a.x,
+            l = -a.y;
             break;
         case 3:
-            l = a.y,
-            i = -a.x;
+            i = a.y,
+            l = -a.x;
             break
         }
-        return e.add(t, e.create(l, i))
+        return e.add(t, e.create(i, l))
     }
 };
-function te(t, a) {
+function ae(t, a) {
     if (!t)
         throw a instanceof Error ? a : new Error(a ?? "Assertation failed")
 }
-function Fe(t, a, o) {
+function je(t, a, o) {
     return h.mergeDeep({}, t[a], {
         baseType: a
     }, o)
@@ -1117,7 +1119,7 @@ const h = {
         return t & 1
     },
     random(t, a) {
-        return w.lerp(Math.random(), t, a)
+        return k.lerp(Math.random(), t, a)
     },
     randomInt(t, a) {
         return t = Math.ceil(t),
@@ -1128,9 +1130,9 @@ const h = {
         let a = Math.random()
           , o = Math.random();
         if (o < a) {
-            const i = a;
+            const l = a;
             a = o,
-            o = i
+            o = l
         }
         return e.create(o * t * Math.cos(2 * Math.PI * a / o), o * t * Math.sin(2 * Math.PI * a / o))
     },
@@ -1139,27 +1141,27 @@ const h = {
     },
     seededRand(t) {
         let a = t;
-        return function(o=0, l=1) {
+        return function(o=0, i=1) {
             a = a * 16807 % 2147483647;
-            const i = a / 2147483647;
-            return w.lerp(i, o, l)
+            const l = a / 2147483647;
+            return k.lerp(l, o, i)
         }
     },
     rgbToHsv(t, a, o) {
         t /= 255,
         a /= 255,
         o /= 255;
-        const l = Math.max(t, a, o)
-          , i = Math.min(t, a, o);
+        const i = Math.max(t, a, o)
+          , l = Math.min(t, a, o);
         let s = 0
           , c = 0;
-        const m = l
-          , u = l - i;
-        if (c = l == 0 ? 0 : u / l,
-        l == i)
+        const m = i
+          , u = i - l;
+        if (c = i == 0 ? 0 : u / i,
+        i == l)
             s = 0;
         else {
-            switch (l) {
+            switch (i) {
             case t:
                 s = (a - o) / u + (a < o ? 6 : 0);
                 break;
@@ -1179,87 +1181,87 @@ const h = {
         }
     },
     hsvToRgb(t, a, o) {
-        let l = 0
-          , i = 0
+        let i = 0
+          , l = 0
           , s = 0
           , c = 0
           , m = 0
           , u = 0
           , b = 0
-          , x = 0;
+          , w = 0;
         switch (c = Math.floor(t * 6),
         m = t * 6 - c,
         u = o * (1 - a),
         b = o * (1 - m * a),
-        x = o * (1 - (1 - m) * a),
+        w = o * (1 - (1 - m) * a),
         c % 6) {
         case 0:
-            l = o,
-            i = x,
+            i = o,
+            l = w,
             s = u;
             break;
         case 1:
-            l = b,
-            i = o,
+            i = b,
+            l = o,
             s = u;
             break;
         case 2:
-            l = u,
-            i = o,
-            s = x;
+            i = u,
+            l = o,
+            s = w;
             break;
         case 3:
-            l = u,
-            i = b,
+            i = u,
+            l = b,
             s = o;
             break;
         case 4:
-            l = x,
-            i = u,
+            i = w,
+            l = u,
             s = o;
             break;
         case 5:
-            l = o,
-            i = u,
+            i = o,
+            l = u,
             s = b;
             break
         }
         return {
-            r: Math.round(l * 255),
-            g: Math.round(i * 255),
+            r: Math.round(i * 255),
+            g: Math.round(l * 255),
             b: Math.round(s * 255)
         }
     },
     adjustValue(t, a) {
         let o = t >> 16 & 255
-          , l = t >> 8 & 255
-          , i = t & 255;
+          , i = t >> 8 & 255
+          , l = t & 255;
         return o = Math.round(o * a),
-        l = Math.round(l * a),
         i = Math.round(i * a),
-        (o << 16) + (l << 8) + i
+        l = Math.round(l * a),
+        (o << 16) + (i << 8) + l
     },
     lerpColor(t, a, o) {
-        const l = function(u) {
+        const i = function(u) {
             return {
                 r: u.r ** 2.2,
                 g: u.g ** 2.2,
                 b: u.b ** 2.2
             }
         }
-          , i = function(u) {
+          , l = function(u) {
             return {
                 r: u.r ** .45454545454545453,
                 g: u.g ** .45454545454545453,
                 b: u.b ** .45454545454545453
             }
         }
-          , s = l(h.intToRgb(a))
-          , c = l(h.intToRgb(o));
-        return h.rgbToInt(i({
-            r: w.lerp(t, s.r, c.r),
-            g: w.lerp(t, s.g, c.g),
-            b: w.lerp(t, s.b, c.b)
+          , s = i(h.intToRgb(a))
+          , c = i(h.intToRgb(o));
+        return h.rgbToInt(l({
+            r: k.lerp(t, s.r, c.r),
+            g: k.lerp(t, s.g, c.g),
+            b: k.lerp(t, s.b, c.b)
         }))
     },
     rgbToInt(t) {
@@ -1292,10 +1294,10 @@ const h = {
     updateColor(t, a) {
         t /= 100;
         const o = h.hexToRgb(a)
-          , l = 0;
-        return o.r = Math.round(o.r * t + l * (1 - t)),
-        o.g = Math.round(o.g * t + l * (1 - t)),
-        o.b = Math.round(o.b * t + l * (1 - t)),
+          , i = 0;
+        return o.r = Math.round(o.r * t + i * (1 - t)),
+        o.g = Math.round(o.g * t + i * (1 - t)),
+        o.b = Math.round(o.b * t + i * (1 - t)),
         h.rgbToInt(o)
     },
     isObject(t) {
@@ -1306,12 +1308,12 @@ const h = {
             return t;
         const o = a.shift();
         if (this.isObject(t) && this.isObject(o))
-            for (const l in o)
-                this.isObject(o[l]) ? (t[l] || Object.assign(t, {
-                    [l]: {}
+            for (const i in o)
+                this.isObject(o[i]) ? (t[i] || Object.assign(t, {
+                    [i]: {}
                 }),
-                this.mergeDeep(t[l], o[l])) : Object.assign(t, {
-                    [l]: o[l]
+                this.mergeDeep(t[i], o[i])) : Object.assign(t, {
+                    [i]: o[i]
                 });
         return this.mergeDeep(t, ...a)
     },
@@ -1321,9 +1323,9 @@ const h = {
     shuffleArray(t) {
         for (let a = t.length - 1; a >= 0; a--) {
             const o = Math.floor(Math.random() * (a + 1))
-              , l = t[a];
+              , i = t[a];
             t[a] = t[o],
-            t[o] = l
+            t[o] = i
         }
     },
     wrappedArrayIndex(t, a) {
@@ -1331,20 +1333,20 @@ const h = {
     },
     weightedRandom(t) {
         let a = 0;
-        for (let i = 0; i < t.length; i++)
-            a += t[i].weight;
+        for (let l = 0; l < t.length; l++)
+            a += t[l].weight;
         let o = h.random(0, a)
-          , l = 0;
-        for (; o > t[l].weight; )
-            o -= t[l].weight,
-            l++;
-        return t[l]
+          , i = 0;
+        for (; o > t[i].weight; )
+            o -= t[i].weight,
+            i++;
+        return t[i]
     }
 };
 function ne(t, a) {
-    return Fe(ca, t, a)
+    return je(na, t, a)
 }
-const ca = window.bullets = { // metka mod
+const na = window.bullets = { // metka mod
     bullet_mp5: {
         type: "bullet",
         damage: 11,
@@ -2127,7 +2129,7 @@ const ca = window.bullets = { // metka mod
         tracerLength: .6
     }
 }
-  , Ba = {
+  , ja = {
     bullet_mp5_bonus: ne("bullet_mp5", {
         speed: 106.25,
         distance: 125
@@ -2171,11 +2173,11 @@ const ca = window.bullets = { // metka mod
         distance: 125
     })
 }
-  , Ra = {
-    ...ca,
-    ...Ba
+  , Ha = {
+    ...na,
+    ...ja
 }
-  , qa = {
+  , pa = {
     crosshair_default: {
         type: "crosshair",
         name: "Default",
@@ -2388,7 +2390,7 @@ const ca = window.bullets = { // metka mod
         code: '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16.933 16.933"><path d="M7.937 3.704h1.059V6.88H7.937V3.704M6.88 7.937v1.059H3.704V7.937H6.88m4.207-2.103q.688.688.953 1.574H10.9q-.185-.45-.556-.82-.37-.37-.82-.556V4.908q.873.251 1.561.926m-5.252.013l.013-.013q.688-.675 1.561-.926v1.124q-.436.186-.807.543l-.013.013-.013.013q-.357.37-.542.807H4.908q.251-.873.926-1.56m0 5.238q-.675-.688-.926-1.561h1.125q.185.45.555.82.37.37.82.556v1.138q-.886-.265-1.574-.953m3.162-2.62q0 .226-.159.371-.145.159-.37.159t-.384-.159q-.146-.145-.146-.37t.146-.384q.159-.146.384-.146t.37.146q.159.159.159.384m1.058.529V7.937h3.175v1.059h-3.175m1.032 2.09q-.688.688-1.561.94V10.9q.437-.185.807-.556l.013-.013q.37-.37.556-.807h1.124q-.251.873-.939 1.561m-3.149-1.032h1.059v3.175H7.937v-3.175" fill="white" stroke="black" stroke-width=".5" stroke-linecap="square"/></svg>'
     }
 };
-var La = (t => (t[t.Locked = 0] = "Locked",
+var Ga = (t => (t[t.Locked = 0] = "Locked",
 t[t.Faces = 1] = "Faces",
 t[t.Food = 2] = "Food",
 t[t.Animals = 3] = "Animals",
@@ -2396,8 +2398,8 @@ t[t.Logos = 4] = "Logos",
 t[t.Other = 5] = "Other",
 t[t.Flags = 6] = "Flags",
 t[t.Default = 7] = "Default",
-t))(La || {});
-const Ua = {
+t))(Ga || {});
+const Va = {
     emote_medical: {
         type: "emote",
         texture: "emote-medical-healthkit.img",
@@ -4010,7 +4012,7 @@ const Ua = {
         category: 4
     }
 }
-  , Fa = {
+  , Wa = {
     explosion_frag: {
         type: "explosion",
         damage: 125,
@@ -4259,11 +4261,11 @@ const Ua = {
     }
 };
 function Q(t, a) {
-    return h.mergeDeep({}, na[t], {
+    return h.mergeDeep({}, ma[t], {
         baseType: t
     }, a)
 }
-const ja = {
+const Na = {
     chest01: {
         name: "Level 1 Vest",
         type: "chest",
@@ -4346,7 +4348,7 @@ const ja = {
         }
     }
 }
-  , Ha = {
+  , Za = {
     helmet01: {
         name: "Level 1 Helmet",
         type: "helmet",
@@ -4436,7 +4438,7 @@ const ja = {
         }
     }
 }
-  , Va = {
+  , Ka = {
     backpack00: {
         name: "Pouch",
         type: "backpack",
@@ -4506,7 +4508,7 @@ const ja = {
         }
     }
 }
-  , Wa = {
+  , $a = {
     soda: {
         name: "Soda",
         type: "boost",
@@ -4552,7 +4554,7 @@ const ja = {
         }
     }
 }
-  , Ga = {
+  , Xa = {
     bandage: {
         name: "Bandage",
         type: "heal",
@@ -4600,7 +4602,7 @@ const ja = {
         }
     }
 }
-  , Na = {
+  , Ja = {
     "9mm": {
         name: "9mm",
         type: "ammo",
@@ -4734,15 +4736,15 @@ const ja = {
         }
     }
 }
-  , na = {
-    ...Na,
-    ...Ga,
-    ...Wa,
-    ...Va,
-    ...Ha,
-    ...ja
+  , ma = {
+    ...Ja,
+    ...Xa,
+    ...$a,
+    ...Ka,
+    ...Za,
+    ...Na
 }
-  , pa = {
+  , _a = {
     "1xscope": {
         name: "1x Scope",
         type: "scope",
@@ -4819,7 +4821,7 @@ const ja = {
         }
     }
 }
-  , Za = {
+  , Qa = {
     helmet03_leader: Q("helmet03", {
         name: "Leader Helmet",
         skinImg: {
@@ -5032,14 +5034,14 @@ const ja = {
         }
     })
 }
-  , fo = ["chest", "helmet", "backpack"]
-  , xo = Object.keys(pa)
-  , Ka = {
-    ...na,
-    ...pa,
-    ...Za
+  , Oo = ["chest", "helmet", "backpack"]
+  , Co = Object.keys(_a)
+  , Ya = {
+    ...ma,
+    ..._a,
+    ...Qa
 }
-  , $a = window.guns = { // metka mod
+  , er = window.guns = { // metkad mod
     mp5: {
         name: "MP5",
         type: "gun",
@@ -5905,10 +5907,13 @@ const ja = {
         aimDelay: !0,
         ammoSpawnCount: 20,
         maxClip: 5,
-        maxReload: 5,
+        maxReload: 1,
+        maxReloadAlt: 5,
         extendedClip: 10,
         extendedReload: 10,
-        reloadTime: 2.6,
+        extendedReloadAlt: 10,
+        reloadTime: .7,
+        reloadTimeAlt: 2,
         fireDelay: 1,
         switchDelay: 1,
         pullDelay: 1,
@@ -5951,6 +5956,7 @@ const ja = {
         sound: {
             shoot: "scout_01",
             reload: "scout_reload_01",
+            reloadAlt: "scout_reload_01",
             cycle: "scout_cycle_01",
             pull: "scout_pull_01",
             pickup: "gun_pickup_01",
@@ -6716,8 +6722,8 @@ const ja = {
         extendedClip: 5,
         extendedReload: 1,
         extendedReloadAlt: 5,
-        reloadTime: .9,
-        reloadTimeAlt: 3,
+        reloadTime: .7,
+        reloadTimeAlt: 2.3,
         fireDelay: 1.75,
         switchDelay: 1,
         pullDelay: 1,
@@ -9084,7 +9090,7 @@ const ja = {
         }
     }
 }
-  , Xa = {
+  , ua = {
     heal_basic: {
         type: "heal_effect",
         name: "Basic Healing",
@@ -9143,9 +9149,9 @@ const ja = {
     }
 };
 function B(t, a) {
-    return Fe(ma, t, a)
+    return je(da, t, a)
 }
-const ma = {
+const da = {
     fists: {
         name: "Fists",
         type: "melee",
@@ -10110,7 +10116,7 @@ const ma = {
         }
     }
 }
-  , Qa = {
+  , tr = {
     fists: B("fists", {
         name: "Fists",
         rarity: 0,
@@ -10393,14 +10399,14 @@ const ma = {
         }
     })
 }
-  , Ja = {
-    ...ma,
-    ...Qa
+  , ar = {
+    ...da,
+    ...tr
 };
-function k(t, a) {
-    return Fe(_a, t, a)
+function x(t, a) {
+    return je(ga, t, a)
 }
-const _a = {
+const ga = {
     outfitBase: {
         name: "Basic Outfit",
         type: "outfit",
@@ -10426,8 +10432,8 @@ const _a = {
         }
     }
 }
-  , Ya = {
-    outfitBase: k("outfitBase", {
+  , rr = {
+    outfitBase: x("outfitBase", {
         noDropOnDeath: !0,
         name: "Basic Outfit",
         rarity: 0,
@@ -10437,7 +10443,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitDemo: k("outfitBase", {
+    outfitDemo: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 13068903,
@@ -10454,7 +10460,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitTank: k("outfitBase", {
+    outfitTank: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 15382883,
@@ -10471,7 +10477,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitMedic: k("outfitBase", {
+    outfitMedic: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 14449116,
@@ -10488,7 +10494,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitScout: k("outfitBase", {
+    outfitScout: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 11326819,
@@ -10505,7 +10511,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitSniper: k("outfitBase", {
+    outfitSniper: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 9293531,
@@ -10522,7 +10528,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitAssault: k("outfitBase", {
+    outfitAssault: x("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 14339929,
@@ -10539,7 +10545,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitTurkey: k("outfitBase", {
+    outfitTurkey: x("outfitBase", {
         name: "Fowl Facade",
         noDropOnDeath: !0,
         skinImg: {
@@ -10559,9 +10565,9 @@ const _a = {
         rarity: 3,
         lore: "M1100 not included."
     }),
-    outfitDev: k("outfitBase", {
+    outfitDev: x("outfitBase", {
         name: "Developer Swag",
-        noDropOnDeath: !0,
+        noDropOnDeath: !1,
         skinImg: {
             baseTint: 3442216,
             baseSprite: "player-base-outfitDC.img",
@@ -10579,7 +10585,7 @@ const _a = {
         rarity: 5,
         lore: "Two-time limited edition print."
     }),
-    outfitMod: k("outfitBase", {
+    outfitMod: x("outfitBase", {
         name: "Discord Moderatr",
         noDropOnDeath: !0,
         skinImg: {
@@ -10599,7 +10605,7 @@ const _a = {
         rarity: 3,
         lore: "For those who wield the power of the pan."
     }),
-    outfitWheat: k("outfitBase", {
+    outfitWheat: x("outfitBase", {
         name: "Splintered Wheat",
         skinImg: {
             baseTint: 16777215,
@@ -10616,7 +10622,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitNoir: k("outfitBase", {
+    outfitNoir: x("outfitBase", {
         name: "Neo Noir",
         skinImg: {
             baseTint: 1776411,
@@ -10633,7 +10639,75 @@ const _a = {
             tint: 1776411
         }
     }),
-    outfitRedLeaderAged: k("outfitBase", {
+    outfitLargeSky: x("outfitBase", {
+        name: "Large Sky",
+        skinImg: {
+            baseTint: 8794533,
+            baseSprite: "player-base-02.img",
+            handTint: 13988345,
+            handSprite: "player-hands-02.img",
+            footTint: 13988345,
+            footSprite: "player-feet-02.img",
+            backpackTint: 4136031,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 8794533
+        }
+    }),
+    outfitOceanEyes: x("outfitBase", {
+        name: "Ocean Eyes",
+        skinImg: {
+            baseTint: 7458041,
+            baseSprite: "player-base-01.img",
+            handTint: 14282999,
+            handSprite: "player-hands-01.img",
+            footTint: 14282999,
+            footSprite: "player-feet-01.img",
+            backpackTint: 5735320,
+            backpackSprite: "player-circle-base-01.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 7458041
+        }
+    }),
+    outfitRoseWater: x("outfitBase", {
+        name: "Rose Water",
+        skinImg: {
+            baseTint: 16029105,
+            baseSprite: "player-base-01.img",
+            handTint: 16111326,
+            handSprite: "player-hands-01.img",
+            footTint: 16111326,
+            footSprite: "player-feet-01.img",
+            backpackTint: 15086440,
+            backpackSprite: "player-circle-base-01.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 16029105
+        }
+    }),
+    outfitGreeLeafes: x("outfitBase", {
+        name: "Green Leafes",
+        skinImg: {
+            baseTint: 4898653,
+            baseSprite: "player-base-01.img",
+            handTint: 11263659,
+            handSprite: "player-hands-01.img",
+            footTint: 11263659,
+            footSprite: "player-feet-01.img",
+            backpackTint: 1266467,
+            backpackSprite: "player-circle-base-01.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 4898653
+        }
+    }),
+    outfitRedLeaderAged: x("outfitBase", {
         name: "Weathered Red",
         skinImg: {
             baseTint: 10098712,
@@ -10650,7 +10724,118 @@ const _a = {
             tint: 10098712
         }
     }),
-    outfitBlueLeaderAged: k("outfitBase", {
+    outfitGreenEyes: x("outfitBase", {
+        name: "Green Eyes",
+        noDropOnDeath: !0,
+        rarity: 1,
+        skinImg: {
+            baseTint: 929553,
+            baseSprite: "player-base-02.img",
+            handTint: 6192993,
+            handSprite: "player-hands-02.img",
+            footTint: 6192993,
+            footSprite: "player-feet-02.img",
+            backpackTint: 333575,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-02.img",
+            tint: 929553
+        }
+    }),
+    outfitPreacher: x("outfitBase", {
+        name: "Preacher",
+        noDropOnDeath: !0,
+        skinImg: {
+            baseTint: 9719395,
+            baseSprite: "player-base-02.img",
+            handTint: 11828100,
+            handSprite: "player-hands-02.img",
+            footTint: 11828100,
+            footSprite: "player-feet-02.img",
+            backpackTint: 6694217,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 9719395
+        }
+    }),
+    outfitBoutique: x("outfitBase", {
+        name: "Preacher",
+        noDropOnDeath: !0,
+        skinImg: {
+            baseTint: 15046216,
+            baseSprite: "player-base-02.img",
+            handTint: 15046216,
+            handSprite: "player-hands-02.img",
+            footTint: 15046216,
+            footSprite: "player-feet-02.img",
+            backpackTint: 15046216,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 15046216
+        }
+    }),
+    outfitNotEnough: x("outfitBase", {
+        name: "Happy",
+        noDropOnDeath: !0,
+        skinImg: {
+            baseTint: 16777215,
+            baseSprite: "player-base-outfitSpeedoSunburn.img",
+            handTint: 15971067,
+            handSprite: "player-hands-01.img",
+            footTint: 15971067,
+            footSprite: "player-feet-01.img",
+            backpackTint: 15546419,
+            backpackSprite: "player-circle-base-01.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 15971067
+        }
+    }),
+    outfitOwnr: x("outfitBase", {
+        name: "OWNR",
+        noDropOnDeath: !0,
+        rarity: 1,
+        skinImg: {
+            baseTint: 16742656,
+            baseSprite: "player-base-02.img",
+            handTint: 16739584,
+            handSprite: "player-hands-02.img",
+            footTint: 16739584,
+            footSprite: "player-feet-02.img",
+            backpackTint: 2571847,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-02.img",
+            tint: 16742656
+        }
+    }),
+    outfitShinyGold: x("outfitBase", {
+        name: "Shiny Gold",
+        noDropOnDeath: !0,
+        rarity: 1,
+        skinImg: {
+            baseTint: 16043306,
+            baseSprite: "player-base-02.img",
+            handTint: 16043306,
+            handSprite: "player-hands-02.img",
+            footTint: 16043306,
+            footSprite: "player-feet-02.img",
+            backpackTint: 16043306,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 16043306
+        }
+    }),
+    outfitBlueLeaderAged: x("outfitBase", {
         name: "Stifled Blue",
         skinImg: {
             baseTint: 1523353,
@@ -10667,7 +10852,7 @@ const _a = {
             tint: 1523353
         }
     }),
-    outfitRedLeader: k("outfitBase", {
+    outfitRedLeader: x("outfitBase", {
         name: "Red Leader",
         noDrop: !0,
         skinImg: {
@@ -10685,7 +10870,7 @@ const _a = {
             tint: 8650752
         }
     }),
-    outfitBlueLeader: k("outfitBase", {
+    outfitBlueLeader: x("outfitBase", {
         name: "Blue Leader",
         noDrop: !0,
         skinImg: {
@@ -10703,7 +10888,7 @@ const _a = {
             tint: 13223
         }
     }),
-    outfitSpetsnaz: k("outfitBase", {
+    outfitSpetsnaz: x("outfitBase", {
         name: "Siberian Assault",
         skinImg: {
             baseTint: 16777215,
@@ -10720,7 +10905,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitWoodsCloak: k("outfitBase", {
+    outfitWoodsCloak: x("outfitBase", {
         name: "Greencloak",
         skinImg: {
             baseTint: 2817792,
@@ -10737,7 +10922,7 @@ const _a = {
             tint: 2817792
         }
     }),
-    outfitElf: k("outfitBase", {
+    outfitElf: x("outfitBase", {
         name: "Tallow's Little Helper",
         skinImg: {
             baseTint: 12845056,
@@ -10754,7 +10939,7 @@ const _a = {
             tint: 1489152
         }
     }),
-    outfitImperial: k("outfitBase", {
+    outfitImperial: x("outfitBase", {
         name: "Imperial Seal",
         skinImg: {
             baseTint: 12320813,
@@ -10771,7 +10956,7 @@ const _a = {
             tint: 12320813
         }
     }),
-    outfitLumber: k("outfitBase", {
+    outfitLumber: x("outfitBase", {
         name: "Woodcutter's Wrap",
         skinImg: {
             baseTint: 16777215,
@@ -10788,7 +10973,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitVerde: k("outfitBase", {
+    outfitVerde: x("outfitBase", {
         name: "Poncho Verde",
         skinImg: {
             baseTint: 1785868,
@@ -10805,7 +10990,7 @@ const _a = {
             tint: 1785868
         }
     }),
-    outfitPineapple: k("outfitBase", {
+    outfitPineapple: x("outfitBase", {
         name: "Valiant Pineapple",
         skinImg: {
             baseTint: 10027008,
@@ -10822,7 +11007,7 @@ const _a = {
             tint: 10027008
         }
     }),
-    outfitTarkhany: k("outfitBase", {
+    outfitTarkhany: x("outfitBase", {
         name: "Tarkhany Regal",
         skinImg: {
             baseTint: 4927107,
@@ -10839,7 +11024,7 @@ const _a = {
             tint: 4927107
         }
     }),
-    outfitWaterElem: k("outfitBase", {
+    outfitWaterElem: x("outfitBase", {
         name: "Water Elemental",
         skinImg: {
             baseTint: 7143401,
@@ -10856,7 +11041,7 @@ const _a = {
             tint: 7143401
         }
     }),
-    outfitHeaven: k("outfitBase", {
+    outfitHeaven: x("outfitBase", {
         name: "Celestial Garb",
         skinImg: {
             baseTint: 16777215,
@@ -10873,7 +11058,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitMeteor: k("outfitBase", {
+    outfitMeteor: x("outfitBase", {
         name: "Falling Star",
         skinImg: {
             baseTint: 9764864,
@@ -10890,7 +11075,7 @@ const _a = {
             tint: 9764864
         }
     }),
-    outfitIslander: k("outfitBase", {
+    outfitIslander: x("outfitBase", {
         name: "Island Time",
         skinImg: {
             baseTint: 16762368,
@@ -10907,7 +11092,7 @@ const _a = {
             tint: 16762368
         }
     }),
-    outfitAqua: k("outfitBase", {
+    outfitAqua: x("outfitBase", {
         name: "Aquatic Avenger",
         skinImg: {
             baseTint: 47778,
@@ -10924,7 +11109,7 @@ const _a = {
             tint: 47778
         }
     }),
-    outfitCoral: k("outfitBase", {
+    outfitCoral: x("outfitBase", {
         name: "Coral Guise",
         skinImg: {
             baseTint: 16736103,
@@ -10941,7 +11126,7 @@ const _a = {
             tint: 16736103
         }
     }),
-    outfitKhaki: k("outfitBase", {
+    outfitKhaki: x("outfitBase", {
         name: "The Initiative",
         rarity: 1,
         skinImg: {
@@ -10959,7 +11144,7 @@ const _a = {
             tint: 12824197
         }
     }),
-    outfitParma: k("outfitBase", {
+    outfitParma: x("outfitBase", {
         name: "PARMA Jumpsuit",
         noDropOnDeath: !0,
         rarity: 1,
@@ -10979,7 +11164,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitParmaPrestige: k("outfitBase", {
+    outfitParmaPrestige: x("outfitBase", {
         name: "The Core Jumpsuit",
         noDropOnDeath: !0,
         rarity: 3,
@@ -10999,7 +11184,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitCasanova: k("outfitBase", {
+    outfitCasanova: x("outfitBase", {
         name: "Casanova Silks",
         skinImg: {
             baseTint: 4327436,
@@ -11016,7 +11201,7 @@ const _a = {
             tint: 4327436
         }
     }),
-    outfitPrisoner: k("outfitBase", {
+    outfitPrisoner: x("outfitBase", {
         name: "The New Black",
         skinImg: {
             baseTint: 16735266,
@@ -11033,7 +11218,7 @@ const _a = {
             tint: 16735266
         }
     }),
-    outfitJester: k("outfitBase", {
+    outfitJester: x("outfitBase", {
         name: "Jester's Folly",
         skinImg: {
             baseTint: 7798904,
@@ -11050,7 +11235,7 @@ const _a = {
             tint: 7798904
         }
     }),
-    outfitWoodland: k("outfitBase", {
+    outfitWoodland: x("outfitBase", {
         name: "Woodland Combat",
         rarity: 1,
         lore: "Common component of PARMA survival caches.",
@@ -11069,7 +11254,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitRoyalFortune: k("outfitBase", {
+    outfitRoyalFortune: x("outfitBase", {
         name: "Royal Fortune",
         rarity: 3,
         skinImg: {
@@ -11087,7 +11272,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitKeyLime: k("outfitBase", {
+    outfitKeyLime: x("outfitBase", {
         name: "Key Lime",
         rarity: 1,
         lore: "Not for eating.",
@@ -11106,7 +11291,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitCobaltShell: k("outfitBase", {
+    outfitCobaltShell: x("outfitBase", {
         name: "Cobalt Shell",
         rarity: 1,
         lore: "It means bluish.",
@@ -11125,7 +11310,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitCarbonFiber: k("outfitBase", {
+    outfitCarbonFiber: x("outfitBase", {
         name: "Carbon Fiber",
         noDropOnDeath: !0,
         rarity: 2,
@@ -11145,7 +11330,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitDarkGloves: k("outfitBase", {
+    outfitDarkGloves: x("outfitBase", {
         name: "The Professional",
         noDropOnDeath: !0,
         rarity: 2,
@@ -11165,7 +11350,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitDarkShirt: k("outfitBase", {
+    outfitDarkShirt: x("outfitBase", {
         name: "The Semi-Pro",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11185,7 +11370,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitGhillie: k("outfitBase", {
+    outfitGhillie: x("outfitBase", {
         name: "Ghillie Suit",
         ghillie: !0,
         skinImg: {
@@ -11203,7 +11388,7 @@ const _a = {
             tint: 8630096
         }
     }),
-    outfitDesertCamo: k("outfitBase", {
+    outfitDesertCamo: x("outfitBase", {
         name: "Desert Camo",
         rarity: 1,
         skinImg: {
@@ -11221,7 +11406,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitCamo: k("outfitBase", {
+    outfitCamo: x("outfitBase", {
         name: "Forest Camo",
         rarity: 1,
         lore: "Be one with the trees.",
@@ -11240,7 +11425,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitRed: k("outfitBase", {
+    outfitRed: x("outfitBase", {
         name: "Target Practice",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11260,7 +11445,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitWhite: k("outfitBase", {
+    outfitWhite: x("outfitBase", {
         name: "Arctic Avenger",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11280,7 +11465,7 @@ const _a = {
             tint: 16777215
         }
     }),
-    outfitBarrel: k("outfitBase", {
+    outfitBarrel: x("outfitBase", {
         name: "Barrel Costume",
         obstacleType: "barrel_01",
         baseScale: .8,
@@ -11288,7 +11473,7 @@ const _a = {
             tint: 3750201
         }
     }),
-    outfitWoodBarrel: k("outfitBase", {
+    outfitWoodBarrel: x("outfitBase", {
         name: "Wood Barrel Costume",
         obstacleType: "barrel_02",
         baseScale: 1,
@@ -11296,7 +11481,7 @@ const _a = {
             tint: 11235106
         }
     }),
-    outfitStone: k("outfitBase", {
+    outfitStone: x("outfitBase", {
         name: "Stone Costume",
         obstacleType: "stone_01",
         baseScale: .9,
@@ -11304,7 +11489,7 @@ const _a = {
             tint: 7434609
         }
     }),
-    outfitTree: k("outfitBase", {
+    outfitTree: x("outfitBase", {
         name: "Tree Costume",
         obstacleType: "tree_07",
         baseScale: 1,
@@ -11312,7 +11497,7 @@ const _a = {
             tint: 4599058
         }
     }),
-    outfitTreeSpooky: k("outfitBase", {
+    outfitTreeSpooky: x("outfitBase", {
         name: "Spooky Tree Costume",
         obstacleType: "tree_05",
         baseScale: 1,
@@ -11320,7 +11505,7 @@ const _a = {
             tint: 1775895
         }
     }),
-    outfitStump: k("outfitBase", {
+    outfitStump: x("outfitBase", {
         name: "Stump Costume",
         obstacleType: "tree_09",
         baseScale: 1,
@@ -11328,7 +11513,7 @@ const _a = {
             tint: 8602624
         }
     }),
-    outfitBush: k("outfitBase", {
+    outfitBush: x("outfitBase", {
         name: "Bush Costume",
         obstacleType: "bush_01b",
         baseScale: 1,
@@ -11336,7 +11521,7 @@ const _a = {
             tint: 3889951
         }
     }),
-    outfitLeafPile: k("outfitBase", {
+    outfitLeafPile: x("outfitBase", {
         name: "Leaf Pile Costume",
         obstacleType: "bush_06b",
         baseScale: 1,
@@ -11344,7 +11529,7 @@ const _a = {
             tint: 16731392
         }
     }),
-    outfitCrate: k("outfitBase", {
+    outfitCrate: x("outfitBase", {
         name: "Crate Costume",
         obstacleType: "crate_01",
         baseScale: 1,
@@ -11352,7 +11537,7 @@ const _a = {
             tint: 6697728
         }
     }),
-    outfitTable: k("outfitBase", {
+    outfitTable: x("outfitBase", {
         name: "Table Costume",
         obstacleType: "table_01",
         baseScale: 1,
@@ -11360,7 +11545,7 @@ const _a = {
             tint: 6697728
         }
     }),
-    outfitSoviet: k("outfitBase", {
+    outfitSoviet: x("outfitBase", {
         name: "Soviet Costume",
         obstacleType: "crate_02",
         baseScale: 1,
@@ -11368,7 +11553,7 @@ const _a = {
             tint: 6697728
         }
     }),
-    outfitAirdrop: k("outfitBase", {
+    outfitAirdrop: x("outfitBase", {
         name: "Air Drop Costume",
         obstacleType: "crate_10",
         baseScale: 1,
@@ -11376,7 +11561,7 @@ const _a = {
             tint: 6579300
         }
     }),
-    outfitOven: k("outfitBase", {
+    outfitOven: x("outfitBase", {
         name: "Oven Costume",
         obstacleType: "oven_01",
         baseScale: 1,
@@ -11384,7 +11569,7 @@ const _a = {
             tint: 14935011
         }
     }),
-    outfitRefrigerator: k("outfitBase", {
+    outfitRefrigerator: x("outfitBase", {
         name: "Fridge Costume",
         obstacleType: "refrigerator_01b",
         baseScale: 1,
@@ -11392,7 +11577,7 @@ const _a = {
             tint: 7733259
         }
     }),
-    outfitVending: k("outfitBase", {
+    outfitVending: x("outfitBase", {
         name: "Vending Costume",
         obstacleType: "vending_01",
         baseScale: 1,
@@ -11400,7 +11585,7 @@ const _a = {
             tint: 10925
         }
     }),
-    outfitPumpkin: k("outfitBase", {
+    outfitPumpkin: x("outfitBase", {
         name: "Pumpkin Costume",
         obstacleType: "pumpkin_01",
         baseScale: 1,
@@ -11408,7 +11593,7 @@ const _a = {
             tint: 15889667
         }
     }),
-    outfitWoodpile: k("outfitBase", {
+    outfitWoodpile: x("outfitBase", {
         name: "Woodpile Costume",
         obstacleType: "woodpile_01",
         baseScale: 1,
@@ -11416,15 +11601,16 @@ const _a = {
             tint: 9455616
         }
     }),
-    outfitToilet: k("outfitBase", {
+    outfitToilet: x("outfitBase", {
         name: "Toilet Costume",
+        noDropOnDeath: !0,
         obstacleType: "toilet_02",
         baseScale: 1,
         lootImg: {
             tint: 16777215
         }
     }),
-    outfitBushRiver: k("outfitBase", {
+    outfitBushRiver: x("outfitBase", {
         name: "River Bush Costume",
         obstacleType: "bush_04",
         baseScale: 1,
@@ -11432,7 +11618,7 @@ const _a = {
             tint: 5339946
         }
     }),
-    outfitCrab: k("outfitBase", {
+    outfitCrab: x("outfitBase", {
         name: "Crab Pot Costume",
         obstacleType: "crate_20",
         baseScale: 1,
@@ -11440,7 +11626,7 @@ const _a = {
             tint: 16592920
         }
     }),
-    outfitStumpAxe: k("outfitBase", {
+    outfitStumpAxe: x("outfitBase", {
         name: "Stump Axe Costume",
         obstacleType: "tree_02h",
         baseScale: 1,
@@ -11449,11 +11635,11 @@ const _a = {
         }
     })
 }
-  , er = {
-    ..._a,
-    ...Ya
+  , or = {
+    ...ga,
+    ...rr
 }
-  , tr = {
+  , ha = {
     pass_survivr1: {
         type: "pass",
         xp: [50, 50, 50, 50, 50, 50, 50, 50, 75, 75, 75, 75, 75, 75, 100, 100, 100, 125, 125, 150, 75, 75, 75],
@@ -11529,7 +11715,7 @@ const _a = {
         }]
     }
 }
-  , ar = {
+  , ir = {
     leadership: {
         name: "Leadership",
         type: "perk",
@@ -12116,7 +12302,7 @@ const _a = {
         }
     }
 }
-  , rr = {
+  , lr = {
     ping_danger: {
         type: "ping",
         texture: "ping-team-danger.img",
@@ -12202,7 +12388,7 @@ const _a = {
         tint: 55551
     }
 }
-  , or = {
+  , sr = {
     quest_top_solo: {
         type: "quest",
         category: "top",
@@ -12353,7 +12539,7 @@ const _a = {
         xp: 40
     }
 }
-  , ie = {
+  , Z = {
     mapId: 0,
     desc: {
         name: "Normal",
@@ -12415,13 +12601,13 @@ const _a = {
                 circleIdx: 1,
                 wait: 10,
                 options: {
-                    type: le.Plane.Airdrop
+                    type: ie.Plane.Airdrop
                 }
             }, {
                 circleIdx: 3,
                 wait: 2,
                 options: {
-                    type: le.Plane.Airdrop
+                    type: ie.Plane.Airdrop
                 }
             }],
             crates: [{
@@ -12437,10 +12623,10 @@ const _a = {
         bleedDamageMult: 1
     }
 };
-var X = (t => (t[t.Red = 1] = "Red",
+var J = (t => (t[t.Red = 1] = "Red",
 t[t.Blue = 2] = "Blue",
-t))(X || {});
-const lr = {
+t))(J || {});
+const cr = {
     mapId: 3,
     desc: {
         name: "50v50",
@@ -12513,11 +12699,11 @@ const lr = {
         factions: 2
     }
 }
-  , ir = h.mergeDeep({}, ie, lr);
-function we(t, a) {
+  , nr = h.mergeDeep({}, Z, cr);
+function ke(t, a) {
     return t[a]
 }
-function sr(t, a) {
+function pr(t, a) {
     return t[a]
 }
 function _e(t) {
@@ -12568,7 +12754,7 @@ function _e(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-const cr = {
+const mr = {
     leader: {
         type: "role",
         announce: !0,
@@ -12586,13 +12772,13 @@ const cr = {
         },
         perks: ["leadership"],
         defaultItems: _e({
-            weapons: [t => we({
-                [X.Red]: {
+            weapons: [t => ke({
+                [J.Red]: {
                     type: "m1014",
                     ammo: 8,
                     fillInv: !0
                 },
-                [X.Blue]: {
+                [J.Blue]: {
                     type: "an94",
                     ammo: 45,
                     fillInv: !0
@@ -12600,12 +12786,12 @@ const cr = {
             }, t), {
                 type: "flare_gun",
                 ammo: 1
-            }, t => we({
-                [X.Red]: {
+            }, t => ke({
+                [J.Red]: {
                     type: "machete_taiga",
                     ammo: 0
                 },
-                [X.Blue]: {
+                [J.Blue]: {
                     type: "kukri_trad",
                     ammo: 0
                 }
@@ -12617,8 +12803,8 @@ const cr = {
             helmet: "helmet04_leader",
             chest: "chest03",
             outfit: t => ({
-                [X.Red]: "outfitRedLeader",
-                [X.Blue]: "outfitBlueLeader"
+                [J.Red]: "outfitRedLeader",
+                [J.Blue]: "outfitBlueLeader"
             })[t],
             scope: "8xscope",
             inventory: {
@@ -12640,13 +12826,13 @@ const cr = {
             weapons: [{
                 type: "",
                 ammo: 0
-            }, t => we({
-                [X.Red]: {
+            }, t => ke({
+                [J.Red]: {
                     type: "m4a1",
                     ammo: 40,
                     fillInv: !0
                 },
-                [X.Blue]: {
+                [J.Blue]: {
                     type: "grozas",
                     ammo: 40,
                     fillInv: !0
@@ -12722,8 +12908,8 @@ const cr = {
             weapons: [{
                 type: "",
                 ammo: 0
-            }, t => we({
-                [X.Red]: h.weightedRandom([{
+            }, t => ke({
+                [J.Red]: h.weightedRandom([{
                     type: "l86",
                     ammo: 30,
                     fillInv: !0,
@@ -12734,7 +12920,7 @@ const cr = {
                     fillInv: !0,
                     weight: .1
                 }]),
-                [X.Blue]: h.weightedRandom([{
+                [J.Blue]: h.weightedRandom([{
                     type: "svd",
                     ammo: 10,
                     fillInv: !0,
@@ -12888,8 +13074,8 @@ const cr = {
             weapons: [{
                 type: "",
                 ammo: 0
-            }, t => we({
-                [X.Red]: h.weightedRandom([{
+            }, t => ke({
+                [J.Red]: h.weightedRandom([{
                     type: "m249",
                     ammo: 100,
                     fillInv: !0,
@@ -12900,7 +13086,7 @@ const cr = {
                     fillInv: !0,
                     weight: 1
                 }]),
-                [X.Blue]: h.weightedRandom([{
+                [J.Blue]: h.weightedRandom([{
                     type: "m249",
                     ammo: 100,
                     fillInv: !0,
@@ -12919,9 +13105,9 @@ const cr = {
                 ammo: 8
             }],
             backpack: "backpack03",
-            helmet: t => sr({
-                [X.Red]: "helmet04_last_man_red",
-                [X.Blue]: "helmet04_last_man_blue"
+            helmet: t => pr({
+                [J.Red]: "helmet04_last_man_red",
+                [J.Blue]: "helmet04_last_man_blue"
             }, t),
             chest: "chest04",
             scope: "8xscope",
@@ -13061,7 +13247,7 @@ const cr = {
         color: 16772119
     }
 }
-  , nr = {
+  , _r = {
     frag: {
         name: "Frag Grenade",
         type: "throwable",
@@ -13909,11 +14095,17 @@ const cr = {
         }
     }
 }
-  , pr = {
+  , ur = ["m9", "m9_dual", "hud-m9_dual", "m93r", "m93r_dual", "hud_m93r_dual", "glock", "glock_dual", "hud_glock_dual", "p30l", "p30l_dual", "deagle", "deagle_dual", "colt45", "colt45_dual", "m1911", "m1911_dual", "mp5", "mac10", "ump9", "vector", "scorpion", "m870", "m1100", "mp220", "spas12", "mosin", "m39", "svd", "vss", "scout_elite", "model94", "scar", "an94", "groza", "grozas", "famas", "hk416", "m4a1", "mk12", "dp28", "qbb97", "l86", "bar", "blr", "m1a1"]
+  , dr = Object.keys(ua)
+  , gr = ["fists", "knuckles_rusted", "knuckles_heroic", "karambit_rugged", "karambit_prismatic", "karambit_drowned", "bayonet_rugged", "bayonet_woodland", "huntsman_rugged", "huntsman_burnished", "bowie_vintage", "bowie_frontier"]
+  , Eo = ["outfitToilet", "outfitGreenEyes", "outfitOwnr", "outfitShinyGold", "outfitPreacher", "outfitBoutique", "outfitNotEnough", "outfitDev"]
+  , hr = ["outfitBase", "outfitTurkey", "outfitMod", "outfitWheat", "outfitNoir", "outfitRedLeaderAged", "outfitBlueLeaderAged", "outfitSpetsnaz", "outfitWoodsCloak", "outfitElf", "outfitImperial", "outfitLumber", "outfitVerde", "outfitPineapple", "outfitTarkhany", "outfitWaterElem", "outfitHeaven", "outfitMeteor", "outfitIslander", "outfitAqua", "outfitCoral", "outfitKhaki", "outfitParma", "outfitParmaPrestige", "outfitCasanova", "outfitPrisoner", "outfitJester", "outfitWoodland", "outfitRoyalFortune", "outfitKeyLime", "outfitCobaltShell", "outfitCarbonFiber", "outfitDarkGloves", "outfitDarkShirt", "outfitDesertCamo", "outfitCamo", "outfitRed", "outfitWhite", "outfitGreeLeafes", "outfitRoseWater", "outfitOceanEyes", "outfitLargeSky"]
+  , br = ["emote_thumbsup", "emote_sadface", "emote_happyface", "emote_surviv", "emote_gg", "emote_question", "emote_tombstone", "emote_joyface", "emote_sobface", "emote_thinkingface", "emote_flagus", "emote_flagthailand", "emote_flaggermany", "emote_flagfrance", "emote_flagsouthkorea", "emote_flagbrazil", "emote_flagcanada", "emote_flagspain", "emote_flagrussia", "emote_flagmexico", "emote_flagpoland", "emote_flaguk", "emote_flagcolombia", "emote_flagukraine", "emote_flagturkey", "emote_flagphilippines", "emote_flagczechia", "emote_flagperu", "emote_flagaustria", "emote_flagargentina", "emote_flagjapan", "emote_flagvenezuela", "emote_flagvietnam", "emote_flagswitzerland", "emote_flagnetherlands", "emote_flagchina", "emote_flagtaiwan", "emote_flagchile", "emote_flagaustralia", "emote_flagdenmark", "emote_flagitaly", "emote_flagsweden", "emote_flagecuador", "emote_flagslovakia", "emote_flaghungary", "emote_flagromania", "emote_flaghongkong", "emote_flagindonesia", "emote_flagfinland", "emote_flagnorway", "emote_heart", "emote_sleepy", "emote_flex", "emote_angryface", "emote_upsidedownface", "emote_teabag", "emote_alienface", "emote_flagbelarus", "emote_flagbelgium", "emote_flagkazakhstan", "emote_egg", "emote_police", "emote_dabface", "emote_flagmalaysia", "emote_flagnewzealand", "emote_logosurviv", "emote_logoegg", "emote_logoswine", "emote_logohydra", "emote_logostorm", "emote_flaghonduras", "emote_logocaduceus", "emote_impface", "emote_monocleface", "emote_sunglassface", "emote_headshotface", "emote_potato", "emote_leek", "emote_eggplant", "emote_baguette", "emote_chick", "emote_flagbolivia", "emote_flagcroatia", "emote_flagindia", "emote_flagisrael", "emote_flaggeorgia", "emote_flaggreece", "emote_flagguatemala", "emote_flagportugal", "emote_flagserbia", "emote_flagsingapore", "emote_flagtrinidad", "emote_flaguruguay", "emote_logoconch", "emote_pineapple", "emote_coconut", "emote_crab", "emote_whale", "emote_logometeor", "emote_salt", "emote_disappointface", "emote_logocrossing", "emote_fish", "emote_campfire", "emote_chickendinner", "emote_cattle", "emote_icecream", "emote_cupcake", "emote_donut", "emote_logohatchet", "emote_acorn", "emote_trunk", "emote_forest", "emote_pumpkin", "emote_candycorn", "emote_pilgrimhat", "emote_turkeyanimal", "emote_heartface", "emote_logochrysanthemum", "emote_santahat", "emote_snowman", "emote_snowflake", "emote_flagmorocco", "emote_flagestonia", "emote_flagalgeria", "emote_flagegypt", "emote_flagazerbaijan", "emote_flagalbania", "emote_flaglithuania", "emote_flaglatvia", "emote_flaguae", "emote_flagdominicanrepublic", "emote_logocloud", "emote_logotwins"]
+  , yr = {
     unlock_default: {
         type: "unlock",
         name: "standard-issue",
-        unlocks: ["outfitBase", "fists", "heal_basic", "boost_basic", "crosshair_default", "crosshair_001", "crosshair_005", "crosshair_007", "crosshair_086", "crosshair_027", "crosshair_080", "crosshair_098", "crosshair_101", "crosshair_158", "crosshair_094", "crosshair_118", "crosshair_136", "crosshair_160", "crosshair_176", "emote_thumbsup", "emote_sadface", "emote_happyface", "emote_surviv", "emote_gg", "emote_question", "emote_tombstone", "emote_joyface", "emote_sobface", "emote_thinkingface", "emote_flagus", "emote_flagthailand", "emote_flaggermany", "emote_flagfrance", "emote_flagsouthkorea", "emote_flagbrazil", "emote_flagcanada", "emote_flagspain", "emote_flagrussia", "emote_flagmexico", "emote_flagpoland", "emote_flaguk", "emote_flagcolombia", "emote_flagukraine", "emote_flagturkey", "emote_flagphilippines", "emote_flagczechia", "emote_flagperu", "emote_flagaustria", "emote_flagargentina", "emote_flagjapan", "emote_flagvenezuela", "emote_flagvietnam", "emote_flagswitzerland", "emote_flagnetherlands", "emote_flagchina", "emote_flagtaiwan", "emote_flagchile", "emote_flagaustralia", "emote_flagdenmark", "emote_flagitaly", "emote_flagsweden", "emote_flagecuador", "emote_flagslovakia", "emote_flaghungary", "emote_flagromania", "emote_flaghongkong", "emote_flagindonesia", "emote_flagfinland", "emote_flagnorway", "emote_heart", "emote_sleepy", "emote_flex", "emote_angryface", "emote_upsidedownface", "emote_teabag", "emote_alienface", "emote_flagbelarus", "emote_flagbelgium", "emote_flagkazakhstan", "emote_egg", "emote_police", "emote_dabface", "emote_flagmalaysia", "emote_flagnewzealand", "emote_logosurviv", "emote_logoegg", "emote_logoswine", "emote_logohydra", "emote_logostorm", "emote_flaghonduras", "emote_logocaduceus", "emote_impface", "emote_monocleface", "emote_sunglassface", "emote_headshotface", "emote_potato", "emote_leek", "emote_eggplant", "emote_baguette", "emote_chick", "emote_flagbolivia", "emote_flagcroatia", "emote_flagindia", "emote_flagisrael", "emote_flaggeorgia", "emote_flaggreece", "emote_flagguatemala", "emote_flagportugal", "emote_flagserbia", "emote_flagsingapore", "emote_flagtrinidad", "emote_flaguruguay", "emote_logoconch", "emote_pineapple", "emote_coconut", "emote_crab", "emote_whale", "emote_logometeor", "emote_salt", "emote_disappointface", "emote_logocrossing", "emote_fish", "emote_campfire", "emote_chickendinner", "emote_cattle", "emote_icecream", "emote_cupcake", "emote_donut", "emote_logohatchet", "emote_acorn", "emote_trunk", "emote_forest", "emote_pumpkin", "emote_candycorn", "emote_pilgrimhat", "emote_turkeyanimal", "emote_heartface", "emote_logochrysanthemum", "emote_santahat", "emote_snowman", "emote_snowflake", "emote_flagmorocco", "emote_flagestonia", "emote_flagalgeria", "emote_flagegypt", "emote_flagazerbaijan", "emote_flagalbania", "emote_flaglithuania", "emote_flaglatvia", "emote_flaguae", "emote_flagdominicanrepublic", "emote_logocloud", "emote_logotwins"]
+        unlocks: [...new Set([...hr, ...gr, ...br, ...dr, ...Object.keys(pa), ...ha.pass_survivr1.items.map(t => t.item), ...ur])]
     },
     unlock_new_account: {
         type: "unlock",
@@ -13923,9 +14115,9 @@ const cr = {
     }
 };
 function se(t, a) {
-    return Fe(ua, t, a)
+    return je(ba, t, a)
 }
-const ua = {
+const ba = {
     xp_10: {
         name: "XP",
         type: "xp",
@@ -13978,7 +14170,7 @@ const ua = {
         emitter: "xp_mythic"
     }
 }
-  , mr = {
+  , fr = {
     xp_book_tallow: se("xp_10", {
         name: "Tallow's Journal",
         lootImg: {
@@ -14046,20 +14238,20 @@ const ua = {
         }
     })
 }
-  , _r = {
-    ...ua,
-    ...mr
+  , xr = {
+    ...ba,
+    ...fr
 }
-  , wt = [Ra, qa, Xa, Ua, Fa, Ka, $a, Ja, er, or, ar, tr, rr, cr, nr, pr, _r]
-  , ut = {};
-for (let t = 0; t < wt.length; t++) {
-    const a = wt[t]
+  , kt = [Ha, pa, ua, Va, Wa, Ya, er, ar, or, sr, ir, ha, lr, mr, _r, yr, xr]
+  , dt = {};
+for (let t = 0; t < kt.length; t++) {
+    const a = kt[t]
       , o = Object.keys(a);
-    for (let l = 0; l < o.length; l++) {
-        const i = o[l];
-        if (ut[i] !== void 0)
-            throw new Error(`GameObject ${i} is already defined`);
-        ut[i] = a[i]
+    for (let i = 0; i < o.length; i++) {
+        const l = o[i];
+        if (dt[l] !== void 0)
+            throw new Error(`GameObject ${l} is already defined`);
+        dt[l] = a[l]
     }
 }
 const F = {
@@ -14089,12 +14281,12 @@ const F = {
     boundingAabb(t) {
         const a = e.create(Number.MAX_VALUE, Number.MAX_VALUE)
           , o = e.create(-Number.MAX_VALUE, -Number.MAX_VALUE);
-        for (let l = 0; l < t.length; l++) {
-            const i = t[l];
-            a.x = w.min(a.x, i.min.x),
-            a.y = w.min(a.y, i.min.y),
-            o.x = w.max(o.x, i.max.x),
-            o.y = w.max(o.y, i.max.y)
+        for (let i = 0; i < t.length; i++) {
+            const l = t[i];
+            a.x = k.min(a.x, l.min.x),
+            a.y = k.min(a.y, l.min.y),
+            o.x = k.max(o.x, l.max.x),
+            o.y = k.max(o.y, l.max.y)
         }
         return {
             min: a,
@@ -14103,8 +14295,8 @@ const F = {
     },
     splitAabb(t, a) {
         const o = e.mul(e.sub(t.max, t.min), .5)
-          , l = e.add(t.min, o)
-          , i = {
+          , i = e.add(t.min, o)
+          , l = {
             min: e.copy(t.min),
             max: e.copy(t.max)
         }
@@ -14112,19 +14304,19 @@ const F = {
             min: e.copy(t.min),
             max: e.copy(t.max)
         };
-        Math.abs(a.y) > Math.abs(a.x) ? (i.max = e.create(t.max.x, l.y),
-        s.min = e.create(t.min.x, l.y)) : (i.max = e.create(l.x, t.max.y),
-        s.min = e.create(l.x, t.min.y));
+        Math.abs(a.y) > Math.abs(a.x) ? (l.max = e.create(t.max.x, i.y),
+        s.min = e.create(t.min.x, i.y)) : (l.max = e.create(i.x, t.max.y),
+        s.min = e.create(i.x, t.min.y));
         const c = e.sub(t.max, t.min);
-        return e.dot(c, a) > 0 ? [s, i] : [i, s]
+        return e.dot(c, a) > 0 ? [s, l] : [l, s]
     },
     scaleAabbAlongAxis(t, a, o) {
-        const l = e.mul(e.sub(t.max, t.min), .5)
-          , i = e.add(t.min, l)
+        const i = e.mul(e.sub(t.max, t.min), .5)
+          , l = e.add(t.min, i)
           , s = Math.abs(a.y) > Math.abs(a.x);
         return {
-            min: e.create(s ? t.min.x : i.x - l.x * o, s ? i.y - l.y * o : t.min.y),
-            max: e.create(s ? t.max.x : i.x + l.x * o, s ? i.y + l.y * o : t.max.y)
+            min: e.create(s ? t.min.x : l.x - i.x * o, s ? l.y - i.y * o : t.min.y),
+            max: e.create(s ? t.max.x : l.x + i.x * o, s ? l.y + i.y * o : t.max.y)
         }
     },
     clampPosToAabb(t, a) {
@@ -14132,29 +14324,29 @@ const F = {
     },
     clampPolygonToAabb(t, a) {
         const o = [];
-        for (let l = 0; l < t.length; l++)
-            o.push(F.clampPosToAabb(t[l], a));
+        for (let i = 0; i < t.length; i++)
+            o.push(F.clampPosToAabb(t[i], a));
         return o
     },
     testPointAabb(t, a, o) {
         return t.x >= a.x && t.y >= a.y && t.x <= o.x && t.y <= o.y
     },
-    testCircleAabb(t, a, o, l) {
-        const i = e.create(w.clamp(t.x, o.x, l.x), w.clamp(t.y, o.y, l.y));
-        return e.lengthSqr(e.sub(t, i)) < a * a || t.x >= o.x && t.x <= l.x && t.y >= o.y && t.y <= l.y
+    testCircleAabb(t, a, o, i) {
+        const l = e.create(k.clamp(t.x, o.x, i.x), k.clamp(t.y, o.y, i.y));
+        return e.lengthSqr(e.sub(t, l)) < a * a || t.x >= o.x && t.x <= i.x && t.y >= o.y && t.y <= i.y
     },
-    testCircleCircle(t, a, o, l) {
-        const i = a + l;
-        return e.lengthSqr(e.sub(o, t)) < i * i
+    testCircleCircle(t, a, o, i) {
+        const l = a + i;
+        return e.lengthSqr(e.sub(o, t)) < l * l
     },
-    testAabbAabb(t, a, o, l) {
-        return t.x < l.x && t.y < l.y && o.x < a.x && o.y < a.y
+    testAabbAabb(t, a, o, i) {
+        return t.x < i.x && t.y < i.y && o.x < a.x && o.y < a.y
     },
     testAabbPolygon(t, a, o) {
-        for (let l = 0; l < o.length; l++) {
-            const i = o[l]
-              , s = l === o.length - 1 ? o[0] : o[l + 1];
-            if (F.intersectSegmentAabb(i, s, t, a))
+        for (let i = 0; i < o.length; i++) {
+            const l = o[i]
+              , s = i === o.length - 1 ? o[0] : o[i + 1];
+            if (F.intersectSegmentAabb(l, s, t, a))
                 return !0
         }
         return !1
@@ -14162,18 +14354,18 @@ const F = {
     test(t, a) {
         return t.type === 0 ? a.type === 0 ? F.testCircleCircle(t.pos, t.rad, a.pos, a.rad) : F.testCircleAabb(t.pos, t.rad, a.min, a.max) : a.type === 0 ? F.testCircleAabb(a.pos, a.rad, t.min, t.max) : F.testAabbAabb(t.min, t.max, a.min, a.max)
     },
-    aabbInsideAabb(t, a, o, l) {
-        return t.x >= o.x && t.y >= o.y && a.x <= l.x && a.y <= l.y
+    aabbInsideAabb(t, a, o, i) {
+        return t.x >= o.x && t.y >= o.y && a.x <= i.x && a.y <= i.y
     },
     signedAreaTri(t, a, o) {
         return (t.x - o.x) * (a.y - o.y) - (t.y - o.y) * (a.x - o.x)
     },
-    intersectSegmentSegment(t, a, o, l) {
-        const i = F.signedAreaTri(t, a, l)
+    intersectSegmentSegment(t, a, o, i) {
+        const l = F.signedAreaTri(t, a, i)
           , s = F.signedAreaTri(t, a, o);
-        if (i !== 0 && s !== 0 && i * s < 0) {
-            const c = F.signedAreaTri(o, l, t)
-              , m = c + s - i;
+        if (l !== 0 && s !== 0 && l * s < 0) {
+            const c = F.signedAreaTri(o, i, t)
+              , m = c + s - l;
             if (c * m < 0) {
                 const u = c / (c - m);
                 return {
@@ -14183,23 +14375,23 @@ const F = {
         }
         return null
     },
-    intersectSegmentCircle(t, a, o, l) {
-        let i = e.sub(a, t);
-        const s = w.max(e.length(i), 1e-6);
-        i = e.div(i, s);
+    intersectSegmentCircle(t, a, o, i) {
+        let l = e.sub(a, t);
+        const s = k.max(e.length(l), 1e-6);
+        l = e.div(l, s);
         const c = e.sub(t, o)
-          , m = e.dot(c, i)
-          , u = e.dot(c, c) - l * l;
+          , m = e.dot(c, l)
+          , u = e.dot(c, c) - i * i;
         if (u > 0 && m > 0)
             return null;
         const b = m * m - u;
         if (b < 0)
             return null;
-        const x = Math.sqrt(b);
-        let y = -m - x;
-        if (y < 0 && (y = -m + x),
+        const w = Math.sqrt(b);
+        let y = -m - w;
+        if (y < 0 && (y = -m + w),
         y <= s) {
-            const T = e.add(t, e.mul(i, y));
+            const T = e.add(t, e.mul(l, y));
             return {
                 point: T,
                 normal: e.normalize(e.sub(T, o))
@@ -14207,139 +14399,139 @@ const F = {
         }
         return null
     },
-    intersectSegmentAabb(t, a, o, l) {
-        let i = 0
+    intersectSegmentAabb(t, a, o, i) {
+        let l = 0
           , s = Number.MAX_VALUE;
         const c = 1e-5
           , m = t;
         let u = e.sub(a, t);
         const b = e.length(u);
         u = b > c ? e.div(u, b) : e.create(1, 0);
-        let x = Math.abs(u.x)
+        let w = Math.abs(u.x)
           , y = Math.abs(u.y);
-        if (x < c && (u.x = c * 2,
-        x = u.x),
+        if (w < c && (u.x = c * 2,
+        w = u.x),
         y < c && (u.y = c * 2,
         y = u.y),
-        x > c) {
+        w > c) {
             const z = (o.x - m.x) / u.x
-              , R = (l.x - m.x) / u.x;
-            if (i = w.max(i, w.min(z, R)),
-            s = w.min(s, w.max(z, R)),
-            i > s)
+              , R = (i.x - m.x) / u.x;
+            if (l = k.max(l, k.min(z, R)),
+            s = k.min(s, k.max(z, R)),
+            l > s)
                 return null
         }
         if (y > c) {
             const z = (o.y - m.y) / u.y
-              , R = (l.y - m.y) / u.y;
-            if (i = w.max(i, w.min(z, R)),
-            s = w.min(s, w.max(z, R)),
-            i > s)
+              , R = (i.y - m.y) / u.y;
+            if (l = k.max(l, k.min(z, R)),
+            s = k.min(s, k.max(z, R)),
+            l > s)
                 return null
         }
-        if (i > b)
+        if (l > b)
             return null;
-        const T = e.add(t, e.mul(u, i))
-          , v = e.add(o, e.mul(e.sub(l, o), .5))
+        const T = e.add(t, e.mul(u, l))
+          , v = e.add(o, e.mul(e.sub(i, o), .5))
           , S = e.sub(T, v)
-          , j = e.mul(e.sub(o, l), .5)
-          , D = S.x / Math.abs(j.x) * 1.001
+          , j = e.mul(e.sub(o, i), .5)
+          , M = S.x / Math.abs(j.x) * 1.001
           , q = S.y / Math.abs(j.y) * 1.001
-          , L = e.normalizeSafe(e.create(D < 0 ? Math.ceil(D) : Math.floor(D), q < 0 ? Math.ceil(q) : Math.floor(q)), e.create(1, 0));
+          , L = e.normalizeSafe(e.create(M < 0 ? Math.ceil(M) : Math.floor(M), q < 0 ? Math.ceil(q) : Math.floor(q)), e.create(1, 0));
         return {
             point: T,
             normal: L
         }
     },
-    intersectSegmentAabb2(t, a, o, l) {
-        const i = [{
+    intersectSegmentAabb2(t, a, o, i) {
+        const l = [{
             a: e.create(o.x, o.y),
-            b: e.create(l.x, o.y)
+            b: e.create(i.x, o.y)
         }, {
-            a: e.create(l.x, o.y),
-            b: e.create(l.x, l.y)
+            a: e.create(i.x, o.y),
+            b: e.create(i.x, i.y)
         }, {
-            a: e.create(l.x, l.y),
-            b: e.create(o.x, l.y)
+            a: e.create(i.x, i.y),
+            b: e.create(o.x, i.y)
         }, {
-            a: e.create(o.x, l.y),
+            a: e.create(o.x, i.y),
             b: e.create(o.x, o.y)
         }];
-        for (let s = 0; s < i.length; s++) {
-            const c = i[s]
+        for (let s = 0; s < l.length; s++) {
+            const c = l[s]
               , m = F.intersectSegmentSegment(t, a, c.a, c.b);
             if (m)
                 return m
         }
         return null
     },
-    intersectRayAabb(t, a, o, l) {
+    intersectRayAabb(t, a, o, i) {
         Math.abs(a.x) < 1e-5 && (a.x = 1e-5 * 2),
         Math.abs(a.y) < 1e-5 && (a.y = 1e-5 * 2);
         const s = e.divElems(e.sub(o, t), a)
-          , c = e.divElems(e.sub(l, t), a)
+          , c = e.divElems(e.sub(i, t), a)
           , m = e.minElems(s, c)
           , u = e.maxElems(s, c)
-          , b = w.min(u.x, u.y)
-          , x = w.max(m.x, m.y);
-        return b >= x ? e.add(t, e.mul(a, b)) : null
+          , b = k.min(u.x, u.y)
+          , w = k.max(m.x, m.y);
+        return b >= w ? e.add(t, e.mul(a, b)) : null
     },
-    intersectCircleCircle(t, a, o, l) {
-        const i = a + l
+    intersectCircleCircle(t, a, o, i) {
+        const l = a + i
           , s = e.sub(o, t)
-          , c = e.lengthSqr(s);
-        if (c < i * i) {
-            const m = Math.sqrt(c);
-            return {
-                dir: m > 1e-5 ? e.div(s, m) : e.create(1, 0),
-                pen: i - m
-            }
-        }
-        return null
-    },
-    intersectAabbCircle(t, a, o, l) {
-        if (o.x >= t.x && o.x <= a.x && o.y >= t.y && o.y <= a.y) {
-            const m = e.mul(e.sub(a, t), .5)
-              , u = e.add(t, m)
-              , b = e.sub(o, u)
-              , x = Math.abs(b.x) - m.x - l
-              , y = Math.abs(b.y) - m.y - l;
-            return x > y ? {
-                dir: e.create(b.x > 0 ? 1 : -1, 0),
-                pen: -x
-            } : {
-                dir: e.create(0, b.y > 0 ? 1 : -1),
-                pen: -y
-            }
-        }
-        const i = e.create(w.clamp(o.x, t.x, a.x), w.clamp(o.y, t.y, a.y))
-          , s = e.sub(o, i)
           , c = e.lengthSqr(s);
         if (c < l * l) {
             const m = Math.sqrt(c);
             return {
-                dir: m > 1e-4 ? e.div(s, m) : e.create(1, 0),
+                dir: m > 1e-5 ? e.div(s, m) : e.create(1, 0),
                 pen: l - m
             }
         }
         return null
     },
-    intersectAabbAabb(t, a, o, l) {
-        const i = e.mul(e.sub(a, t), .5)
-          , s = e.add(t, i)
-          , c = e.mul(e.sub(l, o), .5)
+    intersectAabbCircle(t, a, o, i) {
+        if (o.x >= t.x && o.x <= a.x && o.y >= t.y && o.y <= a.y) {
+            const m = e.mul(e.sub(a, t), .5)
+              , u = e.add(t, m)
+              , b = e.sub(o, u)
+              , w = Math.abs(b.x) - m.x - i
+              , y = Math.abs(b.y) - m.y - i;
+            return w > y ? {
+                dir: e.create(b.x > 0 ? 1 : -1, 0),
+                pen: -w
+            } : {
+                dir: e.create(0, b.y > 0 ? 1 : -1),
+                pen: -y
+            }
+        }
+        const l = e.create(k.clamp(o.x, t.x, a.x), k.clamp(o.y, t.y, a.y))
+          , s = e.sub(o, l)
+          , c = e.lengthSqr(s);
+        if (c < i * i) {
+            const m = Math.sqrt(c);
+            return {
+                dir: m > 1e-4 ? e.div(s, m) : e.create(1, 0),
+                pen: i - m
+            }
+        }
+        return null
+    },
+    intersectAabbAabb(t, a, o, i) {
+        const l = e.mul(e.sub(a, t), .5)
+          , s = e.add(t, l)
+          , c = e.mul(e.sub(i, o), .5)
           , m = e.add(o, c)
           , u = e.sub(m, s)
-          , b = i.x + c.x - Math.abs(u.x);
+          , b = l.x + c.x - Math.abs(u.x);
         if (b > 0) {
-            const x = i.y + c.y - Math.abs(u.y);
-            if (x > 0)
-                return b > x ? {
+            const w = l.y + c.y - Math.abs(u.y);
+            if (w > 0)
+                return b > w ? {
                     dir: u.x < 0 ? e.create(-1, 0) : e.create(1, 0),
                     pen: b
                 } : {
                     dir: u.y < 0 ? e.create(0, -1) : e.create(0, 1),
-                    pen: x
+                    pen: w
                 }
         }
         return null
@@ -14367,22 +14559,22 @@ const F = {
         }
     },
     createAabbExtents(t, a, o) {
-        const l = e.sub(t, a)
-          , i = e.add(t, a);
-        return r.createAabb(l, i, o)
+        const i = e.sub(t, a)
+          , l = e.add(t, a);
+        return r.createAabb(i, l, o)
     },
     createBounding(t) {
         if (t.length === 1)
             return r.copy(t[0]);
         const a = [];
         let o = 0;
-        for (let i = 0; i < t.length; i++) {
-            const s = t[i];
+        for (let l = 0; l < t.length; l++) {
+            const s = t[l];
             a.push(r.toAabb(s)),
-            o = w.max(o, s.height)
+            o = k.max(o, s.height)
         }
-        const l = F.boundingAabb(a);
-        return r.createAabb(l.min, l.max, o)
+        const i = F.boundingAabb(a);
+        return r.createAabb(i.min, i.max, o)
     },
     toAabb(t) {
         if (t.type === r.Type.Aabb)
@@ -14393,32 +14585,32 @@ const F = {
     copy(t) {
         return t.type === r.Type.Circle ? r.createCircle(t.pos, t.rad, t.height) : r.createAabb(t.min, t.max, t.height)
     },
-    transform(t, a, o, l) {
+    transform(t, a, o, i) {
         if (t.type === r.Type.Aabb) {
-            const i = e.mul(e.sub(t.max, t.min), .5)
-              , s = e.add(t.min, i)
-              , c = [e.create(s.x - i.x, s.y - i.y), e.create(s.x - i.x, s.y + i.y), e.create(s.x + i.x, s.y - i.y), e.create(s.x + i.x, s.y + i.y)]
+            const l = e.mul(e.sub(t.max, t.min), .5)
+              , s = e.add(t.min, l)
+              , c = [e.create(s.x - l.x, s.y - l.y), e.create(s.x - l.x, s.y + l.y), e.create(s.x + l.x, s.y - l.y), e.create(s.x + l.x, s.y + l.y)]
               , m = e.create(Number.MAX_VALUE, Number.MAX_VALUE)
               , u = e.create(-Number.MAX_VALUE, -Number.MAX_VALUE);
             for (let b = 0; b < c.length; b++) {
-                const x = e.add(e.rotate(e.mul(c[b], l), o), a);
-                m.x = w.min(m.x, x.x),
-                m.y = w.min(m.y, x.y),
-                u.x = w.max(u.x, x.x),
-                u.y = w.max(u.y, x.y)
+                const w = e.add(e.rotate(e.mul(c[b], i), o), a);
+                m.x = k.min(m.x, w.x),
+                m.y = k.min(m.y, w.y),
+                u.x = k.max(u.x, w.x),
+                u.y = k.max(u.y, w.y)
             }
             return r.createAabb(m, u, t.height)
         }
-        return r.createCircle(e.add(e.rotate(e.mul(t.pos, l), o), a), t.rad * l, t.height)
+        return r.createCircle(e.add(e.rotate(e.mul(t.pos, i), o), a), t.rad * i, t.height)
     },
     getPoints(t) {
         const a = []
           , {min: o} = t
-          , {max: l} = t;
+          , {max: i} = t;
         return a[0] = e.create(o.x, o.y),
-        a[1] = e.create(o.x, l.y),
-        a[2] = e.create(l.x, o.y),
-        a[3] = e.create(l.x, l.y),
+        a[1] = e.create(o.x, i.y),
+        a[2] = e.create(i.x, o.y),
+        a[3] = e.create(i.x, i.y),
         a
     },
     intersectCircle(t, a, o) {
@@ -14434,13 +14626,13 @@ const F = {
         return a.type === r.Type.Aabb ? r.intersectAabb(t, a.min, a.max) : r.intersectCircle(t, a.pos, a.rad)
     }
 };
-function n(t, a, o, l) {
-    return l = l || {},
+function n(t, a, o, i) {
+    return i = i || {},
     {
         tier: t,
         min: a,
         max: o,
-        props: l
+        props: i
     }
 }
 function d(t, a, o) {
@@ -14453,32 +14645,32 @@ function d(t, a, o) {
 }
 function p(t) {
     const a = [];
-    for (const l in t)
-        t[l] && a.push({
-            type: l,
-            weight: t[l]
+    for (const i in t)
+        t[i] && a.push({
+            type: i,
+            weight: t[i]
         });
     if (a.length === 0)
         throw new Error("Invalid obstacle types");
     let o = 0;
-    for (let l = 0; l < a.length; l++)
-        o += a[l].weight;
+    for (let i = 0; i < a.length; i++)
+        o += a[i].weight;
     return function() {
-        let l = h.random(0, o)
-          , i = 0;
-        for (; l > a[i].weight; )
-            l -= a[i].weight,
-            i++;
-        return a[i].type
+        let i = h.random(0, o)
+          , l = 0;
+        for (; i > a[l].weight; )
+            i -= a[l].weight,
+            l++;
+        return a[l].type
     }
 }
-function f(t, a=16777215, o=1, l=10) {
+function f(t, a=16777215, o=1, i=10) {
     return {
         sprite: t,
         scale: .5,
         alpha: o,
         tint: a,
-        zIdx: l
+        zIdx: i
     }
 }
 function Ve(t) {
@@ -14569,7 +14761,7 @@ function We(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function kt(t) {
+function vt(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -14613,7 +14805,7 @@ function kt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ge(t) {
+function Ne(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -14657,7 +14849,7 @@ function Ge(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ne(t) {
+function Ze(t) {
     const a = {
         type: "building",
         map: {
@@ -14717,7 +14909,7 @@ function Ne(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function vt(t) {
+function Tt(t) {
     const a = {
         type: "building",
         ori: 0,
@@ -14765,7 +14957,7 @@ function vt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Tt(t) {
+function St(t) {
     const a = {
         type: "building",
         map: {
@@ -14837,7 +15029,7 @@ function Tt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function V(t) {
+function G(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -14881,7 +15073,7 @@ function V(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function J(t) {
+function Y(t) {
     const a = {
         type: "building",
         map: {
@@ -14964,7 +15156,7 @@ function ue(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function fe(t) {
+function xe(t) {
     const a = {
         type: "obstacle",
         obstacleType: "crate",
@@ -15008,8 +15200,8 @@ function fe(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function ke(t) {
-    const a = fe({
+function ve(t) {
+    const a = xe({
         collision: r.createAabbExtents(e.create(0, .8), e.create(2.25, .8)),
         mapObstacleBounds: [r.createAabbExtents(e.create(0, .8), e.create(2.25, 1.6))],
         terrain: {
@@ -15020,7 +15212,7 @@ function ke(t) {
     });
     return h.mergeDeep(a, t || {})
 }
-function he(t) {
+function be(t) {
     const a = [{
         type: "container_wall_top",
         pos: e.create(0, 7.95),
@@ -15114,7 +15306,7 @@ function he(t) {
         mapObjects: t.open ? o : a
     }
 }
-function ze(t) {
+function Be(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -15158,7 +15350,7 @@ function ze(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function A(t) {
+function I(t) {
     const a = {
         type: "obstacle",
         obstacleType: "crate",
@@ -15203,7 +15395,7 @@ function A(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Y(t) {
+function ee(t) {
     const a = {
         obstacleType: "airdrop",
         dropCollision: r.createAabbExtents(e.create(0, 0), e.create(2.5, 2.5)),
@@ -15241,9 +15433,9 @@ function Y(t) {
             explode: "airdrop_open_02"
         }
     };
-    return h.mergeDeep(A(a), t || {})
+    return h.mergeDeep(I(a), t || {})
 }
-function ae(t) {
+function re(t) {
     const a = {
         type: "obstacle",
         obstacleType: "crate",
@@ -15286,7 +15478,7 @@ function ae(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function St(t) {
+function It(t) {
     const a = {
         type: "obstacle",
         obstacleType: "locker",
@@ -15387,11 +15579,11 @@ function N(t) {
         }
     }
       , o = t.material;
-    if (!Le[o])
+    if (!Ue[o])
         throw new Error(`Invalid material ${t.material}`);
-    return h.mergeDeep(a, Le[o], t || {})
+    return h.mergeDeep(a, Ue[o], t || {})
 }
-function ve(t) {
+function Te(t) {
     const a = N({
         material: "concrete",
         hinge: e.create(0, 2),
@@ -15468,7 +15660,7 @@ function At(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Te(t) {
+function Se(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -15516,7 +15708,7 @@ function Te(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ze(t) {
+function Ke(t) {
     const a = {
         type: "obstacle",
         obstacleType: "locker",
@@ -15564,7 +15756,7 @@ function Ze(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function re(t) {
+function oe(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -15606,7 +15798,7 @@ function re(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function It(t) {
+function Ot(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -15650,7 +15842,7 @@ function It(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function be(t) {
+function ye(t) {
     const a = {
         type: "obstacle",
         obstacleType: "pot",
@@ -15795,7 +15987,7 @@ function de(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ke(t) {
+function $e(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -15842,7 +16034,7 @@ function Ke(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Be(t) {
+function Re(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -15887,7 +16079,7 @@ function Be(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function ee(t) {
+function te(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -15942,7 +16134,7 @@ function ee(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ot(t) {
+function Ct(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -15985,7 +16177,7 @@ function Ot(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ct(t) {
+function Et(t) {
     const a = {
         type: "obstacle",
         map: {
@@ -16023,7 +16215,7 @@ function Ct(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Et(t) {
+function Dt(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -16065,7 +16257,7 @@ function Et(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function W(t) {
+function V(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -16109,7 +16301,7 @@ function W(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Se(t) {
+function Ie(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -16156,7 +16348,7 @@ function Se(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function ye(t) {
+function fe(t) {
     const a = {
         type: "obstacle",
         obstacleType: "furniture",
@@ -16289,7 +16481,7 @@ function E(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function $e(t) {
+function Xe(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -16376,11 +16568,11 @@ function _(t) {
         }
     }
       , o = t.material;
-    if (!Le[o])
+    if (!Ue[o])
         throw new Error(`Invalid material ${t.material}`);
-    return h.mergeDeep(a, Le[o], t || {})
+    return h.mergeDeep(a, Ue[o], t || {})
 }
-function Xe(t) {
+function Je(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -16810,7 +17002,7 @@ function Qe(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Dt(t) {
+function Pt(t) {
     const a = {
         type: "building",
         map: {
@@ -16952,7 +17144,7 @@ function Dt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ie(t) {
+function Oe(t) {
     const a = {
         type: "building",
         map: {
@@ -17354,7 +17546,7 @@ function Ie(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Pt(t) {
+function zt(t) {
     const a = {
         type: "building",
         map: {
@@ -17463,7 +17655,7 @@ function Pt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function zt(t) {
+function Bt(t) {
     const a = {
         type: "building",
         map: {
@@ -17667,7 +17859,7 @@ function zt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Je(t) {
+function Ye(t) {
     const a = {
         type: "building",
         map: {
@@ -17943,7 +18135,7 @@ function Je(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Oe(t) {
+function Ce(t) {
     const a = {
         type: "building",
         map: {
@@ -18078,7 +18270,7 @@ function Oe(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ye(t) {
+function et(t) {
     const a = {
         type: "building",
         map: {
@@ -18204,7 +18396,7 @@ function Ye(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Bt(t) {
+function Rt(t) {
     const a = {
         type: "building",
         map: {
@@ -18459,7 +18651,7 @@ function Bt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Rt(t) {
+function qt(t) {
     const a = {
         type: "structure",
         terrain: {
@@ -18485,7 +18677,7 @@ function Rt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function et(t) {
+function tt(t) {
     const a = {
         type: "building",
         map: {
@@ -18846,7 +19038,7 @@ function et(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function tt(t) {
+function at(t) {
     const a = {
         type: "building",
         map: {
@@ -18942,7 +19134,7 @@ function tt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function at(t) {
+function rt(t) {
     const a = {
         type: "building",
         map: {
@@ -19546,7 +19738,7 @@ function at(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function qt(t) {
+function Lt(t) {
     const a = {
         type: "building",
         map: {
@@ -19793,7 +19985,7 @@ function qt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function rt(t) {
+function ot(t) {
     const a = {
         type: "building",
         map: {
@@ -19874,7 +20066,7 @@ function rt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Lt(t) {
+function Ut(t) {
     const a = {
         type: "building",
         map: {
@@ -19985,7 +20177,7 @@ function Lt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ut(t) {
+function Ft(t) {
     const a = {
         type: "building",
         map: {
@@ -20085,7 +20277,7 @@ function Ut(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function ot(t) {
+function it(t) {
     const a = {
         type: "building",
         map: {
@@ -20115,7 +20307,7 @@ function ot(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ft(t) {
+function jt(t) {
     const a = {
         type: "building",
         map: {
@@ -20984,7 +21176,7 @@ function lt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function it(t) {
+function st(t) {
     const a = {
         type: "building",
         map: {
@@ -21322,7 +21514,7 @@ function it(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function jt(t) {
+function Ht(t) {
     const a = {
         type: "building",
         map: {
@@ -21420,7 +21612,7 @@ function jt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Ht(t) {
+function Gt(t) {
     const a = {
         type: "building",
         map: {
@@ -21509,7 +21701,7 @@ function Ht(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function Re(t) {
+function qe(t) {
     const a = {
         type: "building",
         map: {
@@ -21880,7 +22072,7 @@ function Vt(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function st(t) {
+function ct(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -21916,7 +22108,7 @@ function st(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-function G(t) {
+function W(t) {
     const a = {
         type: "obstacle",
         scale: {
@@ -21950,7 +22142,7 @@ function G(t) {
     };
     return h.mergeDeep(a, t || {})
 }
-const Le = {
+const Ue = {
     metal: {
         destructible: !1,
         reflectBullets: !0,
@@ -22043,7 +22235,7 @@ const Le = {
         }
     }
 }
-  , ht = {
+  , bt = {
     barrel_01: Ve({}),
     barrel_01b: Ve({
         img: {
@@ -22086,13 +22278,13 @@ const Le = {
             scale: .4
         }
     }),
-    bed_sm_01: kt({
+    bed_sm_01: vt({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.4, 3.4)),
         img: {
             sprite: "map-bed-01.img"
         }
     }),
-    bed_lg_01: kt({
+    bed_lg_01: vt({
         img: {
             residue: "map-bed-res-02.img"
         }
@@ -22136,25 +22328,25 @@ const Le = {
             enter: "none"
         }
     },
-    bookshelf_01: Ge({
+    bookshelf_01: Ne({
         img: {
             sprite: "map-bookshelf-01.img"
         },
         loot: [n("tier_world", 1, 1)]
     }),
-    bookshelf_02: Ge({
+    bookshelf_02: Ne({
         img: {
             sprite: "map-bookshelf-02.img"
         },
         loot: [n("tier_soviet", 2, 3)]
     }),
-    bush_01: V({}),
-    bush_01b: V({
+    bush_01: G({}),
+    bush_01b: G({
         img: {
             alpha: 1
         }
     }),
-    bush_01cb: V({
+    bush_01cb: G({
         img: {
             sprite: "map-bush-01cb.img"
         },
@@ -22162,7 +22354,7 @@ const Le = {
             color: 2518873
         }
     }),
-    bush_01f: V({
+    bush_01f: G({
         img: {
             sprite: "map-bush-01f.img"
         },
@@ -22170,7 +22362,7 @@ const Le = {
             color: 1793032
         }
     }),
-    bush_01sv: V({
+    bush_01sv: G({
         hitParticle: "leafPrickly",
         explodeParticle: "leafPrickly",
         img: {
@@ -22181,7 +22373,7 @@ const Le = {
             color: 7569455
         }
     }),
-    brush_01sv: V({
+    brush_01sv: G({
         scale: {
             createMin: 1.5,
             createMax: 1.75,
@@ -22199,7 +22391,7 @@ const Le = {
             color: 5207588
         }
     }),
-    brush_02sv: V({
+    brush_02sv: G({
         scale: {
             createMin: 1.5,
             createMax: 1.75,
@@ -22217,7 +22409,7 @@ const Le = {
             color: 5207588
         }
     }),
-    bush_01x: V({
+    bush_01x: G({
         map: {
             color: 4545840
         },
@@ -22225,18 +22417,18 @@ const Le = {
             sprite: "map-bush-01x.img"
         }
     }),
-    bush_02: V({
+    bush_02: G({
         img: {
             residue: "map-bush-res-02.img"
         }
     }),
-    bush_03: V({
+    bush_03: G({
         img: {
             sprite: "map-bush-03.img",
             alpha: 1
         }
     }),
-    bush_04: V({
+    bush_04: G({
         hitParticle: "leafRiver",
         explodeParticle: "leafRiver",
         img: {
@@ -22256,7 +22448,7 @@ const Le = {
             enter: "bush_enter_02"
         }
     }),
-    bush_04cb: V({
+    bush_04cb: G({
         hitParticle: "leafRiver",
         explodeParticle: "leafRiver",
         img: {
@@ -22279,7 +22471,7 @@ const Le = {
             color: 2784099
         }
     }),
-    bush_05: V({
+    bush_05: G({
         img: {
             sprite: "map-bush-05.img",
             residue: "map-bush-res-05.img"
@@ -22288,7 +22480,7 @@ const Le = {
             color: 6971965
         }
     }),
-    bush_06: V({
+    bush_06: G({
         collision: r.createCircle(e.create(0, 0), 1.75),
         img: {
             sprite: "map-bush-06.img",
@@ -22300,7 +22492,7 @@ const Le = {
             scale: 1.5
         }
     }),
-    bush_06b: V({
+    bush_06b: G({
         scale: {
             createMin: 1,
             createMax: 1
@@ -22317,7 +22509,7 @@ const Le = {
             scale: 1.5
         }
     }),
-    bush_07: V({
+    bush_07: G({
         hitParticle: "leafRiver",
         explodeParticle: "leafRiver",
         img: {
@@ -22329,7 +22521,7 @@ const Le = {
             enter: "bush_enter_02"
         }
     }),
-    bush_07sp: V({
+    bush_07sp: G({
         hitParticle: "leafRiver",
         explodeParticle: "leafRiver",
         map: {
@@ -22346,7 +22538,7 @@ const Le = {
             enter: "bush_enter_02"
         }
     }),
-    bush_07x: V({
+    bush_07x: G({
         img: {
             sprite: "map-bush-07x.img"
         }
@@ -22423,13 +22615,13 @@ const Le = {
             scale: .85
         }
     }),
-    chest_01: fe({
+    chest_01: xe({
         loot: [n("tier_chest", 3, 4), n("tier_pirate_melee", 1, 1), d("outfitRoyalFortune", 1)]
     }),
-    chest_01cb: fe({
+    chest_01cb: xe({
         loot: [n("tier_chest", 3, 4), n("tier_pirate_melee", 1, 1)]
     }),
-    chest_02: fe({
+    chest_02: xe({
         img: {
             sprite: "map-chest-02.img"
         },
@@ -22440,37 +22632,37 @@ const Le = {
             scale: .85
         }
     }),
-    chest_03: ke({
+    chest_03: ve({
         img: {
             sprite: "map-chest-03.img"
         },
         loot: [n("tier_chest", 3, 5), d("outfitWaterElem", 1)]
     }),
-    chest_03cb: ke({
+    chest_03cb: ve({
         img: {
             sprite: "map-chest-03.img"
         },
         loot: [n("tier_chest", 3, 5)]
     }),
-    chest_03d: ke({
+    chest_03d: ve({
         img: {
             sprite: "map-chest-03d.img"
         },
         loot: [n("tier_chest", 3, 5), d("outfitWaterElem", 1)]
     }),
-    chest_03f: ke({
+    chest_03f: ve({
         img: {
             sprite: "map-chest-03f.img"
         },
         loot: [n("tier_chest", 3, 5), d("outfitKhaki", 1)]
     }),
-    chest_03x: ke({
+    chest_03x: ve({
         img: {
             sprite: "map-chest-03x.img"
         },
         loot: [n("tier_chest", 3, 5), d("outfitWaterElem", 1)]
     }),
-    chest_04: fe({
+    chest_04: xe({
         health: 200,
         img: {
             sprite: "map-case-basement-01.img"
@@ -22482,7 +22674,7 @@ const Le = {
             scale: .85
         }
     }),
-    chest_04d: fe({
+    chest_04d: xe({
         health: 200,
         img: {
             sprite: "map-case-basement-01.img"
@@ -22494,7 +22686,7 @@ const Le = {
             scale: .85
         }
     }),
-    control_panel_01: re({
+    control_panel_01: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.25, 1.7)),
         button: {
             interactionRad: .75,
@@ -22513,14 +22705,14 @@ const Le = {
             sprite: "map-control-panel-01.img"
         }
     }),
-    control_panel_02: re({
+    control_panel_02: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.25, 1.7)),
         health: 175,
         img: {
             sprite: "map-control-panel-02.img"
         }
     }),
-    control_panel_02b: re({
+    control_panel_02b: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.25, 1.7)),
         destructible: !1,
         button: {
@@ -22540,14 +22732,14 @@ const Le = {
             sprite: "map-control-panel-02.img"
         }
     }),
-    control_panel_03: re({
+    control_panel_03: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.25, 1.2)),
         health: 150,
         img: {
             sprite: "map-control-panel-03.img"
         }
     }),
-    control_panel_04: re({
+    control_panel_04: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.25, 1.7)),
         button: {
             interactionRad: .75,
@@ -22566,14 +22758,14 @@ const Le = {
             sprite: "map-control-panel-04.img"
         }
     }),
-    control_panel_06: re({
+    control_panel_06: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.5, 1.2)),
         health: 200,
         img: {
             sprite: "map-control-panel-06.img"
         }
     }),
-    switch_01: re({
+    switch_01: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.45, .55)),
         destructible: !1,
         button: {
@@ -22594,14 +22786,14 @@ const Le = {
             sprite: "map-switch-01.img"
         }
     }),
-    switch_02: re({
+    switch_02: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.45, .55)),
         destructible: !1,
         img: {
             sprite: "map-switch-02.img"
         }
     }),
-    switch_03: re({
+    switch_03: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.45, .55)),
         destructible: !1,
         button: {
@@ -22622,33 +22814,33 @@ const Le = {
             sprite: "map-switch-01.img"
         }
     }),
-    couch_01: ze({}),
-    couch_02: ze({
+    couch_01: Be({}),
+    couch_02: Be({
         collision: r.createAabbExtents(e.create(0, 0), e.create(3, 1.5)),
         img: {
             sprite: "map-couch-02.img"
         }
     }),
-    couch_02b: ze({
+    couch_02b: Be({
         collision: r.createAabbExtents(e.create(0, 0), e.create(3, 1.5)),
         img: {
             sprite: "map-couch-02.img",
             mirrorY: !0
         }
     }),
-    couch_03: ze({
+    couch_03: Be({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 1.5)),
         img: {
             sprite: "map-couch-03.img"
         }
     }),
-    crate_01: A({}),
-    crate_01x: A({
+    crate_01: I({}),
+    crate_01x: I({
         img: {
             sprite: "map-crate-01x.img"
         }
     }),
-    crate_02: A({
+    crate_02: I({
         health: 140,
         loot: [n("tier_soviet", 3, 5)],
         map: {
@@ -22665,7 +22857,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_02sv: A({
+    crate_02sv: I({
         health: 140,
         loot: [n("tier_soviet", 4, 5), n("tier_world", 1, 1)],
         map: {
@@ -22683,7 +22875,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_02sv_lake: A({
+    crate_02sv_lake: I({
         health: 140,
         loot: [n("tier_soviet", 5, 6)],
         map: {
@@ -22700,7 +22892,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_02x: A({
+    crate_02x: I({
         health: 140,
         loot: [n("tier_soviet", 3, 5)],
         map: {
@@ -22717,7 +22909,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_02f: A({
+    crate_02f: I({
         health: 140,
         loot: [n("tier_guns", 3, 3), n("tier_armor", 2, 2), n("tier_packs", 1, 1)],
         map: {
@@ -22735,7 +22927,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_02d: A({
+    crate_02d: I({
         health: 140,
         loot: [d("m1014", 1, 1), d("helmet03_lt_aged", 1, 1), d("outfitRedLeaderAged", 1, 1), d("machete_taiga", 1, 1)],
         map: {
@@ -22753,7 +22945,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_03: A({
+    crate_03: I({
         health: 100,
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.575, 1.575)),
         loot: [n("tier_throwables", 2, 4)],
@@ -22773,7 +22965,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_03x: A({
+    crate_03x: I({
         health: 100,
         hitParticle: "glassChip",
         explodeParticle: ["glassPlank"],
@@ -22795,7 +22987,7 @@ const Le = {
             explode: "crate_break_02"
         }
     }),
-    crate_04: A({
+    crate_04: I({
         health: 225,
         destructible: !0,
         armorPlated: !0,
@@ -22815,7 +23007,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_05: A({
+    crate_05: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2, 2)),
         destructible: !1,
         hitParticle: "goldChip",
@@ -22831,7 +23023,7 @@ const Le = {
             punch: "wall_brick_bullet"
         }
     }),
-    crate_06: A({
+    crate_06: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.25, 1.1)),
         health: 175,
         destructible: !0,
@@ -22849,7 +23041,7 @@ const Le = {
             punch: "ammo_crate_bullet"
         }
     }),
-    crate_07: A({
+    crate_07: I({
         health: 140,
         loot: [n("tier_surviv", 4, 5), d("ak47", 1), d("ak47", 1), d("ak47", 1), d("ak47", 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1)],
         img: {
@@ -22859,7 +23051,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_07b: A({
+    crate_07b: I({
         health: 140,
         loot: [n("tier_armor", 4, 5), d("mp220", 1), d("mp220", 1), d("bar", 1), d("bar", 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1)],
         img: {
@@ -22869,7 +23061,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_07sv: A({
+    crate_07sv: I({
         health: 140,
         loot: [n("tier_surviv", 4, 5), d("svd", 1), d("svd", 1), d("blr", 1), d("blr", 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1), n("tier_khaki_outfit", 1, 1)],
         img: {
@@ -22879,7 +23071,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_08: A({
+    crate_08: I({
         health: 140,
         loot: [n("tier_surviv", 2, 3)],
         map: {
@@ -22896,7 +23088,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_09: A({
+    crate_09: I({
         health: 140,
         loot: [n("tier_chest", 1, 2), n("tier_conch", 1, 1)],
         map: {
@@ -22913,7 +23105,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_10: A({
+    crate_10: I({
         health: 200,
         scale: {
             destroy: .75
@@ -22930,7 +23122,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_11: A({
+    crate_11: I({
         scale: {
             destroy: .75
         },
@@ -22947,7 +23139,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_11h: A({
+    crate_11h: I({
         collision: r.createCircle(e.create(0, 0), 2.25),
         isDecalAnchor: !0,
         scale: {
@@ -22966,7 +23158,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_10sv: A({
+    crate_10sv: I({
         health: 200,
         scale: {
             destroy: .75
@@ -22983,7 +23175,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_11sv: A({
+    crate_11sv: I({
         scale: {
             destroy: .75
         },
@@ -23000,7 +23192,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_11de: A({
+    crate_11de: I({
         scale: {
             destroy: .75
         },
@@ -23017,7 +23209,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_11tr: A({
+    crate_11tr: I({
         scale: {
             destroy: .75
         },
@@ -23034,7 +23226,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_12: A({
+    crate_12: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(3.5, 3.5)),
         scale: {
             destroy: .75
@@ -23056,7 +23248,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_13: A({
+    crate_13: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(3.5, 3.5)),
         scale: {
             destroy: .75
@@ -23078,7 +23270,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_14: A({
+    crate_14: I({
         explodeParticle: ["windowBreak", "woodPlank"],
         loot: [n("tier_throwables", 1, 1)],
         img: {
@@ -23088,7 +23280,7 @@ const Le = {
             explode: "window_break_02"
         }
     }),
-    crate_14a: A({
+    crate_14a: I({
         explodeParticle: ["windowBreak", "woodPlank"],
         loot: [n("tier_soviet", 1, 1)],
         img: {
@@ -23098,7 +23290,7 @@ const Le = {
             explode: "window_break_02"
         }
     }),
-    crate_15: A({
+    crate_15: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [n("tier_knives", 4, 4)],
@@ -23116,7 +23308,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_16: A({
+    crate_16: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [n("tier_knives", 4, 4)],
@@ -23134,7 +23326,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_18: A({
+    crate_18: I({
         health: 140,
         loot: [n("tier_cattle_crate", 2, 3), n("tier_soviet", 1, 2)],
         map: {
@@ -23153,7 +23345,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_19: A({
+    crate_19: I({
         health: 140,
         loot: [n("tier_guns", 1, 3), n("tier_surviv", 2, 3)],
         map: {
@@ -23172,7 +23364,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_20: A({
+    crate_20: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.7, 1.7)),
         health: 75,
         hitParticle: "greenChip",
@@ -23194,7 +23386,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_21: A({
+    crate_21: I({
         health: 140,
         loot: [n("tier_guns", 1, 2), n("tier_snipers", 1, 1), n("tier_cloud_02", 1, 1), n("tier_perks", 1, 1)],
         map: {
@@ -23213,7 +23405,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_21b: A({
+    crate_21b: I({
         health: 140,
         loot: [n("tier_guns", 1, 2), n("tier_snipers", 1, 1), n("tier_cloud_02", 1, 1), n("tier_perks", 1, 1)],
         map: {
@@ -23232,7 +23424,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_22: A({
+    crate_22: I({
         health: 140,
         loot: [n("tier_guns", 3, 3), n("tier_armor", 2, 2), n("tier_packs", 1, 1)],
         map: {
@@ -23250,7 +23442,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    crate_22d: A({
+    crate_22d: I({
         health: 140,
         loot: [d("an94", 1, 1), d("helmet03_lt_aged", 1, 1), d("outfitBlueLeaderAged", 1, 1), d("kukri_trad", 1, 1)],
         map: {
@@ -23268,7 +23460,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    airdrop_crate_01: Y({
+    airdrop_crate_01: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23284,7 +23476,7 @@ const Le = {
         destroyType: "crate_10",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_02: Y({
+    airdrop_crate_02: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23300,7 +23492,7 @@ const Le = {
         destroyType: "crate_11",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_03: Y({
+    airdrop_crate_03: ee({
         collision: r.createAabbExtents(e.create(0, 0), e.create(4, 4)),
         button: {
             useImg: "map-airdrop-04.img",
@@ -23317,7 +23509,7 @@ const Le = {
         destroyType: "crate_12",
         explodeParticle: "airdropCrate04"
     }),
-    airdrop_crate_04: Y({
+    airdrop_crate_04: ee({
         collision: r.createAabbExtents(e.create(0, 0), e.create(4, 4)),
         button: {
             useImg: "map-airdrop-04.img",
@@ -23334,7 +23526,7 @@ const Le = {
         destroyType: "crate_13",
         explodeParticle: "airdropCrate04"
     }),
-    airdrop_crate_01sv: Y({
+    airdrop_crate_01sv: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23350,7 +23542,7 @@ const Le = {
         destroyType: "crate_10sv",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_02sv: Y({
+    airdrop_crate_02sv: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23366,7 +23558,7 @@ const Le = {
         destroyType: "crate_11sv",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_02de: Y({
+    airdrop_crate_02de: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23382,7 +23574,7 @@ const Le = {
         destroyType: "crate_11de",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_02h: Y({
+    airdrop_crate_02h: ee({
         collision: r.createCircle(e.create(0, 0), 2.5),
         button: {
             useImg: "map-airdrop-02h.img",
@@ -23399,7 +23591,7 @@ const Le = {
         destroyType: "cache_pumpkin_airdrop_02",
         explodeParticle: "airdropCrate02h"
     }),
-    airdrop_crate_02tr: Y({
+    airdrop_crate_02tr: ee({
         button: {
             useImg: "map-airdrop-02.img",
             useParticle: "airdropCrate01",
@@ -23415,9 +23607,9 @@ const Le = {
         destroyType: "crate_11tr",
         explodeParticle: "airdropCrate02"
     }),
-    airdrop_crate_01x: Y({
+    airdrop_crate_01x: ee({
         button: {
-            useImg: "map-airdrop-02x.img",
+            useImg: "map-crate-13x.img",
             useParticle: "airdropCrate01x",
             sound: {
                 on: "airdrop_open_01",
@@ -23431,9 +23623,9 @@ const Le = {
         destroyType: "crate_10",
         explodeParticle: "airdropCrate02x"
     }),
-    airdrop_crate_02x: Y({
+    airdrop_crate_02x: ee({
         button: {
-            useImg: "map-airdrop-02x.img",
+            useImg: "map-crate-13x.img",
             useParticle: "airdropCrate01x",
             sound: {
                 on: "airdrop_open_01",
@@ -23441,13 +23633,13 @@ const Le = {
             }
         },
         img: {
-            sprite: "map-airdrop-01x.img",
+            sprite: "map-airdrop-02x.img",
             residue: "none"
         },
         destroyType: "crate_11",
         explodeParticle: "airdropCrate02x"
     }),
-    class_shell_01: Y({
+    class_shell_01: ee({
         collision: r.createCircle(e.create(0, 0), 2.25),
         button: {
             useImg: "map-class-shell-01b.img",
@@ -23465,7 +23657,7 @@ const Le = {
         smartLoot: !0,
         explodeParticle: "classShell01b"
     }),
-    class_shell_02: Y({
+    class_shell_02: ee({
         collision: r.createCircle(e.create(0, 0), 2.25),
         button: {
             useImg: "map-class-shell-02b.img",
@@ -23483,7 +23675,7 @@ const Le = {
         smartLoot: !0,
         explodeParticle: "classShell02b"
     }),
-    class_shell_03: Y({
+    class_shell_03: ee({
         collision: r.createCircle(e.create(0, 0), 2.25),
         button: {
             useImg: "map-class-shell-03b.img",
@@ -23501,85 +23693,85 @@ const Le = {
         destroyType: "class_crate_mythic",
         explodeParticle: "classShell03b"
     }),
-    class_crate_common_scout: ae({
+    class_crate_common_scout: re({
         loot: [n("tier_guns_common_scout", 1, 1), d("crowbar_scout", 1), d("helmet01", 1), d("backpack01", 1), d("soda", 1), d("soda", 1), d("soda", 1)],
         img: {
             sprite: "map-class-crate-scout.img"
         }
     }),
-    class_crate_common_sniper: ae({
+    class_crate_common_sniper: re({
         loot: [n("tier_guns_common_sniper", 1, 1), d("kukri_sniper", 1), d("helmet01", 1), d("backpack01", 1), d("4xscope", 1)],
         img: {
             sprite: "map-class-crate-sniper.img"
         }
     }),
-    class_crate_common_healer: ae({
+    class_crate_common_healer: re({
         loot: [n("tier_guns_common_healer", 1, 1), d("bonesaw_healer", 1), d("helmet01", 1), d("backpack01", 1), d("healthkit", 1), d("painkiller", 1), d("smoke", 3)],
         img: {
             sprite: "map-class-crate-healer.img"
         }
     }),
-    class_crate_common_demo: ae({
+    class_crate_common_demo: re({
         loot: [n("tier_guns_common_demo", 1, 1), d("katana_demo", 1), d("helmet01", 1), d("backpack02", 1), d("mirv", 1), d("mirv", 1), d("mirv", 1), d("mirv", 1), d("mirv", 1), d("mirv", 1)],
         img: {
             sprite: "map-class-crate-demo.img"
         }
     }),
-    class_crate_common_assault: ae({
+    class_crate_common_assault: re({
         loot: [n("tier_guns_common_assault", 2, 2), d("spade_assault", 1), d("helmet01", 1), d("backpack01", 1)],
         img: {
             sprite: "map-class-crate-assault.img"
         }
     }),
-    class_crate_common_tank: ae({
+    class_crate_common_tank: re({
         loot: [n("tier_guns_common_tank", 1, 1), d("warhammer_tank", 1), d("helmet02", 1), d("chest02", 1), d("backpack01", 1)],
         img: {
             sprite: "map-class-crate-tank.img"
         }
     }),
-    class_crate_rare_scout: ae({
+    class_crate_rare_scout: re({
         loot: [n("tier_guns_rare_scout", 1, 1), d("crowbar_scout", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-scout.img"
         }
     }),
-    class_crate_rare_sniper: ae({
+    class_crate_rare_sniper: re({
         loot: [n("tier_guns_rare_sniper", 1, 1), d("kukri_sniper", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-sniper.img"
         }
     }),
-    class_crate_rare_healer: ae({
+    class_crate_rare_healer: re({
         loot: [n("tier_guns_rare_healer", 1, 1), d("bonesaw_healer", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-healer.img"
         }
     }),
-    class_crate_rare_demo: ae({
+    class_crate_rare_demo: re({
         loot: [n("tier_guns_rare_demo", 1, 1), d("katana_demo", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-demo.img"
         }
     }),
-    class_crate_rare_assault: ae({
+    class_crate_rare_assault: re({
         loot: [n("tier_guns_rare_assault", 2, 2), d("spade_assault", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-assault.img"
         }
     }),
-    class_crate_rare_tank: ae({
+    class_crate_rare_tank: re({
         loot: [n("tier_guns_rare_tank", 1, 1), d("warhammer_tank", 1), n("tier_airdrop_armor", 1, 1), n("tier_medical", 1, 1), n("tier_airdrop_scopes", 1, 1), n("tier_airdrop_ammo", 2, 2), n("tier_airdrop_throwables", 1, 1)],
         img: {
             sprite: "map-class-crate-tank.img"
         }
     }),
-    class_crate_mythic: ae({
+    class_crate_mythic: re({
         loot: [n("tier_class_crate_mythic", 1, 1)],
         img: {
             sprite: "map-class-crate-03.img"
         }
     }),
-    mil_crate_01: A({
+    mil_crate_01: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [n("tier_knives", 1, 1)],
@@ -23597,7 +23789,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    mil_crate_02: A({
+    mil_crate_02: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [d("ot38", 1), d("ot38", 1), d("ot38", 1), d("ot38", 1)],
@@ -23615,10 +23807,10 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    mil_crate_03: A({
+    mil_crate_03: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
-        loot: [d("ots38_dual", 1), d("outfitWhite", 1)],
+        loot: [d("ots38", 1), d("ots38", 1), d("ots38", 1), d("ots38", 1)],
         map: {
             display: !1
         },
@@ -23633,7 +23825,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    mil_crate_04: A({
+    mil_crate_04: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [n("tier_guns", 1, 1), n("tier_throwables", 2, 3)],
@@ -23651,7 +23843,7 @@ const Le = {
             explode: "crate_break_01"
         }
     }),
-    mil_crate_05: A({
+    mil_crate_05: I({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
         loot: [n("tier_guns", 1, 2), n("tier_snipers", 1, 2)],
@@ -23812,13 +24004,13 @@ const Le = {
             enter: "none"
         }
     },
-    deposit_box_01: St({
+    deposit_box_01: It({
         img: {
             sprite: "map-deposit-box-01.img"
         },
         loot: [n("tier_world", 1, 1)]
     }),
-    deposit_box_02: St({
+    deposit_box_02: It({
         explodeParticle: "depositBoxGoldBreak",
         img: {
             sprite: "map-deposit-box-02.img"
@@ -23878,61 +24070,61 @@ const Le = {
             enter: "none"
         }
     },
-    grill_01: It({
+    grill_01: Ot({
         collision: r.createCircle(e.create(0, 0), 1.55),
         img: {
             sprite: "map-grill-01.img"
         }
     }),
-    gun_mount_01: Te({
+    gun_mount_01: Se({
         loot: [d("m870", 1)],
         img: {
             sprite: "map-gun-mount-01.img"
         }
     }),
-    gun_mount_02: Te({
+    gun_mount_02: Se({
         loot: [d("mp220", 1)],
         img: {
             sprite: "map-gun-mount-02.img"
         }
     }),
-    gun_mount_03: Te({
+    gun_mount_03: Se({
         loot: [d("qbb97", 1)],
         img: {
             sprite: "map-gun-mount-03.img"
         }
     }),
-    gun_mount_04: Te({
+    gun_mount_04: Se({
         loot: [d("woodaxe_bloody", 1)],
         img: {
             sprite: "map-gun-mount-04.img"
         }
     }),
-    gun_mount_05: Te({
+    gun_mount_05: Se({
         loot: [d("m1100", 1)],
         img: {
             sprite: "map-gun-mount-05.img"
         }
     }),
-    locker_01: Ze({
+    locker_01: Ke({
         img: {
             sprite: "map-locker-01.img"
         },
         loot: [n("tier_world", 1, 1)]
     }),
-    locker_02: Ze({
+    locker_02: Ke({
         img: {
             sprite: "map-locker-02.img"
         },
         loot: [n("tier_police", 1, 1)]
     }),
-    locker_03: Ze({
+    locker_03: Ke({
         img: {
             sprite: "map-locker-03.img"
         },
         loot: [d("ak47", 1, 1), d("backpack02", 1, 1)]
     }),
-    oven_01: It({}),
+    oven_01: Ot({}),
     piano_01: {
         type: "obstacle",
         scale: {
@@ -23973,18 +24165,18 @@ const Le = {
             enter: "none"
         }
     },
-    planter_01: be({}),
-    planter_02: be({
+    planter_01: ye({}),
+    planter_02: ye({
         img: {
             sprite: "map-planter-02.img"
         }
     }),
-    planter_03: be({
+    planter_03: ye({
         img: {
             sprite: "map-planter-03.img"
         }
     }),
-    planter_04: be({
+    planter_04: ye({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 1.5)),
         img: {
             sprite: "map-planter-04.img"
@@ -24004,13 +24196,13 @@ const Le = {
             }
         }
     }),
-    planter_06: be({
+    planter_06: ye({
         img: {
             sprite: "map-planter-06.img",
             residue: "map-planter-res-02.img"
         }
     }),
-    planter_07: be({
+    planter_07: ye({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 1.5)),
         img: {
             sprite: "map-planter-07.img",
@@ -24023,7 +24215,7 @@ const Le = {
         img: {
             sprite: "map-pot-02.img"
         },
-        loot: [d("spas12", 1)]
+        loot: [d("garand", 1)]
     }),
     pot_03: ce({
         img: {
@@ -24051,31 +24243,31 @@ const Le = {
         img: {
             sprite: "map-pot-05.img"
         },
-        loot: [d("scout_elite", 1), n("tier_islander_outfit", 1, 1)]
+        loot: [d("m249", 1), n("tier_islander_outfit", 1, 1)]
     }),
-    potato_01: Ke({}),
-    potato_02: Ke({
+    potato_01: $e({}),
+    potato_02: $e({
         img: {
             sprite: "map-potato-02.img"
         }
     }),
-    potato_03: Ke({
+    potato_03: $e({
         img: {
             sprite: "map-potato-03.img"
         }
     }),
-    power_box_01: re({}),
-    pumpkin_01: Be({
+    power_box_01: oe({}),
+    pumpkin_01: Re({
         loot: [n("tier_outfits", 1, 1), n("tier_pumpkin_candy", 1, 1)]
     }),
-    pumpkin_02: Be({
+    pumpkin_02: Re({
         health: 140,
         img: {
             sprite: "map-pumpkin-02.img"
         },
-        loot: [n("tier_guns", 1, 2), n("tier_pumpkin_candy", 1, 2), n("tier_outfits", 1, 1)]
+        loot: [n("tier_pumpkin_candy", 1, 2), n("tier_outfits", 1, 1)]
     }),
-    pumpkin_03: Be({
+    pumpkin_03: Re({
         collision: r.createCircle(e.create(0, 0), 1.25),
         map: {
             display: !1
@@ -24086,7 +24278,7 @@ const Le = {
         },
         loot: [n("tier_pumpkin_perks", 1, 1), n("tier_fruit_xp", 1, 1)]
     }),
-    squash_01: Be({
+    squash_01: Re({
         collision: r.createCircle(e.create(0, 0), 1.25),
         map: {
             display: !1
@@ -24099,8 +24291,8 @@ const Le = {
         explodeParticle: "squashBreak",
         loot: [d("turkey_shoot", 1, 1), n("tier_fruit_xp", 1, 1)]
     }),
-    refrigerator_01: Ot({}),
-    refrigerator_01b: Ot({
+    refrigerator_01: Ct({}),
+    refrigerator_01b: Ct({
         scale: {
             createMin: 1,
             createMax: 1,
@@ -24108,77 +24300,77 @@ const Le = {
         },
         health: 250
     }),
-    recorder_01: ee({
+    recorder_01: te({
         button: {
             sound: {
                 on: "log_01"
             }
         }
     }),
-    recorder_02: ee({
+    recorder_02: te({
         button: {
             sound: {
                 on: "log_02"
             }
         }
     }),
-    recorder_03: ee({
+    recorder_03: te({
         button: {
             sound: {
                 on: "log_03"
             }
         }
     }),
-    recorder_04: ee({
+    recorder_04: te({
         button: {
             sound: {
                 on: "log_04"
             }
         }
     }),
-    recorder_05: ee({
+    recorder_05: te({
         button: {
             sound: {
                 on: "log_05"
             }
         }
     }),
-    recorder_06: ee({
+    recorder_06: te({
         button: {
             sound: {
                 on: "log_06"
             }
         }
     }),
-    recorder_07: ee({
+    recorder_07: te({
         button: {
             sound: {
                 on: "footstep_07"
             }
         }
     }),
-    recorder_08: ee({
+    recorder_08: te({
         button: {
             sound: {
                 on: "footstep_08"
             }
         }
     }),
-    recorder_09: ee({
+    recorder_09: te({
         button: {
             sound: {
                 on: "footstep_09"
             }
         }
     }),
-    recorder_10: ee({
+    recorder_10: te({
         button: {
             sound: {
                 on: "cell_control_03"
             }
         }
     }),
-    recorder_11: ee({
+    recorder_11: te({
         button: {
             sound: {
                 on: "log_11"
@@ -24190,7 +24382,7 @@ const Le = {
         },
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 1.25))
     }),
-    recorder_12: ee({
+    recorder_12: te({
         button: {
             sound: {
                 on: "log_12"
@@ -24202,7 +24394,7 @@ const Le = {
         },
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 1.25))
     }),
-    recorder_13: ee({
+    recorder_13: te({
         button: {
             sound: {
                 on: "log_13"
@@ -24214,7 +24406,7 @@ const Le = {
         },
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 1.25))
     }),
-    recorder_14: ee({
+    recorder_14: te({
         button: {
             sound: {
                 on: "log_14"
@@ -24267,15 +24459,15 @@ const Le = {
             enter: "none"
         }
     },
-    sandbags_01: Ct({}),
-    sandbags_02: Ct({
+    sandbags_01: Et({}),
+    sandbags_02: Et({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.1, 1.4)),
         img: {
             sprite: "map-sandbags-02.img"
         }
     }),
-    silo_01: Et({}),
-    silo_01po: Et({
+    silo_01: Dt({}),
+    silo_01po: Dt({
         scale: {
             createMin: 1,
             createMax: 1,
@@ -24370,13 +24562,13 @@ const Le = {
             enter: "none"
         }
     },
-    stone_01: W({}),
-    stone_01b: W({
+    stone_01: V({}),
+    stone_01b: V({
         img: {
             residue: "map-stone-res-01b.img"
         }
     }),
-    stone_01cb: W({
+    stone_01cb: V({
         map: {
             display: !0,
             color: 10265256,
@@ -24387,21 +24579,21 @@ const Le = {
             residue: "map-stone-res-01cb.img"
         }
     }),
-    stone_01f: W({
+    stone_01f: V({
         map: {
             display: !0,
             color: 8224125,
             scale: 1
         }
     }),
-    stone_01sv: W({
+    stone_01sv: V({
         scale: {
             createMin: 1.2,
             createMax: 1.5,
             destroy: .5
         }
     }),
-    stone_01x: W({
+    stone_01x: V({
         map: {
             display: !0,
             color: 6052956,
@@ -24412,44 +24604,44 @@ const Le = {
             residue: "map-stone-res-01x.img"
         }
     }),
-    stone_02: W({
+    stone_02: V({
         img: {
             tint: 15066597
         },
         loot: [n("tier_surviv", 2, 3), d("ak47", 1)]
     }),
-    stone_02sv: W({
+    stone_02sv: V({
         img: {
             tint: 15066597
         },
         loot: [n("tier_surviv", 2, 3), d("m39", 1), n("tier_perks", 1, 1)]
     }),
-    stone_03: Se({}),
-    stone_03b: Se({
+    stone_03: Ie({}),
+    stone_03b: Ie({
         img: {
             sprite: "map-stone-03b.img",
             residue: "map-stone-res-01.img"
         }
     }),
-    stone_03cb: Se({
+    stone_03cb: Ie({
         img: {
             sprite: "map-stone-03cb.img",
             residue: "map-stone-res-02cb.img"
         }
     }),
-    stone_03f: Se({
+    stone_03f: Ie({
         img: {
             sprite: "map-stone-03f.img",
             residue: "map-stone-res-02f.img"
         }
     }),
-    stone_03x: Se({
+    stone_03x: Ie({
         img: {
             sprite: "map-stone-03x.img",
             residue: "map-stone-res-02x.img"
         }
     }),
-    stone_04: W({
+    stone_04: V({
         stonePlated: !0,
         scale: {
             createMin: .8,
@@ -24475,7 +24667,7 @@ const Le = {
             residue: "map-stone-res-04.img"
         }
     }),
-    stone_05: W({
+    stone_05: V({
         stonePlated: !0,
         hitParticle: "rockEyeChip",
         explodeParticle: "rockEyeBreak",
@@ -24496,7 +24688,7 @@ const Le = {
             residue: "map-stone-res-01b.img"
         }
     }),
-    stone_06: W({
+    stone_06: V({
         stonePlated: !0,
         scale: {
             createMin: 1,
@@ -24521,7 +24713,7 @@ const Le = {
             residue: "map-stone-res-06.img"
         }
     }),
-    stone_07: W({
+    stone_07: V({
         scale: {
             createMin: 1,
             createMax: 1,
@@ -24547,7 +24739,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    stove_01: re({
+    stove_01: oe({
         obstacleType: "furniture",
         scale: {
             createMin: 1,
@@ -24570,7 +24762,7 @@ const Le = {
             enter: "none"
         }
     }),
-    stove_02: re({
+    stove_02: oe({
         obstacleType: "furniture",
         collision: r.createCircle(e.create(0, 0), 1.5),
         disableBuildingOccupied: !0,
@@ -24588,13 +24780,13 @@ const Le = {
             enter: "none"
         }
     }),
-    table_01: ye({}),
-    table_01x: ye({
+    table_01: fe({}),
+    table_01x: fe({
         img: {
             sprite: "map-table-01x.img"
         }
     }),
-    table_02: ye({
+    table_02: fe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(4.5, 2.5)),
         health: 125,
         img: {
@@ -24606,7 +24798,7 @@ const Le = {
             zIdx: 60
         }
     }),
-    table_02x: ye({
+    table_02x: fe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(4.5, 2.5)),
         health: 125,
         img: {
@@ -24618,7 +24810,7 @@ const Le = {
             zIdx: 60
         }
     }),
-    table_03: ye({
+    table_03: fe({
         collision: r.createCircle(e.create(0, 0), 2.5),
         health: 125,
         img: {
@@ -24630,7 +24822,7 @@ const Le = {
             zIdx: 60
         }
     }),
-    table_03x: ye({
+    table_03x: fe({
         collision: r.createCircle(e.create(0, 0), 2.5),
         health: 125,
         img: {
@@ -24733,7 +24925,7 @@ const Le = {
             explode: "toilet_break_02"
         }
     }),
-    towelrack_01: Ge({
+    towelrack_01: Ne({
         collision: r.createAabbExtents(e.create(0, 0), e.create(3, 1)),
         img: {
             sprite: "map-towelrack-01.img"
@@ -24826,7 +25018,7 @@ const Le = {
         img: {
             tint: 11645361
         },
-        loot: [n("tier_surviv", 2, 3), d("mosin", 1)]
+        loot: [n("tier_surviv", 2, 3), d("m1014", 1)]
     }),
     tree_03sv: E({
         map: {
@@ -25234,17 +25426,17 @@ const Le = {
             zIdx: 801
         }
     }),
-    tree_switch_01: $e({
+    tree_switch_01: Xe({
         img: {
             sprite: "map-tree-switch-01.img"
         }
     }),
-    tree_switch_02: $e({
+    tree_switch_02: Xe({
         img: {
             sprite: "map-tree-switch-02.img"
         }
     }),
-    tree_switch_03: $e({
+    tree_switch_03: Xe({
         img: {
             sprite: "map-tree-switch-03.img"
         }
@@ -25373,7 +25565,7 @@ const Le = {
         };
         return h.mergeDeep(t, {})
     }(),
-    wheel_01: Xe({
+    wheel_01: Je({
         button: {
             interactionRad: 1,
             interactionText: "game-use",
@@ -25388,12 +25580,12 @@ const Le = {
             }
         }
     }),
-    wheel_02: Xe({
+    wheel_02: Je({
         img: {
             sprite: "map-wheel-02.img"
         }
     }),
-    wheel_03: Xe({
+    wheel_03: Je({
         img: {
             sprite: "map-wheel-03.img"
         }
@@ -25532,12 +25724,12 @@ const Le = {
             tint: 921102
         }
     }),
-    lab_door_01: ve({
+    lab_door_01: Te({
         img: {
             tint: 5373952
         }
     }),
-    lab_door_02: ve({
+    lab_door_02: Te({
         door: {
             openOneWay: !0,
             slideOffset: -3.75,
@@ -25549,7 +25741,7 @@ const Le = {
             tint: 5373952
         }
     }),
-    lab_door_03: ve({
+    lab_door_03: Te({
         door: {
             openOneWay: !0
         },
@@ -25557,7 +25749,7 @@ const Le = {
             tint: 5373952
         }
     }),
-    lab_door_locked_01: ve({
+    lab_door_locked_01: Te({
         door: {
             locked: !0,
             openOnce: !0,
@@ -25570,12 +25762,12 @@ const Le = {
             tint: 5373952
         }
     }),
-    house_window_01: st({}),
-    house_window_broken_01: G({}),
-    lab_window_01: st({
+    house_window_01: ct({}),
+    house_window_broken_01: W({}),
+    lab_window_01: ct({
         destroyType: "lab_window_broken_01"
     }),
-    lab_window_broken_01: G({
+    lab_window_broken_01: W({
         img: {
             tint: 1316379
         }
@@ -25631,8 +25823,8 @@ const Le = {
             ori: 0
         }]
     },
-    greenhouse_01: Bt({}),
-    greenhouse_02: Bt({
+    greenhouse_01: Rt({}),
+    greenhouse_02: Rt({
         floor_images: [{
             sprite: "map-building-greenhouse-floor-02.img",
             pos: e.create(0, 10),
@@ -27043,10 +27235,10 @@ const Le = {
             ori: 0
         }]
     },
-    bunker_structure_08: Rt({
+    bunker_structure_08: qt({
         bunkerType: "bunker_chrys_sublevel_01"
     }),
-    bunker_structure_08b: Rt({
+    bunker_structure_08b: qt({
         bunkerType: "bunker_chrys_sublevel_01b"
     }),
     hedgehog_wall: _({
@@ -27095,8 +27287,8 @@ const Le = {
             ori: 0
         }]
     },
-    cache_01: J({}),
-    cache_01sv: J({
+    cache_01: Y({}),
+    cache_01sv: Y({
         mapObjects: [{
             type: "stone_02sv",
             pos: e.create(0, 0),
@@ -27113,7 +27305,7 @@ const Le = {
             displayType: "stone_02sv"
         }
     }),
-    cache_02: J({
+    cache_02: Y({
         mapObjects: [{
             type: "tree_03",
             pos: e.create(0, 0),
@@ -27130,7 +27322,7 @@ const Le = {
             displayType: "tree_03"
         }
     }),
-    cache_02sv: J({
+    cache_02sv: Y({
         mapObjects: [{
             type: "tree_03sv",
             pos: e.create(0, 0),
@@ -27147,7 +27339,7 @@ const Le = {
             displayType: "tree_03sv"
         }
     }),
-    cache_03: J({
+    cache_03: Y({
         mapObjects: [{
             type: "bush_06",
             pos: e.create(0, 0),
@@ -27164,7 +27356,7 @@ const Le = {
             displayType: "bush_06"
         }
     }),
-    cache_06: J({
+    cache_06: Y({
         mapObjects: [{
             type: "bush_07",
             pos: e.create(0, 0),
@@ -27181,7 +27373,7 @@ const Le = {
             displayType: "bush_07"
         }
     }),
-    cache_07: J({
+    cache_07: Y({
         mapObjects: [{
             type: "barrel_01b",
             pos: e.create(0, 0),
@@ -27198,7 +27390,7 @@ const Le = {
             displayType: "barrel_01b"
         }
     }),
-    cache_log_13: J({
+    cache_log_13: Y({
         terrain: {
             grass: !1,
             beach: !0
@@ -27219,7 +27411,7 @@ const Le = {
             displayType: "crate_01"
         }
     }),
-    cache_pumpkin_01: J({
+    cache_pumpkin_01: Y({
         mapObjects: [{
             type: "pumpkin_01",
             pos: e.create(0, 0),
@@ -27233,7 +27425,7 @@ const Le = {
             inheritOri: !1
         }]
     }),
-    cache_pumpkin_02: J({
+    cache_pumpkin_02: Y({
         mapObjects: [{
             type: "pumpkin_02",
             pos: e.create(0, 0),
@@ -27247,7 +27439,7 @@ const Le = {
             inheritOri: !1
         }]
     }),
-    cache_pumpkin_03: J({
+    cache_pumpkin_03: Y({
         mapObjects: [{
             type: "pumpkin_03",
             pos: e.create(0, 0),
@@ -27261,7 +27453,7 @@ const Le = {
             inheritOri: !1
         }]
     }),
-    cache_pumpkin_airdrop_02: J({
+    cache_pumpkin_airdrop_02: Y({
         mapObjects: [{
             type: "crate_11h",
             pos: e.create(0, 0),
@@ -27275,7 +27467,7 @@ const Le = {
             inheritOri: !1
         }]
     }),
-    candle_lit_01: J({
+    candle_lit_01: Y({
         mapObjects: [{
             type: "candle_01",
             pos: e.create(0, 0),
@@ -27289,7 +27481,7 @@ const Le = {
             inheritOri: !1
         }]
     }),
-    candle_lit_02: J({
+    candle_lit_02: Y({
         mapObjects: [{
             type: "candle_01",
             pos: e.create(0, 0),
@@ -27333,13 +27525,13 @@ const Le = {
         hitParticle: "tanChip",
         img: f("map-wall-14.img", 4608e3)
     }),
-    hut_window_open_01: G({
+    hut_window_open_01: W({
         img: {
             tint: 7681026
         }
     }),
-    hut_01: Oe({}),
-    hut_01x: Oe({
+    hut_01: Ce({}),
+    hut_01x: Ce({
         ceiling: {
             imgs: [{
                 sprite: "map-building-hut-ceiling-01.img",
@@ -27363,11 +27555,11 @@ const Le = {
             }]
         }
     }),
-    hut_02: Oe({
+    hut_02: Ce({
         ceilingImg: "map-building-hut-ceiling-02.img",
         specialLoot: "pot_02"
     }),
-    hut_02x: Oe({
+    hut_02x: Ce({
         specialLoot: "pot_02",
         ceiling: {
             imgs: [{
@@ -27392,7 +27584,7 @@ const Le = {
             }]
         }
     }),
-    hut_03: Oe({
+    hut_03: Ce({
         map: {
             display: !0,
             shapes: [{
@@ -27414,26 +27606,26 @@ const Le = {
         material: "metal",
         extents: e.create(.6, 3.2)
     }),
-    warehouse_01: Re({
+    warehouse_01: qe({
         topLeftObs: "crate_01",
         topRightObs: "crate_01",
         botRightObs: "crate_01",
         ignoreMapSpawnReplacement: !0
     }),
-    warehouse_01h: Re({
+    warehouse_01h: qe({
         topLeftObs: "crate_01",
         topRightObs: "crate_01",
         botRightObs: "crate_01",
         decoration_01: "candle_lit_01",
         ignoreMapSpawnReplacement: !0
     }),
-    warehouse_01f: Re({
+    warehouse_01f: qe({
         topLeftObs: "crate_01",
         topRightObs: "crate_01",
         botRightObs: "crate_01",
         ignoreMapSpawnReplacement: !1
     }),
-    warehouse_01x: Re({
+    warehouse_01x: qe({
         topLeftObs: "crate_01",
         topRightObs: "crate_01",
         botRightObs: "crate_01",
@@ -28056,21 +28248,21 @@ const Le = {
             ori: 2
         }]
     },
-    logging_complex_01: et({}),
-    logging_complex_01sp: et({
+    logging_complex_01: tt({}),
+    logging_complex_01sp: tt({
         groundTintLt: 3361294,
         groundTintDk: 2437648
     }),
-    logging_complex_01su: et({
+    logging_complex_01su: tt({
         groundTintLt: 7843122,
         groundTintDk: 5143827
     }),
-    logging_complex_02: tt({}),
-    logging_complex_02sp: tt({
+    logging_complex_02: at({}),
+    logging_complex_02sp: at({
         groundTintDk: 2437648,
         tree_08c: "tree_08spc"
     }),
-    logging_complex_02su: tt({
+    logging_complex_02su: at({
         groundTintDk: 5143827
     }),
     logging_complex_03: function(t) {
@@ -28858,7 +29050,7 @@ const Le = {
             ori: 1
         }]
     },
-    statue_01: W({
+    statue_01: V({
         scale: {
             createMin: 1,
             createMax: 1,
@@ -28876,7 +29068,7 @@ const Le = {
             scale: .5
         }
     }),
-    statue_03: W({
+    statue_03: V({
         stonePlated: !0,
         health: 500,
         height: 10,
@@ -28898,7 +29090,7 @@ const Le = {
             residue: ""
         }
     }),
-    statue_04: W({
+    statue_04: V({
         stonePlated: !0,
         health: 500,
         height: 10,
@@ -28920,7 +29112,7 @@ const Le = {
             residue: ""
         }
     }),
-    statue_top_01: W({
+    statue_top_01: V({
         health: 500,
         height: 10,
         collision: r.createCircle(e.create(0, 0), 2.45),
@@ -28942,7 +29134,7 @@ const Le = {
             zIdx: 60
         }
     }),
-    statue_top_02: W({
+    statue_top_02: V({
         health: 500,
         height: 10,
         collision: r.createCircle(e.create(0, 0), 2.45),
@@ -29022,10 +29214,10 @@ const Le = {
             ori: 0
         }]
     },
-    statue_building_03: vt({
+    statue_building_03: Tt({
         statue: "statue_03"
     }),
-    statue_underground_03: Tt({
+    statue_underground_03: St({
         crate: "crate_02d"
     }),
     statue_structure_03: {
@@ -29050,10 +29242,10 @@ const Le = {
         }],
         mask: [r.createAabbExtents(e.create(5.7, 0), e.create(4, 4))]
     },
-    statue_building_04: vt({
+    statue_building_04: Tt({
         statue: "statue_04"
     }),
-    statue_underground_04: Tt({
+    statue_underground_04: St({
         crate: "crate_22d"
     }),
     statue_structure_04: {
@@ -29553,8 +29745,8 @@ const Le = {
         height: 10,
         img: f("map-wall-shack-bot.img")
     }),
-    shack_01: jt({}),
-    shack_01x: jt({
+    shack_01: Ht({}),
+    shack_01x: Ht({
         ceiling: {
             imgs: [{
                 sprite: "map-building-shack-ceiling-01.img",
@@ -29578,8 +29770,8 @@ const Le = {
             }]
         }
     }),
-    shack_02: Ht({}),
-    shack_02x: Ht({
+    shack_02: Gt({}),
+    shack_02x: Gt({
         ceiling: {
             imgs: [{
                 sprite: "map-building-shack-ceiling-02.img",
@@ -29722,7 +29914,7 @@ const Le = {
         hitParticle: "tanChip",
         img: f("map-wall-14.img", 12556639)
     }),
-    shack_03a: Ye({
+    shack_03a: et({
         terrain: {
             bridge: {
                 nearbyWidthMult: 1
@@ -29734,7 +29926,7 @@ const Le = {
             }
         }
     }),
-    shack_03b: Ye({
+    shack_03b: et({
         terrain: {
             waterEdge: {
                 dir: e.create(0, 1),
@@ -29786,7 +29978,7 @@ const Le = {
             }]
         }
     }),
-    shack_03x: Ye({
+    shack_03x: et({
         terrain: {
             bridge: {
                 nearbyWidthMult: 1
@@ -29841,8 +30033,8 @@ const Le = {
         health: 100,
         img: f("map-wall-outhouse-bot.img")
     }),
-    outhouse_01: rt({}),
-    outhouse_01x: rt({
+    outhouse_01: ot({}),
+    outhouse_01x: ot({
         ceiling: {
             imgs: [{
                 sprite: "map-building-outhouse-ceiling.img",
@@ -29859,7 +30051,7 @@ const Le = {
             }]
         }
     }),
-    outhouse_02: rt({
+    outhouse_02: ot({
         ceiling: {
             zoomRegions: [{
                 zoomIn: r.createAabbExtents(e.create(0, 1.45), e.create(3.6, 3.2)),
@@ -30659,8 +30851,8 @@ const Le = {
             ori: 1
         }]
     },
-    barn_basement_floor_01: Pt({}),
-    barn_basement_floor_01d: Pt({
+    barn_basement_floor_01: zt({}),
+    barn_basement_floor_01d: zt({
         basement: "barn_basement_floor_02d"
     }),
     barn_basement_floor_02: {
@@ -30855,14 +31047,14 @@ const Le = {
         hitParticle: "ltgreenChip",
         img: f("map-column-01.img", 2764060)
     }),
-    barn_01: Ie({
+    barn_01: Oe({
         bonus_door: "house_door_02"
     }),
-    barn_01h: Ie({
+    barn_01h: Oe({
         porch_01: "cache_pumpkin_02",
         bonus_door: "house_door_02"
     }),
-    barn_01x: Ie({
+    barn_01x: Oe({
         ceiling: {
             imgs: [{
                 sprite: "map-building-barn-ceiling-01.img",
@@ -30901,14 +31093,14 @@ const Le = {
         },
         bonus_door: "house_door_02"
     }),
-    barn_02: Ie({
+    barn_02: Oe({
         bonus_room: "barn_basement_structure_01",
         bonus_door: "",
         map: {
             displayType: "barn_01"
         }
     }),
-    barn_02d: Ie({
+    barn_02d: Oe({
         bonus_room: "barn_basement_structure_01d",
         bonus_door: "",
         map: {
@@ -31011,8 +31203,8 @@ const Le = {
             }
         }
     }),
-    vault_01: Dt({}),
-    vault_01b: Dt({
+    vault_01: Pt({}),
+    vault_01b: Pt({
         gold_box: 9,
         floor_loot: "loot_tier_stonehammer"
     }),
@@ -31051,8 +31243,8 @@ const Le = {
         extents: e.create(.5, 5),
         img: f("map-wall-10-rounded.img", 1777447)
     }),
-    police_01: Ft({}),
-    police_01x: Ft({
+    police_01: jt({}),
+    police_01x: jt({
         ceiling: {
             imgs: [{
                 sprite: "map-building-police-ceiling-01.img",
@@ -31188,14 +31380,14 @@ const Le = {
             }]
         }
     }),
-    house_red_02: it({
+    house_red_02: st({
         stand: "stand_01"
     }),
-    house_red_02h: it({
+    house_red_02h: st({
         porch_01: "cache_pumpkin_02",
         stand: "stand_01"
     }),
-    house_red_02x: it({
+    house_red_02x: st({
         ceiling: {
             imgs: [{
                 sprite: "map-building-house-ceiling.img",
@@ -31238,8 +31430,8 @@ const Le = {
         hitParticle: "tanChip",
         img: f("map-wall-13-rounded.img", 10584424)
     }),
-    cabin_01: Je({}),
-    cabin_01x: Je({
+    cabin_01: Ye({}),
+    cabin_01x: Ye({
         ceiling: {
             imgs: [{
                 sprite: "map-building-cabin-ceiling-01a.img",
@@ -31284,7 +31476,7 @@ const Le = {
             }]
         }
     }),
-    cabin_02: Je({
+    cabin_02: Ye({
         cabin_mount: "gun_mount_02",
         porch_01: "cache_pumpkin_02"
     }),
@@ -31480,8 +31672,8 @@ const Le = {
             ori: 3
         }]
     },
-    mansion_01: at({}),
-    mansion_01x: at({
+    mansion_01: rt({}),
+    mansion_01x: rt({
         ceiling: {
             imgs: [{
                 sprite: "map-building-mansion-ceiling.img",
@@ -31544,14 +31736,14 @@ const Le = {
         tree_loot: "loot_tier_1",
         bush_chance: 999
     }),
-    mansion_02: at({
+    mansion_02: rt({
         decoration_01: "decal_web_01",
         decoration_02: "candle_lit_01",
         porch_01: "cache_pumpkin_02",
         entry_loot: ""
     }),
-    mansion_cellar_01: qt({}),
-    mansion_cellar_02: qt({
+    mansion_cellar_01: Lt({}),
+    mansion_cellar_02: Lt({
         decoration_01: "decal_web_01",
         decoration_02: "candle_lit_01",
         mid_obs_01: "pumpkin_01"
@@ -31612,7 +31804,7 @@ const Le = {
         hitParticle: "blackChip",
         img: f("map-column-01.img", 1710618)
     }),
-    saloon_bar_small: G({
+    saloon_bar_small: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 5)),
         img: {
             sprite: "",
@@ -31622,7 +31814,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    saloon_bar_large: G({
+    saloon_bar_large: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 7.5)),
         img: {
             sprite: "",
@@ -31632,7 +31824,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    saloon_bar_back_large: G({
+    saloon_bar_back_large: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 5)),
         img: {
             sprite: "map-saloon-bar-01.img",
@@ -31642,7 +31834,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    saloon_bar_back_small: G({
+    saloon_bar_back_small: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 1.5)),
         img: {
             sprite: "map-saloon-bar-02.img",
@@ -32402,7 +32594,7 @@ const Le = {
         hitParticle: "tanChip",
         img: f("map-wall-18.img", 5505024, .95)
     }),
-    teahouse_door_01: ve({
+    teahouse_door_01: Te({
         img: {
             tint: 14537141,
             alpha: .95
@@ -32430,7 +32622,7 @@ const Le = {
             }
         }
     }),
-    teahouse_window_open_01: G({
+    teahouse_window_open_01: W({
         img: {
             tint: 12216619
         }
@@ -32579,12 +32771,12 @@ const Le = {
         };
         return h.mergeDeep(a, t || {})
     }({}),
-    teapavilion_01: Lt({
+    teapavilion_01: Ut({
         terrain: {
             lakeCenter: !0
         }
     }),
-    teapavilion_01w: Lt({
+    teapavilion_01w: Ut({
         center_loot: "loot_tier_helmet_forest",
         left_loot: "pot_03b",
         right_loot: "pot_03c",
@@ -32592,8 +32784,8 @@ const Le = {
             lakeCenter: !0
         }
     }),
-    teahouse_complex_01s: Ut({}),
-    teahouse_complex_01su: Ut({
+    teahouse_complex_01s: Ft({}),
+    teahouse_complex_01su: Ft({
         grass_color: 6460706,
         tree_small: "tree_08su",
         tree_large: "tree_08su"
@@ -33008,7 +33200,7 @@ const Le = {
         },
         health: 300
     }),
-    grassy_cover_01: ot({
+    grassy_cover_01: it({
         mapObjects: [{
             type: "loot_tier_1",
             pos: e.create(0, 0),
@@ -33036,7 +33228,7 @@ const Le = {
             ori: 2
         }]
     }),
-    grassy_cover_02: ot({
+    grassy_cover_02: it({
         mapObjects: [{
             type: "loot_tier_1",
             pos: e.create(0, 0),
@@ -33064,7 +33256,7 @@ const Le = {
             ori: 2
         }]
     }),
-    grassy_cover_03: ot({
+    grassy_cover_03: it({
         mapObjects: [{
             type: "loot_tier_1",
             pos: e.create(0, 0),
@@ -33726,7 +33918,7 @@ const Le = {
         hitParticle: "redChip",
         img: f("map-wall-10-rounded.img", 7218988)
     }),
-    club_bar_small: G({
+    club_bar_small: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 4.5)),
         img: {
             sprite: "",
@@ -33736,7 +33928,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    club_bar_large: G({
+    club_bar_large: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 7)),
         img: {
             sprite: "",
@@ -33746,7 +33938,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    club_bar_back_large: G({
+    club_bar_back_large: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.75, 7.5)),
         img: {
             sprite: "map-club-bar-01.img",
@@ -33799,7 +33991,7 @@ const Le = {
         hitParticle: "whiteChip",
         img: f("map-bathhouse-column-02.img", 13481337)
     }),
-    bathhouse_rocks_01: re({
+    bathhouse_rocks_01: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.55, 1.55)),
         destructible: !1,
         img: {
@@ -35298,7 +35490,7 @@ const Le = {
         };
         return h.mergeDeep(a, t || {})
     }({}),
-    club_window_01: st({
+    club_window_01: ct({
         isWindow: !1,
         hitParticle: "woodChip",
         explodeParticle: "woodPlank",
@@ -35313,7 +35505,7 @@ const Le = {
             enter: "none"
         }
     }),
-    club_window_broken_01: G({
+    club_window_broken_01: W({
         img: {
             tint: 7886127
         }
@@ -37747,8 +37939,8 @@ const Le = {
         }],
         mask: [r.createAabbExtents(e.create(-1.5, -9.2), e.create(15.7, 22)), r.createAabbExtents(e.create(28.25, -32), e.create(14, 8))]
     },
-    bunker_crossing_stairs_01: Ne({}),
-    bunker_crossing_stairs_01b: Ne({
+    bunker_crossing_stairs_01: Ze({}),
+    bunker_crossing_stairs_01b: Ze({
         ceiling: {
             zoomRegions: [{
                 zoomIn: r.createAabbExtents(e.create(0, .75), e.create(2, 3.25))
@@ -39582,7 +39774,7 @@ const Le = {
         }],
         mask: [r.createAabbExtents(e.create(0, -22.2), e.create(13.5, 28))]
     },
-    bunker_twins_stairs_01: Ne({
+    bunker_twins_stairs_01: Ze({
         map: {
             display: !0,
             shapes: [{
@@ -39972,7 +40164,7 @@ const Le = {
         material: "concrete",
         extents: e.create(2.5, 2)
     }),
-    bridge_rail_3: G({
+    bridge_rail_3: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.4, 2)),
         img: {
             sprite: "",
@@ -39982,7 +40174,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    bridge_rail_12: G({
+    bridge_rail_12: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.4, 6.5)),
         img: {
             sprite: "",
@@ -39992,8 +40184,8 @@ const Le = {
             zIdx: 10
         }
     }),
-    bridge_lg_01: zt({}),
-    bridge_lg_01x: zt({
+    bridge_lg_01: Bt({}),
+    bridge_lg_01x: Bt({
         ceiling: {
             imgs: [{
                 sprite: "map-building-bridge-lg-ceiling.img",
@@ -40104,7 +40296,7 @@ const Le = {
         material: "concrete",
         extents: e.create(4.5, 2)
     }),
-    bridge_rail_20: G({
+    bridge_rail_20: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.4, 10)),
         img: {
             sprite: "",
@@ -40397,7 +40589,7 @@ const Le = {
         }],
         mask: [r.createAabbExtents(e.create(0, 0), e.create(12, 12))]
     },
-    bridge_rail_28: G({
+    bridge_rail_28: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.4, 14)),
         img: {
             sprite: "",
@@ -40407,7 +40599,7 @@ const Le = {
             zIdx: 10
         }
     }),
-    brick_wall_ext_3_0_low: G({
+    brick_wall_ext_3_0_low: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(.5, 1.5)),
         img: {
             sprite: "",
@@ -40569,27 +40761,27 @@ const Le = {
         material: "metal",
         extents: e.create(.4, 6)
     }),
-    container_01: he({
+    container_01: be({
         open: !1,
         tint: 2703694,
         ceilingSprite: "map-building-container-ceiling-01.img"
     }),
-    container_02: he({
+    container_02: be({
         open: !1,
         tint: 2703694,
         ceilingSprite: "map-building-container-ceiling-02.img"
     }),
-    container_03: he({
+    container_03: be({
         open: !1,
         tint: 2703694,
         ceilingSprite: "map-building-container-ceiling-03.img"
     }),
-    container_04: he({
+    container_04: be({
         open: !0,
         tint: 3560807,
         ceilingSprite: "map-building-container-open-ceiling-01.img"
     }),
-    container_01x: he({
+    container_01x: be({
         open: !1,
         tint: 2703694,
         ceilingImgs: [{
@@ -40606,7 +40798,7 @@ const Le = {
             rot: 0
         }]
     }),
-    container_06: he({
+    container_06: be({
         open: !1,
         tint: 12227840,
         ceilingSprite: "map-building-container-ceiling-01.img",
@@ -41318,136 +41510,136 @@ const Le = {
         }
     }
 };
-var I = function(a, o, l) {
-    var i = a instanceof ArrayBuffer || typeof Buffer < "u" && a instanceof Buffer;
-    if (!i)
+var A = function(a, o, i) {
+    var l = a instanceof ArrayBuffer || typeof Buffer < "u" && a instanceof Buffer;
+    if (!l)
         throw new Error("Must specify a valid ArrayBuffer or Buffer.");
     o = o || 0,
-    l = l || a.byteLength || a.length,
-    this._view = new Uint8Array(a,o,l)
+    i = i || a.byteLength || a.length,
+    this._view = new Uint8Array(a,o,i)
 };
-I._scratch = new DataView(new ArrayBuffer(8));
-Object.defineProperty(I.prototype, "buffer", {
+A._scratch = new DataView(new ArrayBuffer(8));
+Object.defineProperty(A.prototype, "buffer", {
     get: function() {
         return Buffer.from(this._view.buffer)
     },
     enumerable: !0,
     configurable: !1
 });
-Object.defineProperty(I.prototype, "byteLength", {
+Object.defineProperty(A.prototype, "byteLength", {
     get: function() {
         return this._view.length
     },
     enumerable: !0,
     configurable: !1
 });
-I.prototype._setBit = function(t, a) {
+A.prototype._setBit = function(t, a) {
     a ? this._view[t >> 3] |= 1 << (t & 7) : this._view[t >> 3] &= ~(1 << (t & 7))
 }
 ;
-I.prototype.getBits = function(t, a, o) {
-    var l = this._view.length * 8 - t;
-    if (a > l)
-        throw new Error(`Cannot get ${a} bit(s) from offset ${t}, ${l} available`);
-    for (var i = 0, s = 0; s < a; ) {
+A.prototype.getBits = function(t, a, o) {
+    var i = this._view.length * 8 - t;
+    if (a > i)
+        throw new Error(`Cannot get ${a} bit(s) from offset ${t}, ${i} available`);
+    for (var l = 0, s = 0; s < a; ) {
         var c = a - s
           , m = t & 7
           , u = this._view[t >> 3]
-          , b = w.min(c, 8 - m)
-          , x = (1 << b) - 1
-          , y = u >> m & x;
-        i |= y << s,
+          , b = k.min(c, 8 - m)
+          , w = (1 << b) - 1
+          , y = u >> m & w;
+        l |= y << s,
         t += b,
         s += b
     }
-    return o ? (a !== 32 && i & 1 << a - 1 && (i |= -1 ^ (1 << a) - 1),
-    i) : i >>> 0
+    return o ? (a !== 32 && l & 1 << a - 1 && (l |= -1 ^ (1 << a) - 1),
+    l) : l >>> 0
 }
 ;
-I.prototype.setBits = function(t, a, o) {
-    var l = this._view.length * 8 - t;
-    if (o > l)
-        throw new Error(`Cannot set ${o} bit(s) from offset ${t}, ${l} available`);
-    for (var i = 0; i < o; ) {
+A.prototype.setBits = function(t, a, o) {
+    var i = this._view.length * 8 - t;
+    if (o > i)
+        throw new Error(`Cannot set ${o} bit(s) from offset ${t}, ${i} available`);
+    for (var l = 0; l < o; ) {
         var s;
-        o - i >= 8 && !(t & 7) ? (this._view[t >> 3] = a & 255,
+        o - l >= 8 && !(t & 7) ? (this._view[t >> 3] = a & 255,
         s = 8) : (this._setBit(t, a & 1),
         s = 1),
         a = a >> s,
         t += s,
-        i += s
+        l += s
     }
 }
 ;
-I.prototype.getBoolean = function(t) {
+A.prototype.getBoolean = function(t) {
     return this.getBits(t, 1, !1) !== 0
 }
 ;
-I.prototype.getInt8 = function(t) {
+A.prototype.getInt8 = function(t) {
     return this.getBits(t, 8, !0)
 }
 ;
-I.prototype.getUint8 = function(t) {
+A.prototype.getUint8 = function(t) {
     return this.getBits(t, 8, !1)
 }
 ;
-I.prototype.getInt16 = function(t) {
+A.prototype.getInt16 = function(t) {
     return this.getBits(t, 16, !0)
 }
 ;
-I.prototype.getUint16 = function(t) {
+A.prototype.getUint16 = function(t) {
     return this.getBits(t, 16, !1)
 }
 ;
-I.prototype.getInt32 = function(t) {
+A.prototype.getInt32 = function(t) {
     return this.getBits(t, 32, !0)
 }
 ;
-I.prototype.getUint32 = function(t) {
+A.prototype.getUint32 = function(t) {
     return this.getBits(t, 32, !1)
 }
 ;
-I.prototype.getFloat32 = function(t) {
-    return I._scratch.setUint32(0, this.getUint32(t)),
-    I._scratch.getFloat32(0)
+A.prototype.getFloat32 = function(t) {
+    return A._scratch.setUint32(0, this.getUint32(t)),
+    A._scratch.getFloat32(0)
 }
 ;
-I.prototype.getFloat64 = function(t) {
-    return I._scratch.setUint32(0, this.getUint32(t)),
-    I._scratch.setUint32(4, this.getUint32(t + 32)),
-    I._scratch.getFloat64(0)
+A.prototype.getFloat64 = function(t) {
+    return A._scratch.setUint32(0, this.getUint32(t)),
+    A._scratch.setUint32(4, this.getUint32(t + 32)),
+    A._scratch.getFloat64(0)
 }
 ;
-I.prototype.setBoolean = function(t, a) {
+A.prototype.setBoolean = function(t, a) {
     this.setBits(t, a ? 1 : 0, 1)
 }
 ;
-I.prototype.setInt8 = I.prototype.setUint8 = function(t, a) {
+A.prototype.setInt8 = A.prototype.setUint8 = function(t, a) {
     this.setBits(t, a, 8)
 }
 ;
-I.prototype.setInt16 = I.prototype.setUint16 = function(t, a) {
+A.prototype.setInt16 = A.prototype.setUint16 = function(t, a) {
     this.setBits(t, a, 16)
 }
 ;
-I.prototype.setInt32 = I.prototype.setUint32 = function(t, a) {
+A.prototype.setInt32 = A.prototype.setUint32 = function(t, a) {
     this.setBits(t, a, 32)
 }
 ;
-I.prototype.setFloat32 = function(t, a) {
-    I._scratch.setFloat32(0, a),
-    this.setBits(t, I._scratch.getUint32(0), 32)
+A.prototype.setFloat32 = function(t, a) {
+    A._scratch.setFloat32(0, a),
+    this.setBits(t, A._scratch.getUint32(0), 32)
 }
 ;
-I.prototype.setFloat64 = function(t, a) {
-    I._scratch.setFloat64(0, a),
-    this.setBits(t, I._scratch.getUint32(0), 32),
-    this.setBits(t + 32, I._scratch.getUint32(4), 32)
+A.prototype.setFloat64 = function(t, a) {
+    A._scratch.setFloat64(0, a),
+    this.setBits(t, A._scratch.getUint32(0), 32),
+    this.setBits(t + 32, A._scratch.getUint32(4), 32)
 }
 ;
-I.prototype.getArrayBuffer = function(t, a) {
-    for (var o = new Uint8Array(a), l = 0; l < a; l++)
-        o[l] = this.getUint8(t + l * 8);
+A.prototype.getArrayBuffer = function(t, a) {
+    for (var o = new Uint8Array(a), i = 0; i < a; i++)
+        o[i] = this.getUint8(t + i * 8);
     return o
 }
 ;
@@ -41455,39 +41647,39 @@ var pe = function(a, o) {
     return function() {
         if (this._index + o > this._length)
             throw new Error("Trying to read past the end of the stream");
-        var l = this._view[a](this._index);
+        var i = this._view[a](this._index);
         return this._index += o,
-        l
+        i
     }
 }
   , me = function(a, o) {
-    return function(l) {
-        this._view[a](this._index, l),
+    return function(i) {
+        this._view[a](this._index, i),
         this._index += o
     }
 };
-function ur(t, a) {
-    return da(t, a, !1)
+function wr(t, a) {
+    return ya(t, a, !1)
 }
-function dr(t, a) {
-    return da(t, a, !0)
+function kr(t, a) {
+    return ya(t, a, !0)
 }
-function da(t, a, o) {
+function ya(t, a, o) {
     if (a === 0)
         return "";
-    var l = 0
-      , i = []
+    var i = 0
+      , l = []
       , s = !0
       , c = !!a;
-    for (a || (a = Math.floor((t._length - t._index) / 8)); l < a; ) {
+    for (a || (a = Math.floor((t._length - t._index) / 8)); i < a; ) {
         var m = t.readUint8();
         if (m === 0 && (s = !1,
         !c))
             break;
-        s && i.push(m),
-        l++
+        s && l.push(m),
+        i++
     }
-    var u = String.fromCharCode.apply(null, i);
+    var u = String.fromCharCode.apply(null, l);
     if (o)
         try {
             return decodeURIComponent(escape(u))
@@ -41497,32 +41689,32 @@ function da(t, a, o) {
     else
         return u
 }
-function gr(t, a, o) {
-    for (var l = o || a.length + 1, i = 0; i < l; i++)
-        t.writeUint8(i < a.length ? a.charCodeAt(i) : 0)
+function vr(t, a, o) {
+    for (var i = o || a.length + 1, l = 0; l < i; l++)
+        t.writeUint8(l < a.length ? a.charCodeAt(l) : 0)
 }
-function hr(t, a, o) {
-    for (var l = br(a), i = o || l.length + 1, s = 0; s < i; s++)
-        t.writeUint8(s < l.length ? l[s] : 0)
+function Tr(t, a, o) {
+    for (var i = Sr(a), l = o || i.length + 1, s = 0; s < l; s++)
+        t.writeUint8(s < i.length ? i[s] : 0)
 }
-function br(t) {
-    var a = [], o, l;
+function Sr(t) {
+    var a = [], o, i;
     for (o = 0; o < t.length; o++)
-        l = t.charCodeAt(o),
-        l <= 127 ? a.push(l) : l <= 2047 ? (a.push(l >> 6 | 192),
-        a.push(l & 63 | 128)) : l <= 65535 ? (a.push(l >> 12 | 224),
-        a.push(l >> 6 & 63 | 128),
-        a.push(l & 63 | 128)) : (a.push(l >> 18 | 240),
-        a.push(l >> 12 & 63 | 128),
-        a.push(l >> 6 & 63 | 128),
-        a.push(l & 63 | 128));
+        i = t.charCodeAt(o),
+        i <= 127 ? a.push(i) : i <= 2047 ? (a.push(i >> 6 | 192),
+        a.push(i & 63 | 128)) : i <= 65535 ? (a.push(i >> 12 | 224),
+        a.push(i >> 6 & 63 | 128),
+        a.push(i & 63 | 128)) : (a.push(i >> 18 | 240),
+        a.push(i >> 12 & 63 | 128),
+        a.push(i >> 6 & 63 | 128),
+        a.push(i & 63 | 128));
     return a
 }
-var O = function(a, o, l) {
-    var i = a instanceof ArrayBuffer || typeof Buffer < "u" && a instanceof Buffer;
-    if (!(a instanceof I) && !i)
+var O = function(a, o, i) {
+    var l = a instanceof ArrayBuffer || typeof Buffer < "u" && a instanceof Buffer;
+    if (!(a instanceof A) && !l)
         throw new Error("Must specify a valid BitView, ArrayBuffer or Buffer");
-    i ? this._view = new I(a,o,l) : this._view = a,
+    l ? this._view = new A(a,o,i) : this._view = a,
     this._index = 0,
     this._startIndex = 0,
     this._length = this._view.byteLength * 8
@@ -41608,19 +41800,19 @@ O.prototype.writeUint32 = me("setUint32", 32);
 O.prototype.writeFloat32 = me("setFloat32", 32);
 O.prototype.writeFloat64 = me("setFloat64", 64);
 O.prototype.readASCIIString = function(t) {
-    return ur(this, t)
+    return wr(this, t)
 }
 ;
 O.prototype.readUTF8String = function(t) {
-    return dr(this, t)
+    return kr(this, t)
 }
 ;
 O.prototype.writeASCIIString = function(t, a) {
-    gr(this, t, a)
+    vr(this, t, a)
 }
 ;
 O.prototype.writeUTF8String = function(t, a) {
-    hr(this, t, a)
+    Tr(this, t, a)
 }
 ;
 O.prototype.readBitStream = function(t) {
@@ -41635,7 +41827,7 @@ O.prototype.readBitStream = function(t) {
 O.prototype.writeBitStream = function(t, a) {
     a || (a = t.bitsLeft);
     for (var o; a > 0; )
-        o = w.min(a, 32),
+        o = k.min(a, 32),
         this.writeBits(t.readBits(o), o),
         a -= o
 }
@@ -41650,7 +41842,7 @@ O.prototype.writeArrayBuffer = function(t, a) {
     this.writeBitStream(new O(t), a * 8)
 }
 ;
-class wo {
+class Do {
     constructor() {
         g(this, "protocol", 0);
         g(this, "matchPriv", "");
@@ -41663,6 +41855,8 @@ class wo {
         g(this, "loadout", {
             outfit: "",
             melee: "",
+            primary: "",
+            secondary: "",
             heal: "",
             boost: "",
             emotes: []
@@ -41679,13 +41873,15 @@ class wo {
         this.bot = a.readBoolean(),
         this.loadout.outfit = a.readGameType(),
         this.loadout.melee = a.readGameType(),
+        this.loadout.primary = a.readGameType(),
+        this.loadout.secondary = a.readGameType(),
         this.loadout.heal = a.readGameType(),
         this.loadout.boost = a.readGameType(),
         this.loadout.emotes = [];
         const o = a.readUint8();
-        for (let l = 0; l < o; l++) {
-            const i = a.readGameType();
-            this.loadout.emotes.push(i)
+        for (let i = 0; i < o; i++) {
+            const l = a.readGameType();
+            this.loadout.emotes.push(l)
         }
         a.readAlignToNextByte()
     }
@@ -41700,6 +41896,8 @@ class wo {
         a.writeBoolean(this.bot),
         a.writeGameType(this.loadout.outfit),
         a.writeGameType(this.loadout.melee),
+        a.writeGameType(this.loadout.primary),
+        a.writeGameType(this.loadout.secondary),
         a.writeGameType(this.loadout.heal),
         a.writeGameType(this.loadout.boost),
         a.writeUint8(this.loadout.emotes.length);
@@ -41708,7 +41906,7 @@ class wo {
         a.writeAlignToNextByte()
     }
 }
-class ko {
+class Mo {
     constructor() {
         g(this, "reason", "")
     }
@@ -41719,7 +41917,7 @@ class ko {
         this.reason = a.readString()
     }
 }
-class vo {
+class Po {
     constructor() {
         g(this, "seq", 0);
         g(this, "moveLeft", !1);
@@ -41775,13 +41973,13 @@ class vo {
         this.toMouseDir = a.readUnitVec(10),
         this.toMouseLen = a.readFloat(0, C.MouseMaxDist, 8);
         const o = a.readBits(4);
-        for (let l = 0; l < o; l++)
+        for (let i = 0; i < o; i++)
             this.inputs.push(a.readUint8());
         this.useItem = a.readGameType(),
         a.readBits(6)
     }
 }
-class To {
+class zo {
     constructor() {
         g(this, "teamMode");
         g(this, "playerId", 0);
@@ -41802,14 +42000,14 @@ class To {
         this.playerId = a.readUint16(),
         this.started = a.readBoolean();
         const o = a.readUint8();
-        for (let l = 0; l < o; l++) {
-            const i = a.readGameType();
-            this.emotes.push(i)
+        for (let i = 0; i < o; i++) {
+            const l = a.readGameType();
+            this.emotes.push(l)
         }
         a.readAlignToNextByte()
     }
 }
-var yr = (t => (t[t.Invalid = 0] = "Invalid",
+var Ir = (t => (t[t.Invalid = 0] = "Invalid",
 t[t.Player = 1] = "Player",
 t[t.Obstacle = 2] = "Obstacle",
 t[t.Loot = 3] = "Loot",
@@ -41821,8 +42019,8 @@ t[t.Decal = 8] = "Decal",
 t[t.Projectile = 9] = "Projectile",
 t[t.Smoke = 10] = "Smoke",
 t[t.Airdrop = 11] = "Airdrop",
-t))(yr || {});
-const ct = {
+t))(Ir || {});
+const nt = {
     1: {
         serializedFullSize: 32,
         serializePart: (t, a) => {
@@ -41847,8 +42045,8 @@ const ct = {
             t.writeBoolean(a.healEffect),
             t.writeBoolean(a.frozen),
             t.writeBits(a.frozenOri, 2),
-            t.writeBoolean(a.hasteType !== qe.None),
-            a.hasteType !== qe.None && (t.writeBits(a.hasteType, 3),
+            t.writeBoolean(a.hasteType !== Le.None),
+            a.hasteType !== Le.None && (t.writeBits(a.hasteType, 3),
             t.writeBits(a.hasteSeq, 3)),
             t.writeBoolean(a.actionItem !== ""),
             a.actionItem !== "" && t.writeGameType(a.actionItem),
@@ -41858,12 +42056,12 @@ const ct = {
             a.role !== "" && t.writeGameType(a.role),
             t.writeBoolean(a.hasPerks),
             a.hasPerks) {
-                const o = w.min(a.perks.length, C.MaxPerks - 1);
+                const o = k.min(a.perks.length, C.MaxPerks - 1);
                 t.writeBits(o, 3);
-                for (let l = 0; l < o; l++) {
-                    const i = a.perks[l];
-                    t.writeGameType(i.type),
-                    t.writeBoolean(i.droppable)
+                for (let i = 0; i < o; i++) {
+                    const l = a.perks[i];
+                    t.writeGameType(l.type),
+                    t.writeBoolean(l.droppable)
                 }
             }
             t.writeAlignToNextByte()
@@ -41897,10 +42095,10 @@ const ct = {
             a.hasteSeq = t.readBits(3));
             const o = t.readBoolean();
             a.actionItem = o ? t.readGameType() : "";
-            const l = t.readBoolean();
-            a.scale = l ? t.readFloat(C.PlayerMinScale, C.PlayerMaxScale, 8) : 1;
             const i = t.readBoolean();
-            if (a.role = i ? t.readGameType() : "",
+            a.scale = i ? t.readFloat(C.PlayerMinScale, C.PlayerMaxScale, 8) : 1;
+            const l = t.readBoolean();
+            if (a.role = l ? t.readGameType() : "",
             a.perks = [],
             t.readBoolean()) {
                 const c = t.readBits(3);
@@ -42022,7 +42220,7 @@ const ct = {
             t.writeBits(a.ori, 2),
             t.writeBoolean(a.interiorSoundEnabled),
             t.writeBoolean(a.interiorSoundAlt);
-            for (let o = 0; o < le.structureLayerCount; o++)
+            for (let o = 0; o < ie.structureLayerCount; o++)
                 t.writeUint16(a.layerObjIds[o])
         }
         ,
@@ -42035,9 +42233,9 @@ const ct = {
             a.interiorSoundEnabled = t.readBoolean(),
             a.interiorSoundAlt = t.readBoolean(),
             a.layerObjIds = [];
-            for (let o = 0; o < le.structureLayerCount; o++) {
-                const l = t.readUint16();
-                a.layerObjIds.push(l)
+            for (let o = 0; o < ie.structureLayerCount; o++) {
+                const i = t.readUint16();
+                a.layerObjIds.push(i)
             }
         }
     },
@@ -42141,7 +42339,7 @@ const ct = {
         serializedFullSize: 0,
         serializePart: (t, a) => {
             t.writeVec(a.pos, 0, 0, 1024, 1024, 16),
-            t.writeFloat(a.posZ, 0, le.projectile.maxHeight, 10),
+            t.writeFloat(a.posZ, 0, ie.projectile.maxHeight, 10),
             t.writeUnitVec(a.dir, 7)
         }
         ,
@@ -42153,7 +42351,7 @@ const ct = {
         ,
         deserializePart: (t, a) => {
             a.pos = t.readVec(0, 0, 1024, 1024, 16),
-            a.posZ = t.readFloat(0, le.projectile.maxHeight, 10),
+            a.posZ = t.readFloat(0, ie.projectile.maxHeight, 10),
             a.dir = t.readUnitVec(7)
         }
         ,
@@ -42216,7 +42414,7 @@ const ct = {
         serializePart: () => {}
     }
 };
-function fr(t, a) {
+function Ar(t, a) {
     if (t.writeBoolean(a.healthDirty),
     a.healthDirty && t.writeFloat(a.health, 0, 100, 8),
     t.writeBoolean(a.boostDirty),
@@ -42230,16 +42428,16 @@ function fr(t, a) {
     t.writeBoolean(a.inventoryDirty),
     a.inventoryDirty) {
         t.writeGameType(a.scope);
-        for (const o of Object.keys(le.bagSizes)) {
-            const l = a.inventory[o] > 0;
-            t.writeBoolean(l),
-            l && t.writeBits(a.inventory[o], 9)
+        for (const o of Object.keys(ie.bagSizes)) {
+            const i = a.inventory[o] > 0;
+            t.writeBoolean(i),
+            i && t.writeBits(a.inventory[o], 9)
         }
     }
     if (t.writeBoolean(a.weapsDirty),
     a.weapsDirty) {
         t.writeBits(a.curWeapIdx, 2);
-        for (let o = 0; o < le.WeaponSlot.Count; o++)
+        for (let o = 0; o < ie.WeaponSlot.Count; o++)
             t.writeGameType(a.weapons[o].type),
             t.writeUint8(a.weapons[o].ammo)
     }
@@ -42247,7 +42445,7 @@ function fr(t, a) {
     a.spectatorCountDirty && t.writeUint8(a.spectatorCount),
     t.writeAlignToNextByte()
 }
-function xr(t, a) {
+function Or(t, a) {
     if (a.healthDirty = t.readBoolean(),
     a.healthDirty && (a.health = t.readFloat(0, 100, 8)),
     a.boostDirty = t.readBoolean(),
@@ -42263,19 +42461,19 @@ function xr(t, a) {
     a.inventoryDirty) {
         a.scope = t.readGameType(),
         a.inventory = {};
-        const o = Object.keys(le.bagSizes);
-        for (let l = 0; l < o.length; l++) {
-            const i = o[l];
+        const o = Object.keys(ie.bagSizes);
+        for (let i = 0; i < o.length; i++) {
+            const l = o[i];
             let s = 0;
             t.readBoolean() && (s = t.readBits(9)),
-            a.inventory[i] = s
+            a.inventory[l] = s
         }
     }
     if (a.weapsDirty = t.readBoolean(),
     a.weapsDirty) {
         a.curWeapIdx = t.readBits(2),
         a.weapons = [];
-        for (let o = 0; o < le.WeaponSlot.Count; o++)
+        for (let o = 0; o < ie.WeaponSlot.Count; o++)
             a.weapons.push({
                 type: t.readGameType(),
                 ammo: t.readUint8()
@@ -42285,55 +42483,55 @@ function xr(t, a) {
     a.spectatorCountDirty && (a.spectatorCount = t.readUint8()),
     t.readAlignToNextByte()
 }
-function wr(t, a) {
+function Cr(t, a) {
     t.writeUint8(a.players.length);
     for (let o = 0; o < a.players.length; o++) {
-        const l = a.players[o];
-        t.writeBoolean(l.hasData),
-        l.hasData && (t.writeVec(l.pos, 0, 0, 1024, 1024, 11),
-        t.writeBoolean(l.visible),
-        t.writeBoolean(l.dead),
-        t.writeBoolean(l.downed),
-        t.writeBoolean(l.role !== ""),
-        l.role !== "" && t.writeGameType(l.role))
+        const i = a.players[o];
+        t.writeBoolean(i.hasData),
+        i.hasData && (t.writeVec(i.pos, 0, 0, 1024, 1024, 11),
+        t.writeBoolean(i.visible),
+        t.writeBoolean(i.dead),
+        t.writeBoolean(i.downed),
+        t.writeBoolean(i.role !== ""),
+        i.role !== "" && t.writeGameType(i.role))
     }
     t.writeAlignToNextByte()
 }
-function kr(t, a) {
+function Er(t, a) {
     a.players = [];
     const o = t.readUint8();
-    for (let l = 0; l < o; l++) {
-        const i = {};
-        i.hasData = t.readBoolean(),
-        i.hasData && (i.pos = t.readVec(0, 0, 1024, 1024, 11),
-        i.visible = t.readBoolean(),
-        i.dead = t.readBoolean(),
-        i.downed = t.readBoolean(),
-        i.role = "",
-        t.readBoolean() && (i.role = t.readGameType())),
-        a.players.push(i)
+    for (let i = 0; i < o; i++) {
+        const l = {};
+        l.hasData = t.readBoolean(),
+        l.hasData && (l.pos = t.readVec(0, 0, 1024, 1024, 11),
+        l.visible = t.readBoolean(),
+        l.dead = t.readBoolean(),
+        l.downed = t.readBoolean(),
+        l.role = "",
+        t.readBoolean() && (l.role = t.readGameType())),
+        a.players.push(l)
     }
     t.readAlignToNextByte()
 }
-function vr(t, a) {
+function Dr(t, a) {
     t.writeUint8(a.players.length);
     for (let o = 0; o < a.players.length; o++) {
-        const l = a.players[o];
-        t.writeFloat(l.health, 0, 100, 7),
-        t.writeBoolean(l.disconnected)
+        const i = a.players[o];
+        t.writeFloat(i.health, 0, 100, 7),
+        t.writeBoolean(i.disconnected)
     }
 }
-function Tr(t, a) {
+function Mr(t, a) {
     a.players = [];
     const o = t.readUint8();
-    for (let l = 0; l < o; l++) {
-        const i = {};
-        i.health = t.readFloat(0, 100, 7),
-        i.disconnected = t.readBoolean(),
-        a.players.push(i)
+    for (let i = 0; i < o; i++) {
+        const l = {};
+        l.health = t.readFloat(0, 100, 7),
+        l.disconnected = t.readBoolean(),
+        a.players.push(l)
     }
 }
-function Sr(t, a) {
+function Pr(t, a) {
     t.writeUint16(a.playerId),
     t.writeUint8(a.teamId),
     t.writeUint8(a.groupId),
@@ -42342,7 +42540,7 @@ function Sr(t, a) {
     t.writeGameType(a.loadout.boost),
     t.writeAlignToNextByte()
 }
-function Ar(t, a) {
+function zr(t, a) {
     a.playerId = t.readUint16(),
     a.teamId = t.readUint8(),
     a.groupId = t.readUint8(),
@@ -42352,7 +42550,7 @@ function Ar(t, a) {
     a.loadout.boost = t.readGameType(),
     t.readAlignToNextByte()
 }
-function Ir(t, a) {
+function Br(t, a) {
     t.writeUint8(a.mode),
     t.writeFloat32(a.duration),
     t.writeVec(a.posOld, 0, 0, 1024, 1024, 16),
@@ -42360,7 +42558,7 @@ function Ir(t, a) {
     t.writeFloat(a.radOld, 0, 2048, 16),
     t.writeFloat(a.radNew, 0, 2048, 16)
 }
-function Or(t, a) {
+function Rr(t, a) {
     a.mode = t.readUint8(),
     a.duration = t.readFloat32(),
     a.posOld = t.readVec(0, 0, 1024, 1024, 16),
@@ -42368,7 +42566,7 @@ function Or(t, a) {
     a.radOld = t.readFloat(0, 2048, 16),
     a.radNew = t.readFloat(0, 2048, 16)
 }
-const M = {
+const D = {
     DeletedObjects: 1,
     FullObjects: 2,
     ActivePlayerId: 4,
@@ -42386,7 +42584,7 @@ const M = {
     MapIndicators: 16384,
     KillLeader: 32768
 };
-class So {
+class Bo {
     constructor() {
         g(this, "delObjIds", []);
         g(this, "fullObjects", []);
@@ -42421,13 +42619,13 @@ class So {
     }
     serialize(a) {
         let o = 0;
-        const l = a.byteIndex;
+        const i = a.byteIndex;
         if (a.writeUint16(o),
         this.delObjIds.length) {
             a.writeUint16(this.delObjIds.length);
             for (let s = 0; s < this.delObjIds.length; s++)
                 a.writeUint16(this.delObjIds[s]);
-            o |= M.DeletedObjects
+            o |= D.DeletedObjects
         }
         if (this.fullObjects.length) {
             a.writeUint16(this.fullObjects.length);
@@ -42437,7 +42635,7 @@ class So {
                 a.writeBytes(c.partialStream, 0, c.partialStream.byteIndex),
                 a.writeBytes(c.fullStream, 0, c.fullStream.byteIndex)
             }
-            o |= M.FullObjects
+            o |= D.FullObjects
         }
         a.writeUint16(this.partObjects.length);
         for (let s = 0; s < this.partObjects.length; s++) {
@@ -42445,28 +42643,28 @@ class So {
             a.writeBytes(c.partialStream, 0, c.partialStream.byteIndex)
         }
         if (this.activePlayerIdDirty && (a.writeUint16(this.activePlayerId),
-        o |= M.ActivePlayerId),
-        fr(a, this.activePlayerData),
-        this.gasDirty && (Ir(a, this.gasData),
-        o |= M.Gas),
+        o |= D.ActivePlayerId),
+        Ar(a, this.activePlayerData),
+        this.gasDirty && (Br(a, this.gasData),
+        o |= D.Gas),
         this.gasTDirty && (a.writeFloat(this.gasT, 0, 1, 16),
-        o |= M.GasCircle),
+        o |= D.GasCircle),
         this.playerInfos.length) {
             a.writeUint8(this.playerInfos.length);
             for (let s = 0; s < this.playerInfos.length; s++)
-                Sr(a, this.playerInfos[s]);
-            o |= M.PlayerInfos
+                Pr(a, this.playerInfos[s]);
+            o |= D.PlayerInfos
         }
         if (this.deletedPlayerIds.length) {
             a.writeUint8(this.deletedPlayerIds.length);
             for (let s = 0; s < this.deletedPlayerIds.length; s++)
                 a.writeUint16(this.deletedPlayerIds[s]);
-            o |= M.DeletePlayerIds
+            o |= D.DeletePlayerIds
         }
-        if (this.playerStatusDirty && (wr(a, this.playerStatus),
-        o |= M.PlayerStatus),
-        this.groupStatusDirty && (vr(a, this.groupStatus),
-        o |= M.GroupStatus),
+        if (this.playerStatusDirty && (Cr(a, this.playerStatus),
+        o |= D.PlayerStatus),
+        this.groupStatusDirty && (Dr(a, this.groupStatus),
+        o |= D.GroupStatus),
         this.bullets.length) {
             a.writeUint8(this.bullets.length);
             for (let s = 0; s < this.bullets.length; s++) {
@@ -42495,7 +42693,7 @@ class So {
                 a.writeBoolean(c.trailThick))
             }
             a.writeAlignToNextByte(),
-            o |= M.Bullets
+            o |= D.Bullets
         }
         if (this.explosions.length) {
             a.writeUint8(this.explosions.length);
@@ -42506,7 +42704,7 @@ class So {
                 a.writeBits(c.layer, 2),
                 a.writeAlignToNextByte()
             }
-            o |= M.Explosions
+            o |= D.Explosions
         }
         if (this.emotes.length) {
             a.writeUint8(this.emotes.length);
@@ -42519,7 +42717,7 @@ class So {
                 c.isPing && a.writeVec(c.pos, 0, 0, 1024, 1024, 16),
                 a.writeAlignToNextByte()
             }
-            o |= M.Emotes
+            o |= D.Emotes
         }
         if (this.planes.length) {
             a.writeUint8(this.planes.length);
@@ -42531,7 +42729,7 @@ class So {
                 a.writeBoolean(c.actionComplete),
                 a.writeBits(c.action, 3)
             }
-            o |= M.Planes
+            o |= D.Planes
         }
         if (this.airstrikeZones.length) {
             a.writeUint8(this.airstrikeZones.length);
@@ -42541,7 +42739,7 @@ class So {
                 a.writeFloat(c.rad, 0, C.AirstrikeZoneMaxRad, 8),
                 a.writeFloat(c.duration, 0, C.AirstrikeZoneMaxDuration, 8)
             }
-            o |= M.AirstrikeZones
+            o |= D.AirstrikeZones
         }
         if (this.mapIndicators.length) {
             a.writeUint8(this.mapIndicators.length);
@@ -42554,32 +42752,32 @@ class So {
                 a.writeVec(c.pos, 0, 0, 1024, 1024, 16)
             }
             a.writeAlignToNextByte(),
-            o |= M.MapIndicators
+            o |= D.MapIndicators
         }
         this.killLeaderDirty && (a.writeUint16(this.killLeaderId),
         a.writeUint8(this.killLeaderKills),
-        o |= M.KillLeader),
+        o |= D.KillLeader),
         a.writeUint8(this.ack);
-        const i = a.byteIndex;
-        a.byteIndex = l,
+        const l = a.byteIndex;
+        a.byteIndex = i,
         a.writeUint16(o),
-        a.byteIndex = i
+        a.byteIndex = l
     }
     deserialize(a, o) {
-        const l = a.readUint16();
-        if (l & M.DeletedObjects) {
+        const i = a.readUint16();
+        if (i & D.DeletedObjects) {
             const s = a.readUint16();
             for (let c = 0; c < s; c++)
                 this.delObjIds.push(a.readUint16())
         }
-        if (l & M.FullObjects) {
+        if (i & D.FullObjects) {
             const s = a.readUint16();
             for (let c = 0; c < s; c++) {
                 const m = {};
                 m.__type = a.readUint8(),
                 m.__id = a.readUint16(),
-                ct[m.__type].deserializePart(a, m),
-                ct[m.__type].deserializeFull(a, m),
+                nt[m.__type].deserializePart(a, m),
+                nt[m.__type].deserializeFull(a, m),
                 this.fullObjects.push(m)
             }
         }
@@ -42587,50 +42785,50 @@ class So {
             const m = {};
             m.__id = a.readUint16();
             const u = o.getTypeById(m.__id, a);
-            ct[u].deserializePart(a, m),
+            nt[u].deserializePart(a, m),
             this.partObjects.push(m)
         }
-        l & M.ActivePlayerId && (this.activePlayerId = a.readUint16(),
+        i & D.ActivePlayerId && (this.activePlayerId = a.readUint16(),
         this.activePlayerIdDirty = !0);
-        const i = {};
-        if (xr(a, i),
-        this.activePlayerData = i,
-        l & M.Gas) {
+        const l = {};
+        if (Or(a, l),
+        this.activePlayerData = l,
+        i & D.Gas) {
             const s = {};
-            Or(a, s),
+            Rr(a, s),
             this.gasData = s,
             this.gasDirty = !0
         }
-        if (l & M.GasCircle && (this.gasT = a.readFloat(0, 1, 16),
+        if (i & D.GasCircle && (this.gasT = a.readFloat(0, 1, 16),
         this.gasTDirty = !0),
-        l & M.PlayerInfos) {
+        i & D.PlayerInfos) {
             const s = a.readUint8();
             for (let c = 0; c < s; c++) {
                 const m = {};
-                Ar(a, m),
+                zr(a, m),
                 this.playerInfos.push(m)
             }
         }
-        if (l & M.DeletePlayerIds) {
+        if (i & D.DeletePlayerIds) {
             const s = a.readUint8();
             for (let c = 0; c < s; c++) {
                 const m = a.readUint16();
                 this.deletedPlayerIds.push(m)
             }
         }
-        if (l & M.PlayerStatus) {
+        if (i & D.PlayerStatus) {
             const s = {};
-            kr(a, s),
+            Er(a, s),
             this.playerStatus = s,
             this.playerStatusDirty = !0
         }
-        if (l & M.GroupStatus) {
+        if (i & D.GroupStatus) {
             const s = {};
-            Tr(a, s),
+            Mr(a, s),
             this.groupStatus = s,
             this.groupStatusDirty = !0
         }
-        if (l & M.Bullets) {
+        if (i & D.Bullets) {
             for (let s = a.readUint8(), c = 0; c < s; c++) {
                 const m = {};
                 m.playerId = a.readUint16(),
@@ -42660,7 +42858,7 @@ class So {
             }
             a.readAlignToNextByte()
         }
-        if (l & M.Explosions) {
+        if (i & D.Explosions) {
             const s = a.readUint8();
             for (let c = 0; c < s; c++) {
                 const m = {};
@@ -42671,7 +42869,7 @@ class So {
                 this.explosions.push(m)
             }
         }
-        if (l & M.Emotes)
+        if (i & D.Emotes)
             for (let s = a.readUint8(), c = 0; c < s; c++) {
                 const m = {};
                 m.playerId = a.readUint16(),
@@ -42682,7 +42880,7 @@ class So {
                 a.readBits(3),
                 this.emotes.push(m)
             }
-        if (l & M.Planes)
+        if (i & D.Planes)
             for (let s = a.readUint8(), c = 0; c < s; c++) {
                 const m = {};
                 m.id = a.readUint8();
@@ -42693,7 +42891,7 @@ class So {
                 m.action = a.readBits(3),
                 this.planes.push(m)
             }
-        if (l & M.AirstrikeZones)
+        if (i & D.AirstrikeZones)
             for (let s = a.readUint8(), c = 0; c < s; c++) {
                 const m = {};
                 m.pos = a.readVec(0, 0, 1024, 1024, 12),
@@ -42701,7 +42899,7 @@ class So {
                 m.duration = a.readFloat(0, C.AirstrikeZoneMaxDuration, 8),
                 this.airstrikeZones.push(m)
             }
-        if (l & M.MapIndicators) {
+        if (i & D.MapIndicators) {
             for (let s = a.readUint8(), c = 0; c < s; c++) {
                 const m = {};
                 m.id = a.readBits(4),
@@ -42713,20 +42911,20 @@ class So {
             }
             a.readAlignToNextByte()
         }
-        l & M.KillLeader && (this.killLeaderId = a.readUint16(),
+        i & D.KillLeader && (this.killLeaderId = a.readUint16(),
         this.killLeaderKills = a.readUint8(),
         this.killLeaderDirty = !0),
         this.ack = a.readUint8()
     }
 }
-function Ao(t) {
+function Ro(t) {
     return t ? .5 : .25
 }
-class Io {
+class qo {
     constructor() {
         g(this, "itemSourceType", "");
         g(this, "mapSourceType", "");
-        g(this, "damageType", dt.Player);
+        g(this, "damageType", gt.Player);
         g(this, "targetId", 0);
         g(this, "killerId", 0);
         g(this, "killCreditId", 0);
@@ -42789,7 +42987,7 @@ class Wt {
         this.playerStats = o
     }
 }
-class Oo {
+class Lo {
     constructor() {
         g(this, "teamId", 0);
         g(this, "teamRank", 0);
@@ -42804,10 +43002,10 @@ class Oo {
         a.writeUint8(this.winningTeamId),
         a.writeUint8(this.playerStats.length);
         for (let o = 0; o < this.playerStats.length; o++) {
-            const l = this.playerStats[o]
-              , i = new Wt;
-            i.playerStats = l,
-            i.serialize(a)
+            const i = this.playerStats[o]
+              , l = new Wt;
+            l.playerStats = i,
+            l.serialize(a)
         }
     }
     deserialize(a) {
@@ -42815,14 +43013,14 @@ class Oo {
         this.teamRank = a.readUint8(),
         this.gameOver = a.readUint8(),
         this.winningTeamId = a.readUint8();
-        for (let o = a.readUint8(), l = 0; l < o; l++) {
-            const i = new Wt;
-            i.deserialize(a),
-            this.playerStats.push(i.playerStats)
+        for (let o = a.readUint8(), i = 0; i < o; i++) {
+            const l = new Wt;
+            l.deserialize(a),
+            this.playerStats.push(l.playerStats)
         }
     }
 }
-class Co {
+class Uo {
     constructor() {
         g(this, "type", 0);
         g(this, "item", "");
@@ -42841,32 +43039,32 @@ class Co {
         a.readBits(6)
     }
 }
-function Cr(t, a) {
+function qr(t, a) {
     t.writeFloat32(a.width),
     t.writeUint8(a.looped),
     t.writeUint8(a.points.length);
     for (const o of a.points)
         t.writeVec(o, 0, 0, 1024, 1024, 16)
 }
-function Er(t, a) {
+function Lr(t, a) {
     a.width = t.readFloat32(),
     a.looped = t.readUint8(),
     a.points = [];
     const o = t.readUint8();
-    for (let l = 0; l < o; l++) {
-        const i = t.readVec(0, 0, 1024, 1024, 16);
-        a.points.push(i)
+    for (let i = 0; i < o; i++) {
+        const l = t.readVec(0, 0, 1024, 1024, 16);
+        a.points.push(l)
     }
 }
-function Mr(t, a) {
+function Ur(t, a) {
     t.writeString(a.name),
     t.writeVec(a.pos, 0, 0, 1024, 1024, 16)
 }
-function Dr(t, a) {
+function Fr(t, a) {
     a.name = t.readString(),
     a.pos = t.readVec(0, 0, 1024, 1024, 16)
 }
-function Pr(t, a) {
+function jr(t, a) {
     t.writeVec(a.min, 0, 0, 1024, 1024, 16),
     t.writeVec(a.max, 0, 0, 1024, 1024, 16),
     t.writeUint32(a.color),
@@ -42875,7 +43073,7 @@ function Pr(t, a) {
     t.writeBits(a.order, 7),
     t.writeBoolean(a.useAsMapShape)
 }
-function zr(t, a) {
+function Hr(t, a) {
     a.min = t.readVec(0, 0, 1024, 1024, 16),
     a.max = t.readVec(0, 0, 1024, 1024, 16),
     a.color = t.readUint32(),
@@ -42884,21 +43082,21 @@ function zr(t, a) {
     a.order = t.readBits(7),
     a.useAsMapShape = t.readBoolean()
 }
-function Br(t, a) {
+function Gr(t, a) {
     t.writeVec(a.pos, 0, 0, 1024, 1024, 16),
     t.writeFloat(a.scale, C.MapObjectMinScale, C.MapObjectMaxScale, 8),
     t.writeMapType(a.type),
     t.writeBits(a.ori, 2),
     t.writeBits(0, 2)
 }
-function Rr(t, a) {
+function Vr(t, a) {
     a.pos = t.readVec(0, 0, 1024, 1024, 16),
     a.scale = t.readFloat(C.MapObjectMinScale, C.MapObjectMaxScale, 8),
     a.type = t.readMapType(),
     a.ori = t.readBits(2),
     t.readBits(2)
 }
-class Eo {
+class Fo {
     constructor() {
         g(this, "mapName", "");
         g(this, "seed", 0);
@@ -42920,16 +43118,16 @@ class Eo {
         a.writeUint16(this.grassInset),
         a.writeUint8(this.rivers.length);
         for (let o = 0; o < this.rivers.length; o++)
-            Cr(a, this.rivers[o]);
+            qr(a, this.rivers[o]);
         a.writeUint8(this.places.length);
         for (let o = 0; o < this.places.length; o++)
-            Mr(a, this.places[o]);
+            Ur(a, this.places[o]);
         a.writeUint16(this.objects.length);
         for (let o = 0; o < this.objects.length; o++)
-            Br(a, this.objects[o]);
+            Gr(a, this.objects[o]);
         a.writeUint8(this.groundPatches.length);
         for (let o = 0; o < this.groundPatches.length; o++)
-            Pr(a, this.groundPatches[o])
+            jr(a, this.groundPatches[o])
     }
     deserialize(a) {
         this.mapName = a.readString(C.MapNameMaxLen),
@@ -42941,30 +43139,30 @@ class Eo {
         const o = a.readUint8();
         for (let c = 0; c < o; c++) {
             const m = {};
-            Er(a, m),
+            Lr(a, m),
             this.rivers.push(m)
         }
-        const l = a.readUint8();
-        for (let c = 0; c < l; c++) {
-            const m = {};
-            Dr(a, m),
-            this.places.push(m)
-        }
-        const i = a.readUint16();
+        const i = a.readUint8();
         for (let c = 0; c < i; c++) {
             const m = {};
-            Rr(a, m),
+            Fr(a, m),
+            this.places.push(m)
+        }
+        const l = a.readUint16();
+        for (let c = 0; c < l; c++) {
+            const m = {};
+            Vr(a, m),
             this.objects.push(m)
         }
         const s = a.readUint8();
         for (let c = 0; c < s; c++) {
             const m = {};
-            zr(a, m),
+            Hr(a, m),
             this.groundPatches.push(m)
         }
     }
 }
-class Mo {
+class jo {
     constructor() {
         g(this, "specBegin", !1);
         g(this, "specNext", !1);
@@ -42986,7 +43184,7 @@ class Mo {
         a.readBits(4)
     }
 }
-class Do {
+class Ho {
     constructor() {
         g(this, "item", "");
         g(this, "weapIdx", 0)
@@ -43002,7 +43200,7 @@ class Do {
         a.readBits(6)
     }
 }
-class Po {
+class Go {
     constructor() {
         g(this, "pos", e.create(0, 0));
         g(this, "type", "");
@@ -43021,7 +43219,7 @@ class Po {
         a.readBits(5)
     }
 }
-class zo {
+class Vo {
     constructor() {
         g(this, "playerId", 0);
         g(this, "killerId", 0);
@@ -43046,25 +43244,25 @@ class zo {
         a.readAlignToNextByte()
     }
 }
-class Bo {
+class Wo {
     constructor() {
         g(this, "teamAliveCounts", [])
     }
     serialize(a) {
         const o = this.teamAliveCounts.length;
         a.writeUint8(o);
-        for (let l = 0; l < o; l++)
-            a.writeUint8(this.teamAliveCounts[l])
+        for (let i = 0; i < o; i++)
+            a.writeUint8(this.teamAliveCounts[i])
     }
     deserialize(a) {
         const o = a.readUint8();
-        for (let l = 0; l < o; l++) {
-            const i = a.readUint8();
-            this.teamAliveCounts.push(i)
+        for (let i = 0; i < o; i++) {
+            const l = a.readUint8();
+            this.teamAliveCounts.push(l)
         }
     }
 }
-class Ro {
+class No {
     constructor() {
         g(this, "role", "")
     }
@@ -43077,7 +43275,7 @@ class Ro {
         a.readBits(6)
     }
 }
-class qr {
+class Wr {
     constructor(a) {
         g(this, "_typeToId", {});
         g(this, "_idToType", {});
@@ -43087,15 +43285,15 @@ class qr {
         this.addType("")
     }
     addType(a) {
-        te(this._typeToId[a] === void 0, `Type ${a} has already been defined!`),
-        te(this.nextId < this.maxId),
+        ae(this._typeToId[a] === void 0, `Type ${a} has already been defined!`),
+        ae(this.nextId < this.maxId),
         this._typeToId[a] = this.nextId,
         this._idToType[this.nextId] = a,
         this.nextId++
     }
     typeToId(a) {
         const o = this._typeToId[a];
-        return te(o !== void 0, `Invalid type ${a}`),
+        return ae(o !== void 0, `Invalid type ${a}`),
         o
     }
     idToType(a) {
@@ -43104,44 +43302,44 @@ class qr {
         o
     }
 }
-function ga(t, a, o) {
-    const l = new qr(o)
-      , i = Object.keys(a);
-    te(i.length <= l.maxId, `${t} contains ${i.length} types, max ${l.maxId}`);
-    for (let s = 0; s < i.length; s++)
-        l.addType(i[s]);
-    return l
+function fa(t, a, o) {
+    const i = new Wr(o)
+      , l = Object.keys(a);
+    ae(l.length <= i.maxId, `${t} contains ${l.length} types, max ${i.maxId}`);
+    for (let s = 0; s < l.length; s++)
+        i.addType(l[s]);
+    return i
 }
-const Gt = ga("Game", ut, 10)
-  , Nt = ga("Map", ht, 12);
-class Lr extends O {
+const Nt = fa("Game", dt, 10)
+  , Zt = fa("Map", bt, 12);
+class Nr extends O {
     writeString(a, o) {
         this.writeASCIIString(a, o)
     }
     readString(a) {
         return this.readASCIIString(a)
     }
-    writeFloat(a, o, l, i) {
-        te(i > 0 && i < 31),
-        te(a >= o && a <= l, `writeFloat: value out of range: ${a}, range: [${o}, ${l}]`);
-        const s = (1 << i) - 1
-          , u = (w.clamp(a, o, l) - o) / (l - o) * s + .5;
-        this.writeBits(u, i)
+    writeFloat(a, o, i, l) {
+        ae(l > 0 && l < 31),
+        ae(a >= o && a <= i, `writeFloat: value out of range: ${a}, range: [${o}, ${i}]`);
+        const s = (1 << l) - 1
+          , u = (k.clamp(a, o, i) - o) / (i - o) * s + .5;
+        this.writeBits(u, l)
     }
-    readFloat(a, o, l) {
-        te(l > 0 && l < 31);
-        const i = (1 << l) - 1
-          , c = this.readBits(l) / i;
+    readFloat(a, o, i) {
+        ae(i > 0 && i < 31);
+        const l = (1 << i) - 1
+          , c = this.readBits(i) / l;
         return a + c * (o - a)
     }
-    writeVec(a, o, l, i, s, c) {
-        this.writeFloat(a.x, o, i, c),
-        this.writeFloat(a.y, l, s, c)
+    writeVec(a, o, i, l, s, c) {
+        this.writeFloat(a.x, o, l, c),
+        this.writeFloat(a.y, i, s, c)
     }
-    readVec(a, o, l, i, s) {
+    readVec(a, o, i, l, s) {
         return {
-            x: this.readFloat(a, l, s),
-            y: this.readFloat(o, i, s)
+            x: this.readFloat(a, i, s),
+            y: this.readFloat(o, l, s)
         }
     }
     writeUnitVec(a, o) {
@@ -43160,11 +43358,11 @@ class Lr extends O {
             y: this.readFloat32()
         }
     }
-    writeBytes(a, o, l) {
-        te(this.index % 8 == 0);
-        const i = new Uint8Array(a._view._view.buffer,o,l);
-        this._view._view.set(i, this.index / 8),
-        this.index += l * 8
+    writeBytes(a, o, i) {
+        ae(this.index % 8 == 0);
+        const l = new Uint8Array(a._view._view.buffer,o,i);
+        this._view._view.set(l, this.index / 8),
+        this.index += i * 8
     }
     writeAlignToNextByte() {
         const a = 8 - this.index % 8;
@@ -43175,19 +43373,19 @@ class Lr extends O {
         a < 8 && this.readBits(a)
     }
     writeGameType(a) {
-        this.writeBits(Gt.typeToId(a), 10)
+        this.writeBits(Nt.typeToId(a), 10)
     }
     readGameType() {
-        return Gt.idToType(this.readBits(10))
+        return Nt.idToType(this.readBits(10))
     }
     writeMapType(a) {
-        this.writeBits(Nt.typeToId(a), 12)
+        this.writeBits(Zt.typeToId(a), 12)
     }
     readMapType() {
-        return Nt.idToType(this.readBits(12))
+        return Zt.idToType(this.readBits(12))
     }
 }
-class qo {
+class Zo {
     constructor(a) {
         g(this, "stream");
         g(this, "arrayBuf");
@@ -43195,7 +43393,7 @@ class qo {
         if (!(o instanceof ArrayBuffer))
             throw new Error(`Invalid buf type ${typeof a > "u" ? "undefined" : typeof a}`);
         this.arrayBuf = o,
-        this.stream = new Lr(o)
+        this.stream = new Nr(o)
     }
     getBuffer() {
         return new Uint8Array(this.arrayBuf,0,this.stream.byteIndex)
@@ -43204,13 +43402,13 @@ class qo {
         return this.stream
     }
     serializeMsg(a, o) {
-        te(this.stream.index % 8 == 0),
+        ae(this.stream.index % 8 == 0),
         this.stream.writeUint8(a),
         o.serialize(this.stream),
-        te(this.stream.index % 8 == 0)
+        ae(this.stream.index % 8 == 0)
     }
     serializeMsgStream(a, o) {
-        te(this.stream.index % 8 == 0 && o.index % 8 == 0),
+        ae(this.stream.index % 8 == 0 && o.index % 8 == 0),
         this.stream.writeUint8(a),
         this.stream.writeBytes(o, 0, o.index / 8)
     }
@@ -43233,7 +43431,7 @@ const C = {
     MaxPerks: 8,
     MaxMapIndicators: 16
 };
-var Ur = (t => (t[t.None = 0] = "None",
+var Zr = (t => (t[t.None = 0] = "None",
 t[t.Join = 1] = "Join",
 t[t.Disconnect = 2] = "Disconnect",
 t[t.Input = 3] = "Input",
@@ -43255,107 +43453,19 @@ t[t.Stats = 18] = "Stats",
 t[t.UpdatePass = 19] = "UpdatePass",
 t[t.AliveCounts = 20] = "AliveCounts",
 t[t.PerkModeRoleSelect = 21] = "PerkModeRoleSelect",
-t))(Ur || {})
-  , Fr = (t => (t[t.Full = 0] = "Full",
+t))(Zr || {})
+  , Kr = (t => (t[t.Full = 0] = "Full",
 t[t.AlreadyOwned = 1] = "AlreadyOwned",
 t[t.AlreadyEquipped = 2] = "AlreadyEquipped",
 t[t.BetterItemEquipped = 3] = "BetterItemEquipped",
 t[t.Success = 4] = "Success",
 t[t.GunCannotFire = 5] = "GunCannotFire",
-t))(Fr || {});
-class Lo {
+t))(Kr || {});
+class Ko {
     serialize(a) {}
     deserialize(a) {}
 }
-const jr = {
-    mapId: 7,
-    desc: {
-        name: "Cobalt",
-        icon: "img/gui/cobalt.svg",
-        buttonCss: "btn-mode-cobalt"
-    },
-    assets: {
-        audio: [{
-            name: "spawn_01",
-            channel: "ui"
-        }, {
-            name: "ping_unlock_01",
-            channel: "ui"
-        }, {
-            name: "ambient_lab_01",
-            channel: "ambient"
-        }, {
-            name: "log_13",
-            channel: "sfx"
-        }, {
-            name: "log_14",
-            channel: "sfx"
-        }],
-        atlases: ["gradient", "loadout", "shared", "cobalt"]
-    },
-    biome: {
-        colors: {
-            background: 134680,
-            water: 13681,
-            beach: 6834230,
-            riverbank: 4472122,
-            grass: 5069416,
-            underground: 1772803,
-            playerSubmerge: 1192009,
-            playerGhillie: 4937830
-        },
-        particles: {}
-    },
-    gameMode: {
-        maxPlayers: 80,
-        perkMode: !0,
-        perkModeRoles: ["scout", "sniper", "healer", "demo", "assault", "tank"]
-    }
-}
-  , Hr = h.mergeDeep({}, ie, jr)
-  , Vr = {
-    mapId: 1,
-    desc: {
-        name: "Desert",
-        icon: "img/loot/loot-weapon-flare-gun.svg",
-        buttonCss: "btn-mode-desert"
-    },
-    assets: {
-        audio: [{
-            name: "piano_02",
-            channel: "sfx"
-        }, {
-            name: "log_03",
-            channel: "sfx"
-        }, {
-            name: "log_04",
-            channel: "sfx"
-        }, {
-            name: "piano_music_01",
-            channel: "ambient"
-        }],
-        atlases: ["gradient", "loadout", "shared", "desert"]
-    },
-    biome: {
-        colors: {
-            background: 6976835,
-            water: 9083726,
-            waterRipple: 13756037,
-            beach: 13206586,
-            riverbank: 11689508,
-            grass: 14657367,
-            underground: 4001027,
-            playerSubmerge: 5151631
-        },
-        particles: {}
-    },
-    gameMode: {
-        maxPlayers: 80,
-        desertMode: !0
-    }
-}
-  , Wr = h.mergeDeep({}, ie, Vr)
-  , Gr = {
+const $r = {
     mapId: 6,
     desc: {
         name: "Halloween",
@@ -43436,8 +43546,627 @@ const jr = {
         spookyKillSounds: !0
     }
 }
-  , Nr = h.mergeDeep({}, ie, Gr)
-  , Zr = {
+  , Xr = h.mergeDeep({}, Z, $r)
+  , Jr = {}
+  , Qr = h.mergeDeep({}, Xr, Jr)
+  , ge = {
+    mapSize: "large",
+    places: 3,
+    mapWidth: {
+        large: 280,
+        small: 240
+    },
+    spawnDensity: {
+        large: 44,
+        small: 37
+    }
+}
+  , xa = h.mergeDeep(structuredClone(Z), {
+    biome: {
+        particles: {
+            camera: "falling_leaf_spring"
+        }
+    },
+    gameConfig: {
+        planes: {
+            timings: [{
+                circleIdx: 0,
+                wait: 2,
+                options: {
+                    type: ie.Plane.Airdrop
+                }
+            }]
+        }
+    },
+    mapGen: {
+        map: {
+            baseWidth: ge.mapWidth[ge.mapSize],
+            baseHeight: ge.mapWidth[ge.mapSize],
+            shoreInset: 40,
+            rivers: {
+                weights: []
+            }
+        },
+        places: Z.mapGen ? Array(ge.places).fill(!1).map( () => {
+            var t;
+            return (t = Z.mapGen) == null ? void 0 : t.places[Math.floor(Math.random() * Z.mapGen.places.length)]
+        }
+        ) : {},
+        densitySpawns: Z.mapGen ? Z.mapGen.densitySpawns.reduce( (t, a) => {
+            let o = {};
+            for (const [i,l] of Object.entries(a))
+                o[i] = l * ge.spawnDensity[ge.mapSize] / 100;
+            return t.push(o),
+            t
+        }
+        , []) : {},
+        fixedSpawns: [{
+            club_complex_01: 1,
+            warehouse_01: {
+                odds: .5
+            },
+            house_red_01: 1,
+            hut_01: 2,
+            hut_02: 1,
+            hut_03: 1,
+            greenhouse_01: 1,
+            cache_01: 1,
+            cache_02: {
+                odds: .8
+            },
+            cache_07: 1,
+            bunker_structure_02: 1,
+            chest_01: 1,
+            chest_03: {
+                odds: .2
+            },
+            mil_crate_02: {
+                odds: .4
+            },
+            mil_crate_03: {
+                odds: .4
+            },
+            stone_04: 1,
+            tree_02: 3,
+            teahouse_complex_01su: {
+                odds: .5
+            }
+        }],
+        randomSpawns: [{
+            spawns: ["mansion_structure_01", "police_01", "bank_01"],
+            choose: 2
+        }]
+    }
+});
+xa.lootTable = {
+    tier_mansion_floor: [{
+        name: "outfitCasanova",
+        count: 1,
+        weight: 1
+    }],
+    tier_vault_floor: [{
+        name: "outfitJester",
+        count: 1,
+        weight: 1
+    }],
+    tier_police_floor: [{
+        name: "outfitPrisoner",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_01: [{
+        name: "outfitImperial",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_02: [{
+        name: "katana",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_case: [{
+        name: "naginata",
+        count: 1,
+        weight: 1
+    }],
+    tier_police: [{
+        name: "saiga",
+        count: 1,
+        weight: 1
+    }],
+    tier_eye_02: [{
+        name: "stonehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_eye_block: [{
+        name: "m9",
+        count: 1,
+        weight: 1
+    }, {
+        name: "ots38_dual",
+        count: 1,
+        weight: 1
+    }, {
+        name: "flare_gun",
+        count: 1,
+        weight: 1
+    }, {
+        name: "colt45",
+        count: 1,
+        weight: 1
+    }, {
+        name: "45acp",
+        count: 1,
+        weight: 1
+    }, {
+        name: "painkiller",
+        count: 1,
+        weight: 1
+    }, {
+        name: "m4a1",
+        count: 1,
+        weight: 1
+    }, {
+        name: "m249",
+        count: 1,
+        weight: 1
+    }, {
+        name: "awc",
+        count: 1,
+        weight: 1
+    }, {
+        name: "pkp",
+        count: 1,
+        weight: 1
+    }],
+    tier_sledgehammer: [{
+        name: "sledgehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_chest_04: [{
+        name: "p30l",
+        count: 1,
+        weight: 40
+    }, {
+        name: "p30l_dual",
+        count: 1,
+        weight: 1
+    }],
+    tier_woodaxe: [{
+        name: "woodaxe",
+        count: 1,
+        weight: 1
+    }],
+    tier_club_melee: [{
+        name: "machete_taiga",
+        count: 1,
+        weight: 1
+    }],
+    tier_pirate_melee: [{
+        name: "hook",
+        count: 1,
+        weight: 1
+    }],
+    tier_hatchet_melee: [{
+        name: "fireaxe",
+        count: 1,
+        weight: 5
+    }, {
+        name: "tier_katanas",
+        count: 1,
+        weight: 3
+    }, {
+        name: "stonehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_airdrop_uncommon: [{
+        name: "sv98",
+        count: 1,
+        weight: 1
+    }, {
+        name: "outfitGhillie",
+        count: 1,
+        weight: 1
+    }],
+    tier_airdrop_rare: [{
+        name: "sv98",
+        count: 1,
+        weight: 1
+    }, {
+        name: "outfitGhillie",
+        count: 1,
+        weight: 1
+    }],
+    tier_throwables: [{
+        name: "frag",
+        count: 2,
+        weight: 1
+    }, {
+        name: "smoke",
+        count: 1,
+        weight: 1
+    }, {
+        name: "mirv",
+        count: 2,
+        weight: .05
+    }],
+    tier_hatchet: [{
+        name: "pan",
+        count: 1,
+        weight: 1
+    }, {
+        name: "pkp",
+        count: 1,
+        weight: 1
+    }]
+};
+const Yr = {
+    assets: {
+        audio: [{
+            name: "snowball_01",
+            channel: "sfx"
+        }, {
+            name: "snowball_02",
+            channel: "sfx"
+        }, {
+            name: "plane_02",
+            channel: "sfx"
+        }, {
+            name: "bells_01",
+            channel: "ui"
+        }, {
+            name: "snowball_pickup_01",
+            channel: "ui"
+        }],
+        atlases: ["gradient", "loadout", "shared", "snow"]
+    },
+    biome: {
+        colors: {
+            background: 603705,
+            water: 806225,
+            waterRipple: 11792639,
+            beach: 13480795,
+            riverbank: 9461284,
+            grass: 12434877,
+            underground: 1772803,
+            playerSubmerge: 2854052
+        },
+        particles: {
+            camera: "falling_snow_fast"
+        },
+        airdrop: {
+            planeImg: "map-plane-01x.img",
+            planeSound: "plane_02",
+            airdropImg: "map-chute-01x.img"
+        },
+        frozenSprites: ["player-snow-01.img", "player-snow-02.img", "player-snow-03.img"]
+    },
+    gameMode: {
+        maxPlayers: 80,
+        woodsMode: !0
+    },
+    gameConfig: {
+        bagSizes: {
+            frag: [6, 12, 15, 18],
+            smoke: [6, 12, 15, 18],
+            snowball: [6, 12, 18]
+        }
+    }
+}
+  , wa = h.mergeDeep({}, Z, Yr);
+wa.lootTable = {
+    tier_mansion_floor: [{
+        name: "outfitCasanova",
+        count: 1,
+        weight: 1
+    }],
+    tier_vault_floor: [{
+        name: "outfitJester",
+        count: 1,
+        weight: 1
+    }],
+    tier_police_floor: [{
+        name: "outfitPrisoner",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_01: [{
+        name: "outfitImperial",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_02: [{
+        name: "katana",
+        count: 1,
+        weight: 1
+    }],
+    tier_chrys_case: [{
+        name: "naginata",
+        count: 1,
+        weight: 1
+    }],
+    tier_police: [{
+        name: "saiga",
+        count: 1,
+        weight: 1
+    }],
+    tier_eye_02: [{
+        name: "stonehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_eye_block: [{
+        name: "m9",
+        count: 1,
+        weight: 1
+    }, {
+        name: "ots38_dual",
+        count: 1,
+        weight: 1
+    }, {
+        name: "flare_gun",
+        count: 1,
+        weight: 1
+    }, {
+        name: "colt45",
+        count: 1,
+        weight: 1
+    }, {
+        name: "45acp",
+        count: 1,
+        weight: 1
+    }, {
+        name: "painkiller",
+        count: 1,
+        weight: 1
+    }, {
+        name: "m4a1",
+        count: 1,
+        weight: 1
+    }, {
+        name: "m249",
+        count: 1,
+        weight: 1
+    }, {
+        name: "awc",
+        count: 1,
+        weight: 1
+    }, {
+        name: "pkp",
+        count: 1,
+        weight: 1
+    }],
+    tier_sledgehammer: [{
+        name: "sledgehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_chest_04: [{
+        name: "p30l",
+        count: 1,
+        weight: 40
+    }, {
+        name: "p30l_dual",
+        count: 1,
+        weight: 1
+    }],
+    tier_woodaxe: [{
+        name: "woodaxe",
+        count: 1,
+        weight: 1
+    }],
+    tier_club_melee: [{
+        name: "machete_taiga",
+        count: 1,
+        weight: 1
+    }],
+    tier_pirate_melee: [{
+        name: "hook",
+        count: 1,
+        weight: 1
+    }],
+    tier_hatchet_melee: [{
+        name: "fireaxe",
+        count: 1,
+        weight: 5
+    }, {
+        name: "tier_katanas",
+        count: 1,
+        weight: 3
+    }, {
+        name: "stonehammer",
+        count: 1,
+        weight: 1
+    }],
+    tier_airdrop_uncommon: [{
+        name: "outfitGhillie",
+        count: 1,
+        weight: 1
+    }],
+    tier_airdrop_rare: [{
+        name: "outfitGhillie",
+        count: 1,
+        weight: 1
+    }],
+    tier_throwables: [{
+        name: "frag",
+        count: 2,
+        weight: 1
+    }, {
+        name: "smoke",
+        count: 1,
+        weight: 1
+    }, {
+        name: "mirv",
+        count: 2,
+        weight: .05
+    }],
+    tier_hatchet: [{
+        name: "pan",
+        count: 1,
+        weight: 1
+    }, {
+        name: "pkp",
+        count: 1,
+        weight: 1
+    }]
+};
+const eo = {
+    mapId: 2,
+    desc: {
+        name: "Woods",
+        icon: "img/gui/player-king-woods.svg",
+        buttonCss: "btn-mode-woods"
+    },
+    locationSpawns: [{
+        type: "logging_complex_01",
+        pos: e.create(.5, .5),
+        rad: 100,
+        retryOnFailure: !0
+    }, {
+        type: "teapavilion_01w",
+        pos: e.create(.5, .5),
+        rad: 100,
+        retryOnFailure: !0
+    }],
+    assets: {
+        audio: [{
+            name: "vault_change_02",
+            channel: "sfx"
+        }, {
+            name: "log_01",
+            channel: "sfx"
+        }, {
+            name: "log_02",
+            channel: "sfx"
+        }, {
+            name: "footstep_08",
+            channel: "sfx"
+        }, {
+            name: "footstep_09",
+            channel: "sfx"
+        }],
+        atlases: ["gradient", "loadout", "shared", "woods"]
+    },
+    biome: {
+        colors: {
+            background: 2118510,
+            water: 3310251,
+            waterRipple: 11792639,
+            beach: 15709019,
+            riverbank: 7812619,
+            grass: 9339690,
+            underground: 1772803,
+            playerSubmerge: 2854052
+        },
+        particles: {
+            camera: "falling_leaf"
+        }
+    },
+    gameMode: {
+        maxPlayers: 80,
+        woodsMode: !0
+    },
+    gameConfig: {
+        bagSizes: {
+            frag: [6, 12, 15, 18],
+            smoke: [6, 12, 15, 18]
+        }
+    }
+}
+  , He = h.mergeDeep({}, Z, eo)
+  , to = {
+    mapId: 7,
+    desc: {
+        name: "Cobalt",
+        icon: "img/gui/cobalt.svg",
+        buttonCss: "btn-mode-cobalt"
+    },
+    assets: {
+        audio: [{
+            name: "spawn_01",
+            channel: "ui"
+        }, {
+            name: "ping_unlock_01",
+            channel: "ui"
+        }, {
+            name: "ambient_lab_01",
+            channel: "ambient"
+        }, {
+            name: "log_13",
+            channel: "sfx"
+        }, {
+            name: "log_14",
+            channel: "sfx"
+        }],
+        atlases: ["gradient", "loadout", "shared", "cobalt"]
+    },
+    biome: {
+        colors: {
+            background: 134680,
+            water: 13681,
+            beach: 6834230,
+            riverbank: 4472122,
+            grass: 5069416,
+            underground: 1772803,
+            playerSubmerge: 1192009,
+            playerGhillie: 4937830
+        },
+        particles: {}
+    },
+    gameMode: {
+        maxPlayers: 80,
+        perkMode: !0,
+        perkModeRoles: ["scout", "sniper", "healer", "demo", "assault", "tank"]
+    }
+}
+  , ao = h.mergeDeep({}, Z, to)
+  , ro = {
+    mapId: 1,
+    desc: {
+        name: "Desert",
+        icon: "img/loot/loot-weapon-flare-gun.svg",
+        buttonCss: "btn-mode-desert"
+    },
+    assets: {
+        audio: [{
+            name: "piano_02",
+            channel: "sfx"
+        }, {
+            name: "log_03",
+            channel: "sfx"
+        }, {
+            name: "log_04",
+            channel: "sfx"
+        }, {
+            name: "piano_music_01",
+            channel: "ambient"
+        }],
+        atlases: ["gradient", "loadout", "shared", "desert"]
+    },
+    biome: {
+        colors: {
+            background: 6976835,
+            water: 9083726,
+            waterRipple: 13756037,
+            beach: 13206586,
+            riverbank: 11689508,
+            grass: 14657367,
+            underground: 4001027,
+            playerSubmerge: 5151631
+        },
+        particles: {}
+    },
+    gameMode: {
+        maxPlayers: 80,
+        desertMode: !0
+    }
+}
+  , oo = h.mergeDeep({}, Z, ro)
+  , io = {
     assets: {
         audio: [],
         atlases: ["gradient", "loadout", "shared", "main"]
@@ -43462,8 +44191,8 @@ const jr = {
         }
     }
 }
-  , Kr = h.mergeDeep({}, ie, Zr)
-  , $r = {
+  , lo = h.mergeDeep({}, Z, io)
+  , so = {
     assets: {
         audio: [{
             name: "club_music_01",
@@ -43497,8 +44226,8 @@ const jr = {
         }
     }
 }
-  , Xr = h.mergeDeep({}, ie, $r)
-  , Qr = {
+  , co = h.mergeDeep({}, Z, so)
+  , no = {
     mapId: 4,
     desc: {
         name: "Potato",
@@ -43557,8 +44286,8 @@ const jr = {
         potatoMode: !0
     }
 }
-  , ha = h.mergeDeep({}, ie, Qr)
-  , Jr = {
+  , ka = h.mergeDeep({}, Z, no)
+  , po = {
     assets: {
         audio: [{
             name: "club_music_01",
@@ -43591,8 +44320,8 @@ const jr = {
         }
     }
 }
-  , Yr = h.mergeDeep({}, ha, Jr)
-  , eo = {
+  , mo = h.mergeDeep({}, ka, po)
+  , _o = {
     mapId: 5,
     desc: {
         name: "Savannah",
@@ -43622,52 +44351,8 @@ const jr = {
         sniperMode: !0
     }
 }
-  , to = h.mergeDeep({}, ie, eo)
-  , ao = {
-    assets: {
-        audio: [{
-            name: "snowball_01",
-            channel: "sfx"
-        }, {
-            name: "snowball_02",
-            channel: "sfx"
-        }, {
-            name: "plane_02",
-            channel: "sfx"
-        }, {
-            name: "bells_01",
-            channel: "ui"
-        }, {
-            name: "snowball_pickup_01",
-            channel: "ui"
-        }],
-        atlases: ["gradient", "loadout", "shared", "snow"]
-    },
-    biome: {
-        colors: {
-            background: 603705,
-            water: 806225,
-            waterRipple: 11792639,
-            beach: 13480795,
-            riverbank: 9461284,
-            grass: 12434877,
-            underground: 1772803,
-            playerSubmerge: 2854052,
-            playerGhillie: 12303291
-        },
-        particles: {
-            camera: "falling_snow_fast"
-        },
-        airdrop: {
-            planeImg: "map-plane-01x.img",
-            planeSound: "plane_02",
-            airdropImg: "map-chute-01x.img"
-        },
-        frozenSprites: ["player-snow-01.img", "player-snow-02.img", "player-snow-03.img"]
-    }
-}
-  , ro = h.mergeDeep({}, ie, ao)
-  , oo = {
+  , uo = h.mergeDeep({}, Z, _o)
+  , go = {
     assets: {
         audio: [{
             name: "club_music_01",
@@ -43708,61 +44393,8 @@ const jr = {
         turkeyMode: 1
     }
 }
-  , lo = h.mergeDeep({}, ie, oo)
-  , io = {
-    mapId: 2,
-    desc: {
-        name: "Woods",
-        icon: "img/gui/player-king-woods.svg",
-        buttonCss: "btn-mode-woods"
-    },
-    assets: {
-        audio: [{
-            name: "vault_change_02",
-            channel: "sfx"
-        }, {
-            name: "log_01",
-            channel: "sfx"
-        }, {
-            name: "log_02",
-            channel: "sfx"
-        }, {
-            name: "footstep_08",
-            channel: "sfx"
-        }, {
-            name: "footstep_09",
-            channel: "sfx"
-        }],
-        atlases: ["gradient", "loadout", "shared", "woods"]
-    },
-    biome: {
-        colors: {
-            background: 2118510,
-            water: 3310251,
-            waterRipple: 11792639,
-            beach: 15709019,
-            riverbank: 7812619,
-            grass: 9339690,
-            underground: 1772803,
-            playerSubmerge: 2854052
-        },
-        particles: {
-            camera: "falling_leaf"
-        }
-    },
-    gameMode: {
-        maxPlayers: 80,
-        woodsMode: !0
-    },
-    gameConfig: {
-        bagSizes: {
-            frag: [6, 12, 15, 18],
-            smoke: [6, 12, 15, 18]
-        }
-    }
-}
-  , je = h.mergeDeep({}, ie, io)
-  , so = {
+  , ho = h.mergeDeep({}, Z, go)
+  , bo = {
     assets: {
         audio: [{
             name: "vault_change_02",
@@ -43809,8 +44441,8 @@ const jr = {
         }
     }
 }
-  , co = h.mergeDeep({}, je, so)
-  , no = {
+  , yo = h.mergeDeep({}, He, bo)
+  , fo = {
     assets: {
         audio: [{
             name: "vault_change_02",
@@ -43852,8 +44484,8 @@ const jr = {
         }
     }
 }
-  , po = h.mergeDeep({}, je, no)
-  , mo = {
+  , xo = h.mergeDeep({}, He, fo)
+  , wo = {
     biome: {
         colors: {
             background: 2118510,
@@ -43871,169 +44503,169 @@ const jr = {
         }
     }
 }
-  , _o = h.mergeDeep({}, je, mo)
-  , Uo = {
-    main: ie,
-    main_spring: Kr,
-    main_summer: Xr,
-    desert: Wr,
-    faction: ir,
-    halloween: Nr,
-    potato: ha,
-    potato_spring: Yr,
-    snow: ro,
-    woods: je,
-    woods_snow: co,
-    woods_spring: po,
-    woods_summer: _o,
-    savannah: to,
-    cobalt: Hr,
-    turkey: lo
+  , ko = h.mergeDeep({}, He, wo)
+  , $o = {
+    main: xa,
+    main_spring: lo,
+    main_summer: co,
+    desert: oo,
+    faction: nr,
+    halloween: Qr,
+    potato: ka,
+    potato_spring: mo,
+    snow: wa,
+    woods: He,
+    woods_snow: yo,
+    woods_spring: xo,
+    woods_summer: ko,
+    savannah: uo,
+    cobalt: ao,
+    turkey: ho
 }
-  , nt = {};
-function uo(t) {
-    const a = ht[t];
+  , pt = {};
+function vo(t) {
+    const a = bt[t];
     if (a.type === "structure") {
         const o = [];
         for (let s = 0; s < a.layers.length; s++) {
             const c = a.layers[s]
-              , m = w.oriToRad(c.ori)
-              , u = r.transform(Ue.getBoundingCollider(c.type), c.pos, m, 1);
+              , m = k.oriToRad(c.ori)
+              , u = r.transform(Fe.getBoundingCollider(c.type), c.pos, m, 1);
             o.push(r.toAabb(u))
         }
         for (let s = 0; s < a.stairs.length; s++)
             o.push(a.stairs[s].collision);
-        const l = F.boundingAabb(o)
-          , i = e.create(1, 1);
-        return l.min = e.sub(l.min, i),
-        l.max = e.add(l.max, i),
-        r.createAabb(l.min, l.max)
+        const i = F.boundingAabb(o)
+          , l = e.create(1, 1);
+        return i.min = e.sub(i.min, l),
+        i.max = e.add(i.max, l),
+        r.createAabb(i.min, i.max)
     }
     if (a.type === "building") {
         const o = [];
-        for (let i = 0; i < a.floor.surfaces.length; i++) {
-            const s = a.floor.surfaces[i].collision;
+        for (let l = 0; l < a.floor.surfaces.length; l++) {
+            const s = a.floor.surfaces[l].collision;
             for (let c = 0; c < s.length; c++)
                 o.push(s[c])
         }
-        for (let i = 0; i < a.ceiling.zoomRegions.length; i++) {
-            const s = a.ceiling.zoomRegions[i];
+        for (let l = 0; l < a.ceiling.zoomRegions.length; l++) {
+            const s = a.ceiling.zoomRegions[l];
             s.zoomIn && o.push(s.zoomIn),
             s.zoomOut && o.push(s.zoomOut)
         }
-        for (let i = 0; i < a.mapObjects.length; i++) {
-            const s = a.mapObjects[i];
+        for (let l = 0; l < a.mapObjects.length; l++) {
+            const s = a.mapObjects[l];
             let c = s.type;
             if (typeof c == "function" && (c = c()),
             c !== "") {
-                const m = w.oriToRad(s.ori)
-                  , u = r.transform(Ue.getBoundingCollider(c), s.pos, m, s.scale);
+                const m = k.oriToRad(s.ori)
+                  , u = r.transform(Fe.getBoundingCollider(c), s.pos, m, s.scale);
                 o.push(r.toAabb(u))
             }
         }
-        const l = F.boundingAabb(o);
-        return r.createAabb(l.min, l.max)
+        const i = F.boundingAabb(o);
+        return r.createAabb(i.min, i.max)
     }
-    return a.type === "decal" ? r.toAabb(a.collision) : a.type === "loot_spawner" ? r.createCircle(e.create(0, 0), 3) : (te(a.collision !== void 0),
+    return a.type === "decal" ? r.toAabb(a.collision) : a.type === "loot_spawner" ? r.createCircle(e.create(0, 0), 3) : (ae(a.collision !== void 0),
     a.collision)
 }
-const Ue = {
+const Fe = {
     getBoundingCollider(t) {
-        if (nt[t])
-            return nt[t];
-        const a = uo(t);
-        return nt[t] = a,
+        if (pt[t])
+            return pt[t];
+        const a = vo(t);
+        return pt[t] = a,
         a
     },
     getBridgeDims(t) {
-        const a = Ue.getBoundingCollider(t)
+        const a = Fe.getBoundingCollider(t)
           , o = r.toAabb(a)
-          , l = e.mul(e.sub(o.max, o.min), .5)
-          , i = l.x > l.y
-          , s = e.create(i ? 1 : 0, i ? 0 : 1)
-          , c = e.dot(s, l) * 2
-          , m = e.dot(e.perp(s), l) * 2;
+          , i = e.mul(e.sub(o.max, o.min), .5)
+          , l = i.x > i.y
+          , s = e.create(l ? 1 : 0, l ? 0 : 1)
+          , c = e.dot(s, i) * 2
+          , m = e.dot(e.perp(s), i) * 2;
         return {
             length: c,
             width: m
         }
     },
-    getBridgeOverlapCollider(t, a, o, l) {
-        const i = ht[t]
-          , s = Ue.getBridgeDims(t)
+    getBridgeOverlapCollider(t, a, o, i) {
+        const l = bt[t]
+          , s = Fe.getBridgeDims(t)
           , c = e.create(1, 0)
-          , m = e.add(e.mul(c, s.length * 1.5), e.mul(e.perp(c), s.width * i.terrain.bridge.nearbyWidthMult))
+          , m = e.add(e.mul(c, s.length * 1.5), e.mul(e.perp(c), s.width * l.terrain.bridge.nearbyWidthMult))
           , u = r.createAabbExtents(e.create(0, 0), e.mul(m, .5));
-        return r.transform(u, a, o, l)
+        return r.transform(u, a, o, i)
     }
 };
-function Zt(t, a, o) {
-    const l = a.length;
-    let i, s, c, m, u;
-    return o ? (t = w.fmod(t, 1),
-    i = ~~(t * (l - 1)),
-    c = i,
-    m = (c + 1) % (l - 1),
-    s = c > 0 ? c - 1 : l - 2,
-    u = (m + 1) % (l - 1)) : (t = w.clamp(t, 0, 1),
-    i = ~~(t * (l - 1)),
-    c = i === l - 1 ? i - 1 : i,
+function Kt(t, a, o) {
+    const i = a.length;
+    let l, s, c, m, u;
+    return o ? (t = k.fmod(t, 1),
+    l = ~~(t * (i - 1)),
+    c = l,
+    m = (c + 1) % (i - 1),
+    s = c > 0 ? c - 1 : i - 2,
+    u = (m + 1) % (i - 1)) : (t = k.clamp(t, 0, 1),
+    l = ~~(t * (i - 1)),
+    c = l === i - 1 ? l - 1 : l,
     m = c + 1,
     s = c > 0 ? c - 1 : c,
-    u = m < l - 1 ? m + 1 : m),
+    u = m < i - 1 ? m + 1 : m),
     {
-        pt: t * (l - 1) - c,
+        pt: t * (i - 1) - c,
         p0: a[s],
         p1: a[c],
         p2: a[m],
         p3: a[u]
     }
 }
-function Kt(t, a, o, l, i) {
-    return .5 * (2 * o + t * (-a + l) + t * t * (2 * a - 5 * o + 4 * l - i) + t * t * t * (-a + 3 * o - 3 * l + i))
+function $t(t, a, o, i, l) {
+    return .5 * (2 * o + t * (-a + i) + t * t * (2 * a - 5 * o + 4 * i - l) + t * t * t * (-a + 3 * o - 3 * i + l))
 }
-function $t(t, a, o, l, i) {
-    return .5 * (-a + l + 2 * t * (2 * a - 5 * o + 4 * l - i) + 3 * t * t * (-a + 3 * o - 3 * l + i))
+function Xt(t, a, o, i, l) {
+    return .5 * (-a + i + 2 * t * (2 * a - 5 * o + 4 * i - l) + 3 * t * t * (-a + 3 * o - 3 * i + l))
 }
-class go {
+class To {
     constructor(a, o) {
         g(this, "points", []);
         g(this, "arcLens", []);
         g(this, "totalArcLen");
         g(this, "looped");
-        te(a.length > 1),
+        ae(a.length > 1),
         this.totalArcLen = 0,
         this.looped = o;
         for (let s = 0; s < a.length; s++)
             this.points.push(e.copy(a[s]));
-        const l = a.length * 4;
-        let i = this.points[0];
-        for (let s = 0; s <= l; s++) {
-            const c = s / l
+        const i = a.length * 4;
+        let l = this.points[0];
+        for (let s = 0; s <= i; s++) {
+            const c = s / i
               , m = this.getPos(c)
               , u = s === 0 ? 0 : this.arcLens[s - 1];
-            this.arcLens[s] = u + e.length(e.sub(m, i)),
-            i = e.copy(m)
+            this.arcLens[s] = u + e.length(e.sub(m, l)),
+            l = e.copy(m)
         }
         this.totalArcLen = this.arcLens[this.arcLens.length - 1]
     }
     getPos(a) {
-        const o = Zt(a, this.points, this.looped)
-          , {pt: l} = o
-          , {p0: i} = o
+        const o = Kt(a, this.points, this.looped)
+          , {pt: i} = o
+          , {p0: l} = o
           , {p1: s} = o
           , {p2: c} = o
           , {p3: m} = o;
-        return e.create(Kt(l, i.x, s.x, c.x, m.x), Kt(l, i.y, s.y, c.y, m.y))
+        return e.create($t(i, l.x, s.x, c.x, m.x), $t(i, l.y, s.y, c.y, m.y))
     }
     getTangent(a) {
-        const o = Zt(a, this.points, this.looped)
-          , {pt: l} = o
-          , {p0: i} = o
+        const o = Kt(a, this.points, this.looped)
+          , {pt: i} = o
+          , {p0: l} = o
           , {p1: s} = o
           , {p2: c} = o
           , {p3: m} = o;
-        return e.create($t(l, i.x, s.x, c.x, m.x), $t(l, i.y, s.y, c.y, m.y))
+        return e.create(Xt(i, l.x, s.x, c.x, m.x), Xt(i, l.y, s.y, c.y, m.y))
     }
     getNormal(a) {
         const o = this.getTangent(a);
@@ -44041,65 +44673,65 @@ class go {
     }
     getClosestTtoPoint(a) {
         let o = Number.MAX_VALUE
-          , l = 0;
+          , i = 0;
         for (let L = 0; L < this.points.length - 1; L++) {
-            const z = w.distToSegmentSq(a, this.points[L], this.points[L + 1]);
+            const z = k.distToSegmentSq(a, this.points[L], this.points[L + 1]);
             z < o && (o = z,
-            l = L)
+            i = L)
         }
-        const i = l
-          , s = i + 1
-          , c = this.points[i]
+        const l = i
+          , s = l + 1
+          , c = this.points[l]
           , m = this.points[s]
           , u = e.sub(m, c)
-          , b = w.clamp(e.dot(e.sub(a, c), u) / e.dot(u, u), 0, 1)
-          , x = this.points.length - 1
-          , y = w.clamp((i + b - .1) / x, 0, 1)
-          , T = w.clamp((i + b + .1) / x, 0, 1);
-        let v = (i + b) / x
+          , b = k.clamp(e.dot(e.sub(a, c), u) / e.dot(u, u), 0, 1)
+          , w = this.points.length - 1
+          , y = k.clamp((l + b - .1) / w, 0, 1)
+          , T = k.clamp((l + b + .1) / w, 0, 1);
+        let v = (l + b) / w
           , S = Number.MAX_VALUE;
         const j = 8;
         for (let L = 0; L <= j; L++) {
-            const z = w.lerp(L / j, y, T)
+            const z = k.lerp(L / j, y, T)
               , R = this.getPos(z)
               , H = e.lengthSqr(e.sub(R, a));
             H < S && (v = z,
             S = H)
         }
-        const D = this.getTangent(v)
-          , q = e.length(D);
+        const M = this.getTangent(v)
+          , q = e.length(M);
         if (q > 0) {
             const L = this.getPos(v)
-              , z = e.dot(D, e.sub(a, L)) / q
-              , R = v + z / (q * x);
+              , z = e.dot(M, e.sub(a, L)) / q
+              , R = v + z / (q * w);
             e.lengthSqr(e.sub(a, this.getPos(R))) < e.lengthSqr(e.sub(a, L)) && (v = R)
         }
         return v
     }
     getTfromArcLen(a) {
-        a = w.clamp(a, 0, this.totalArcLen);
+        a = k.clamp(a, 0, this.totalArcLen);
         let o = 0;
         for (; a > this.arcLens[o]; )
             o++;
         if (o === 0)
             return 0;
-        const l = w.delerp(a, this.arcLens[o - 1], this.arcLens[o])
-          , i = this.arcLens.length - 1
-          , s = (o - 1) / i
-          , c = o / i;
-        return w.lerp(l, s, c)
+        const i = k.delerp(a, this.arcLens[o - 1], this.arcLens[o])
+          , l = this.arcLens.length - 1
+          , s = (o - 1) / l
+          , c = o / l;
+        return k.lerp(i, s, c)
     }
     getArcLen(a) {
-        a = w.clamp(a, 0, 1);
+        a = k.clamp(a, 0, 1);
         const o = this.arcLens.length - 1
-          , l = Math.floor(a * o)
-          , i = l < o - 1 ? l + 1 : l
-          , s = w.fmod(a, 1 / o) / (1 / o);
-        return w.lerp(s, this.arcLens[l], this.arcLens[i])
+          , i = Math.floor(a * o)
+          , l = i < o - 1 ? i + 1 : i
+          , s = k.fmod(a, 1 / o) / (1 / o);
+        return k.lerp(s, this.arcLens[i], this.arcLens[l])
     }
 }
-class ho {
-    constructor(a, o, l, i, s) {
+class So {
+    constructor(a, o, i, l, s) {
         g(this, "spline");
         g(this, "waterWidth");
         g(this, "shoreWidth");
@@ -44110,10 +44742,10 @@ class ho {
         g(this, "waterWidths");
         g(this, "shoreWidths");
         g(this, "aabb");
-        this.spline = new go(a,l),
+        this.spline = new To(a,i),
         this.waterWidth = o,
-        this.shoreWidth = w.clamp(o * .75, 4, 8),
-        this.looped = l,
+        this.shoreWidth = k.clamp(o * .75, 4, 8),
+        this.looped = i,
         this.center = e.create(0, 0);
         for (let y = 0; y < this.spline.points.length; y++)
             this.center = e.add(this.center, this.spline.points[y]);
@@ -44137,14 +44769,14 @@ class ho {
             if (!this.looped && (y === 0 || y === a.length - 1)) {
                 const P = e.sub(T, u);
                 let U = e.create(0, 0)
-                  , K = e.create(1, 0);
+                  , $ = e.create(1, 0);
                 if (Math.abs(P.x) > Math.abs(P.y) ? (U = e.create(P.x > 0 ? s.max.x : s.min.x, T.y),
-                K = e.create(P.x > 0 ? 1 : -1, 0)) : (U = e.create(T.x, P.y > 0 ? s.max.y : s.min.y),
-                K = e.create(0, P.y > 0 ? 1 : -1)),
+                $ = e.create(P.x > 0 ? 1 : -1, 0)) : (U = e.create(T.x, P.y > 0 ? s.max.y : s.min.y),
+                $ = e.create(0, P.y > 0 ? 1 : -1)),
                 e.lengthSqr(e.sub(U, T)) < 1) {
-                    let $ = e.perp(K);
-                    e.dot(v, $) < 0 && ($ = e.neg($)),
-                    v = $,
+                    let X = e.perp($);
+                    e.dot(v, X) < 0 && (X = e.neg(X)),
+                    v = X,
                     S = !0
                 }
             }
@@ -44154,128 +44786,128 @@ class ho {
                 j = (1 + (2 * (Math.max(1 - y / P, y / P) - .5)) ** 3 * 1.5) * this.waterWidth
             }
             this.waterWidths.push(j);
-            let {shoreWidth: D} = this
+            let {shoreWidth: M} = this
               , q = null;
-            for (let P = 0; P < i.length; P++) {
-                const U = i[P]
-                  , K = U.spline.getClosestTtoPoint(T)
-                  , $ = U.spline.getPos(K)
-                  , Pe = e.length(e.sub($, T));
-                Pe < U.waterWidth * 2 && (D = w.max(D, U.shoreWidth)),
-                (y === 0 || y === a.length - 1) && Pe < 1.5 && !S && (q = U)
+            for (let P = 0; P < l.length; P++) {
+                const U = l[P]
+                  , $ = U.spline.getClosestTtoPoint(T)
+                  , X = U.spline.getPos($)
+                  , ze = e.length(e.sub(X, T));
+                ze < U.waterWidth * 2 && (M = k.max(M, U.shoreWidth)),
+                (y === 0 || y === a.length - 1) && ze < 1.5 && !S && (q = U)
             }
-            y > 0 && (D = (this.shoreWidths[y - 1] + D) / 2),
-            this.shoreWidths.push(D),
-            D += j;
-            const L = function(U, K, $) {
-                const Pe = e.add(U, K);
-                if (!w.pointInsidePolygon(Pe, $)) {
-                    const bt = w.rayPolygonIntersect(U, K, $);
-                    if (bt)
-                        return e.mul(K, bt)
+            y > 0 && (M = (this.shoreWidths[y - 1] + M) / 2),
+            this.shoreWidths.push(M),
+            M += j;
+            const L = function(U, $, X) {
+                const ze = e.add(U, $);
+                if (!k.pointInsidePolygon(ze, X)) {
+                    const yt = k.rayPolygonIntersect(U, $, X);
+                    if (yt)
+                        return e.mul($, yt)
                 }
-                return K
+                return $
             };
-            let z, R, H, oe;
+            let z, R, H, le;
             if (this.looped) {
                 let P = e.sub(T, this.center);
                 const U = e.length(P);
                 P = U > 1e-4 ? e.div(P, U) : e.create(1, 0);
-                const K = w.lerp(w.min(j / c, 1) ** .5, j, (1 - (c - j) / U) * U)
-                  , $ = w.lerp(w.min(D / c, 1) ** .5, D, (1 - (c - D) / U) * U);
+                const $ = k.lerp(k.min(j / c, 1) ** .5, j, (1 - (c - j) / U) * U)
+                  , X = k.lerp(k.min(M / c, 1) ** .5, M, (1 - (c - M) / U) * U);
                 z = e.add(T, e.mul(P, j)),
-                R = e.add(T, e.mul(P, -K)),
-                H = e.add(T, e.mul(P, D)),
-                oe = e.add(T, e.mul(P, -$))
+                R = e.add(T, e.mul(P, -$)),
+                H = e.add(T, e.mul(P, M)),
+                le = e.add(T, e.mul(P, -X))
             } else {
                 let P = e.mul(v, j)
                   , U = e.mul(v, -j)
-                  , K = e.mul(v, D)
-                  , $ = e.mul(v, -D);
+                  , $ = e.mul(v, M)
+                  , X = e.mul(v, -M);
                 q && (P = L(T, P, q.waterPoly),
                 U = L(T, U, q.waterPoly),
-                K = L(T, K, q.shorePoly),
-                $ = L(T, $, q.shorePoly)),
+                $ = L(T, $, q.shorePoly),
+                X = L(T, X, q.shorePoly)),
                 z = e.add(T, P),
                 R = e.add(T, U),
-                H = e.add(T, K),
-                oe = e.add(T, $)
+                H = e.add(T, $),
+                le = e.add(T, X)
             }
             z = F.clampPosToAabb(z, s),
             R = F.clampPosToAabb(R, s),
             H = F.clampPosToAabb(H, s),
-            oe = F.clampPosToAabb(oe, s),
+            le = F.clampPosToAabb(le, s),
             this.waterPoly.splice(y, 0, z),
             this.waterPoly.splice(this.waterPoly.length - y, 0, R),
             this.shorePoly.splice(y, 0, H),
-            this.shorePoly.splice(this.shorePoly.length - y, 0, oe)
+            this.shorePoly.splice(this.shorePoly.length - y, 0, le)
         }
         let b = e.create(Number.MAX_VALUE, Number.MAX_VALUE)
-          , x = e.create(-Number.MAX_VALUE, -Number.MAX_VALUE);
+          , w = e.create(-Number.MAX_VALUE, -Number.MAX_VALUE);
         for (let y = 0; y < this.shorePoly.length; y++)
             b = e.minElems(b, this.shorePoly[y]),
-            x = e.maxElems(x, this.shorePoly[y]);
-        this.aabb = r.createAabb(b, x, 0)
+            w = e.maxElems(w, this.shorePoly[y]);
+        this.aabb = r.createAabb(b, w, 0)
     }
     distanceToShore(a) {
         const o = this.spline.getClosestTtoPoint(a)
-          , l = e.length(e.sub(a, this.spline.getPos(o)));
-        return w.max(this.waterWidth - l, 0)
+          , i = e.length(e.sub(a, this.spline.getPos(o)));
+        return k.max(this.waterWidth - i, 0)
     }
     getWaterWidth(a) {
         const o = this.spline.points.length
-          , l = w.clamp(Math.floor(a * o), 0, o);
-        return this.waterWidths[l]
+          , i = k.clamp(Math.floor(a * o), 0, o);
+        return this.waterWidths[i]
     }
 }
-function bo(t, a, o, l, i) {
+function Io(t, a, o, i, l) {
     const s = e.create(t.min.x, t.min.y)
       , c = e.create(t.max.x, t.min.y)
       , m = e.create(t.min.x, t.max.y)
       , u = e.create(t.max.x, t.max.y)
       , b = c.x - s.x
-      , x = m.y - s.y
+      , w = m.y - s.y
       , y = b / (a + 1)
-      , T = x / (o + 1)
+      , T = w / (o + 1)
       , v = [];
     v.push(e.copy(s));
     for (let S = 1; S <= a; ++S)
-        v.push(e.create(s.x + y * S, s.y + i(-l, l)));
+        v.push(e.create(s.x + y * S, s.y + l(-i, i)));
     v.push(e.copy(c));
     for (let S = 1; S <= o; ++S)
-        v.push(e.create(c.x + i(-l, l), c.y + T * S));
+        v.push(e.create(c.x + l(-i, i), c.y + T * S));
     v.push(e.copy(u));
     for (let S = 1; S <= a; ++S)
-        v.push(e.create(u.x - y * S, u.y + i(-l, l)));
+        v.push(e.create(u.x - y * S, u.y + l(-i, i)));
     v.push(e.copy(m));
     for (let S = 1; S <= o; ++S)
-        v.push(e.create(m.x + i(-l, l), m.y - T * S));
+        v.push(e.create(m.x + l(-i, i), m.y - T * S));
     return v
 }
-function Fo(t, a, o, l, i, s) {
-    const {shoreVariation: m} = le.map
-      , {grassVariation: u} = le.map
+function Xo(t, a, o, i, l, s) {
+    const {shoreVariation: m} = ie.map
+      , {grassVariation: u} = ie.map
       , b = h.seededRand(s)
-      , x = e.create(o, o)
+      , w = e.create(o, o)
       , y = e.create(t - o, a - o)
-      , T = e.create(x.x, x.y)
+      , T = e.create(w.x, w.y)
       , v = e.create(y.x, y.y)
       , S = r.createAabb(T, v)
-      , j = bo(S, 64, 64, m, b)
-      , D = e.create(t * .5, a * .5)
+      , j = Io(S, 64, 64, m, b)
+      , M = e.create(t * .5, a * .5)
       , q = j.map(R => {
-        const H = e.normalize(e.sub(D, R))
-          , oe = b(-u, u)
-          , P = l + oe;
+        const H = e.normalize(e.sub(M, R))
+          , le = b(-u, u)
+          , P = i + le;
         return e.add(R, e.mul(H, P))
     }
     )
       , L = r.createAabb(e.create(0, 0), e.create(t, a))
       , z = [];
-    for (let R = 0; R < i.length; R++) {
-        const H = i[R]
-          , oe = new ho(H.points,H.width,H.looped,z,L);
-        z.push(oe)
+    for (let R = 0; R < l.length; R++) {
+        const H = l[R]
+          , le = new So(H.points,H.width,H.looped,z,L);
+        z.push(le)
     }
     return {
         shore: j,
@@ -44283,43 +44915,43 @@ function Fo(t, a, o, l, i, s) {
         rivers: z
     }
 }
-function Xt(t, a, o, l, i, s) {
+function Jt(t, a, o, i, l, s) {
     const c = t;
-    return c.dead || !c.collidable || c.isWindow || c.height < l || !h.sameLayer(c.layer, i) || s && i & 2 && c.layer == 0 ? null : r.intersectSegment(c.collider, a, o)
+    return c.dead || !c.collidable || c.isWindow || c.height < i || !h.sameLayer(c.layer, l) || s && l & 2 && c.layer == 0 ? null : r.intersectSegment(c.collider, a, o)
 }
-function Qt(t, a, o, l, i) {
-    const s = ba.intersectSegmentDist(t, a, o, l, 0, i, !1);
+function Qt(t, a, o, i, l) {
+    const s = va.intersectSegmentDist(t, a, o, i, 0, l, !1);
     return e.add(a, e.mul(o, s))
 }
-const ba = {
-    intersectSegment(t, a, o, l, i, s, c) {
-        const m = e.add(a, e.mul(o, l))
+const va = {
+    intersectSegment(t, a, o, i, l, s, c) {
+        const m = e.add(a, e.mul(o, i))
           , u = [];
         for (let b = 0; b < t.length; b++) {
-            const x = t[b]
-              , y = Xt(x, a, m, i, s, c);
+            const w = t[b]
+              , y = Jt(w, a, m, l, s, c);
             if (y) {
                 const T = e.length(e.sub(y.point, a));
                 u.push({
-                    id: x.__id,
+                    id: w.__id,
                     dist: T
                 })
             }
         }
-        return u.sort( (b, x) => b.dist - x.dist),
+        return u.sort( (b, w) => b.dist - w.dist),
         u.length > 0 ? u[0] : null
     },
-    intersectSegmentDist(t, a, o, l, i, s, c) {
-        let m = l;
-        const u = e.add(a, e.mul(o, l));
+    intersectSegmentDist(t, a, o, i, l, s, c) {
+        let m = i;
+        const u = e.add(a, e.mul(o, i));
         for (let b = 0; b < t.length; b++) {
-            const x = t[b]
-              , y = Xt(x, a, u, i, s, c);
-            y && (m = w.min(m, e.length(e.sub(y.point, a))))
+            const w = t[b]
+              , y = Jt(w, a, u, l, s, c);
+            y && (m = k.min(m, e.length(e.sub(y.point, a))))
         }
         return m
     },
-    scanCollider(t, a, o, l, i, s, c, m) {
+    scanCollider(t, a, o, i, l, s, c, m) {
         const u = r.intersectCircle(t, o, c);
         if (!u)
             return null;
@@ -44328,35 +44960,35 @@ const ba = {
                 dist: 0
             };
         const b = e.perp(u.dir)
-          , x = Qt(a, o, e.neg(b), .5 * s, l)
-          , y = Qt(a, o, b, .5 * s, l);
-        let T = e.sub(y, x);
+          , w = Qt(a, o, e.neg(b), .5 * s, i)
+          , y = Qt(a, o, b, .5 * s, i);
+        let T = e.sub(y, w);
         const v = e.length(T);
         T = v > 1e-4 ? e.div(T, v) : e.create(1, 0);
         const S = [];
-        for (let D = 0; D < m; D++) {
-            const q = D / w.max(m - 1, 1);
-            S.push(e.add(x, e.mul(T, v * q)))
+        for (let M = 0; M < m; M++) {
+            const q = M / k.max(m - 1, 1);
+            S.push(e.add(w, e.mul(T, v * q)))
         }
-        const j = i;
-        for (let D = 0; D < S.length; D++) {
-            const q = S[D]
+        const j = l;
+        for (let M = 0; M < S.length; M++) {
+            const q = S[M]
               , L = r.intersectCircle(t, q, c);
             if (!L)
                 continue;
             const z = e.neg(L.dir)
-              , R = ba.intersectSegmentDist(a, q, z, c, j, l, !0)
+              , R = va.intersectSegmentDist(a, q, z, c, j, i, !0)
               , H = r.intersectSegment(t, q, e.add(q, e.mul(z, c)))
-              , oe = H ? e.length(e.sub(H.point, q)) : 0;
-            if (H && oe <= R)
+              , le = H ? e.length(e.sub(H.point, q)) : 0;
+            if (H && le <= R)
                 return {
-                    dist: oe
+                    dist: le
                 }
         }
         return null
     }
 };
-export {qa as $, aa as A, Ra as B, C, dt as D, Jt as E, ko as F, le as G, qe as H, oa as I, wo as J, Bo as K, Co as L, ht as M, Oo as N, yr as O, rr as P, Wt as Q, cr as R, xo as S, xa as T, Lo as U, zo as V, ea as W, Io as X, So as Y, Eo as Z, To as _, ut as a, La as a0, tr as a1, or as a2, Ua as b, r as c, F as d, Ue as e, ba as f, te as g, Uo as h, Fo as i, bo as j, Fa as k, Ao as l, w as m, Yt as n, ta as o, fo as p, Fr as q, Ur as r, qo as s, vo as t, h as u, e as v, Do as w, Ro as x, Mo as y, Po as z};
+export {pa as $, ra as A, Ha as B, C, gt as D, Yt as E, Mo as F, ie as G, Le as H, ia as I, Do as J, Wo as K, Uo as L, bt as M, Lo as N, Ir as O, lr as P, Wt as Q, mr as R, Co as S, Ia as T, Ko as U, Vo as V, ta as W, qo as X, Bo as Y, Fo as Z, zo as _, dt as a, or as a0, Eo as a1, Ga as a2, ha as a3, sr as a4, Va as b, r as c, F as d, Fe as e, va as f, ae as g, $o as h, Xo as i, Io as j, Wa as k, Ro as l, k as m, ea as n, aa as o, Oo as p, Kr as q, Zr as r, Zo as s, Po as t, h as u, e as v, Ho as w, No as x, jo as y, Go as z};
 
 
 window.GameMod = class GameMod { // metka mod

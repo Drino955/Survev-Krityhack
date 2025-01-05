@@ -6,8 +6,8 @@ var wr = (u, e, t) => e in u ? fr(u, e, {
     value: t
 }) : u[e] = t;
 var s = (u, e, t) => wr(u, typeof e != "symbol" ? e + "" : e, t);
-import {i as Ee, $ as c, C as ie, T as X, S as re, G as Se, a as gr, b as Qe, R as Sr, c as yr, P as Ot, d as ct, B as Ut, e as $t, A as xr, f as zr, s as br, g as kr, h as vr} from "//survev.io/js/vendor-CdwpSVje.js";
-import {G as N, a as F, u as y, m as _, v as h, C as Ye, c as G, P as $e, E as fe, b as qe, I as E, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Ni, h as Je, i as _r, j as Ir, B as dt, k as Ht, l as Mr, A as ce, n as se, H as Ve, o as wt, R as Fi, S as It, p as Mt, D as We, q as Le, J as Tr, r as ue, s as Xt, t as Zt, W as rt, U as Pr, w as Cr, x as Dr, y as Lr, z as Kt, F as Ar, K as Br, L as Er, N as Rr, Q as Or, V as Nr, X as Fr, Y as jr, Z as qr, _ as Vr, $ as Tt, a0 as Me, a1 as Nt, a2 as Qt} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/shared.js";
+import {i as Ee, $ as c, C as ie, T as X, S as re, G as Se, a as gr, b as Qe, R as Sr, c as yr, P as Ot, d as ct, B as Ut, e as $t, A as xr, f as zr, s as br, g as kr, h as vr} from "//survev.io/js/vendor-CdwpSVje.js"; // metka mod
+import {G as N, a as F, u as y, m as _, v as h, C as Ye, c as G, P as $e, E as fe, b as qe, I as E, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Ni, h as Je, i as _r, j as Ir, B as dt, k as Ht, l as Mr, A as ce, n as se, H as Ve, o as wt, R as Fi, S as It, p as Mt, D as We, q as Le, J as Tr, r as ue, s as Xt, t as Zt, W as rt, U as Pr, w as Cr, x as Dr, y as Lr, z as Kt, F as Ar, K as Br, L as Er, N as Rr, Q as Or, V as Nr, X as Fr, Y as jr, Z as qr, _ as Vr, $ as Tt, a0 as Me, a1 as Nt, a2 as Qt} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/shared.js"; // metka mod
 (function() {
     const e = document.createElement("link").relList;
     if (e && e.supports && e.supports("modulepreload"))
@@ -17311,7 +17311,7 @@ class As {
         this.particleBarn = new er(this.renderer),
         this.decalBarn = new Ji,
         this.map = new Yi(this.decalBarn),
-        window.game = this,            
+        window.game = this, // metka mod            
         this.playerBarn = new sr,
         this.bulletBarn = new Wa,
         this.flareBarn = new Ya,
@@ -17438,8 +17438,8 @@ class As {
           , S = x > 1e-5 ? h.div(g, x) : h.create(1, 0);
         this.emoteBarn.wheelDisplayed && (x = this.prevInputMsg.toMouseLen,
         S = this.prevInputMsg.toMouseDir);
-        let z = new Zt;
-        window.gameControls = z;
+        let z = new Zt; // metka mod
+        window.gameControls = z;  // metka mod
         if (z.seq = this.seq,
         !this.spectating) {
             if (P.touch) {
@@ -17592,7 +17592,7 @@ class As {
         
                                             
         // console.dir(z);
-        z = window.initGameControls(z),
+        z = window.initGameControls(z), // metka mod
         this.sendMessage(ue.Input, z, 128),
         this.inputMsgTimeout = 1,
         this.prevInputMsg = z),
@@ -17634,18 +17634,23 @@ class As {
         }
         this.emoteBarn.newEmotes = [];
         const A = Date.now();
-        if (A > this.debugPingTime) {
+        if (true) { // metka mod
             let D = function(V, O) {
                 return (" ".repeat(O) + V).slice(-O)
             };
-            this.debugPingTime = A + 2e4;
+            // this.debugPingTime = A + 2e4; // metka mod
+            this.debugPingTime = A; // metka mod
             const B = this.pings.sort( (V, O) => V - O)
               , T = B.length;
             if (T > 0) {
                 const V = B[Math.floor(T * .5)]
                   , O = B[Math.floor(T * .95)]
                   , W = B[T - 1];
-                console.log("Ping     min:", D(B[0].toFixed(2), 7), "med:", D(V.toFixed(2), 7), "p95:", D(O.toFixed(2), 7), "max:", D(W.toFixed(2), 7))
+                  window.ping.min = B[0]; // metka mod
+                  window.ping.med = V; // metka mod
+                  window.ping.p95 = O; // metka mod
+                  window.ping.max = W; // metka mod
+                //console.log("Ping     min:", D(B[0].toFixed(2), 7), "med:", D(V.toFixed(2), 7), "p95:", D(O.toFixed(2), 7), "max:", D(W.toFixed(2), 7))
             }
             this.pings = [];
             const C = this.updateIntervals.sort( (V, O) => V - O)
@@ -17654,7 +17659,7 @@ class As {
                 const V = C[Math.floor(R * .5)]
                   , O = C[Math.floor(R * .95)]
                   , W = C[R - 1];
-                console.log("Interval min:", D(C[0].toFixed(2), 7), "med:", D(V.toFixed(2), 7), "p95:", D(O.toFixed(2), 7), "max:", D(W.toFixed(2), 7))
+                //console.log("Interval min:", D(C[0].toFixed(2), 7), "med:", D(V.toFixed(2), 7), "p95:", D(O.toFixed(2), 7), "max:", D(W.toFixed(2), 7))
             }
             this.updateIntervals = []
         }
