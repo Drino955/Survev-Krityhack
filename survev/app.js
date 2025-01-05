@@ -6,13 +6,17 @@ var wr = (u, e, t) => e in u ? fr(u, e, {
     value: t
 }) : u[e] = t;
 var s = (u, e, t) => wr(u, typeof e != "symbol" ? e + "" : e, t);
-const krityhack__links = Array.from(document.querySelectorAll('link[rel="modulepreload"][href]'));
-const krityhack__vendorLink = links.find(link => link.href.includes('vendor-'));
-if (!vendorLink) {
-    console.error('Error, not vendor');
-}
-import {i as Ee, $ as c, C as ie, T as X, S as re, G as Se, a as gr, b as Qe, R as Sr, c as yr, P as Ot, d as ct, B as Ut, e as $t, A as xr, f as zr, s as br, g as kr, h as vr} from krityhack__vendorLink.href; // metka mod
+
 import {G as N, a as F, u as y, m as _, v as h, C as Ye, c as G, P as $e, E as fe, b as qe, I as E, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Ni, h as Je, i as _r, j as Ir, B as dt, k as Ht, l as Mr, A as ce, n as se, H as Ve, o as wt, R as Fi, S as It, p as Mt, D as We, q as Le, J as Tr, r as ue, s as Xt, t as Zt, W as rt, U as Pr, w as Cr, x as Dr, y as Lr, z as Kt, F as Ar, K as Br, L as Er, N as Rr, Q as Or, V as Nr, X as Fr, Y as jr, Z as qr, _ as Vr, $ as Tt, a0 as Me, a1 as Nt, a2 as Qt} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/shared.js"; // metka mod
+(async () => {
+const krityhack__links = Array.from(document.querySelectorAll('link[rel="modulepreload"][href]'));
+const krityhack__vendorLink = krityhack__links.find(link => link.href.includes('vendor-'));
+if (!krityhack__vendorLink) {
+    console.error('Error, not vendor');
+    return
+}
+const vendorModule = await import(krityhack__vendorLink.href);
+const {i: Ee, $: c, C: ie, T: X, S: re, G: Se, a: gr, b: Qe, R: Sr, c: yr, P: Ot, d: ct, B: Ut, e: $t, A: xr, f: zr, s: br, g: kr, h: vr} = vendorModule; // metka mod
 (function() {
     const e = document.createElement("link").relList;
     if (e && e.supports && e.supports("modulepreload"))
@@ -22688,3 +22692,5 @@ window.PingTest = class PingTest {
 if (AlguienClientEnabled){
     const gameMod = new GameMod();
 }
+
+})();
