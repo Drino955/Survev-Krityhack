@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.7
+// @version      0.1.75
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -30,10 +30,10 @@ appScript.type = 'module';
 
 if (window.location.hostname === 'survev.io') {
     console.log('Survev.io detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@c6495bb58d71377b3b95459875ec9144858419ad/survev/app.js';
 } else if(window.location.hostname === 'resurviv.biz')  {
     console.log('Resurviv.biz detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/resurviv/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@c6495bb58d71377b3b95459875ec9144858419ad/resurviv/app.js';
 } else if(window.location.hostname == 'localhost') {
     document.addEventListener('DOMContentLoaded', () => {
         const servMenu = document.querySelector('#server-select-main');
