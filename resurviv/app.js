@@ -6,7 +6,7 @@ var hr = (u, e, t) => e in u ? nr(u, e, {
     value: t
 }) : u[e] = t;
 var s = (u, e, t) => hr(u, typeof e != "symbol" ? e + "" : e, t);
-import {$ as c, i as Fe, C as ie, T as X, S as re, G as Se, a as cr, b as Qe, R as ur, c as dr, P as At, d as nt, B as Vt, e as Wt, f as pr, s as fr, g as wr, A as gr} from "//resurviv.biz/js/vendor-taVxPZ7O.js"; // metka mod
+import {$ as c, i as Fe, C as ie, T as X, S as re, G as Se, a as cr, b as Qe, R as ur, c as dr, P as At, d as nt, B as Vt, e as Wt, f as pr, s as fr, g as wr, A as gr} from "http://resurviv.biz/js/vendor-taVxPZ7O.js"; // metka mod
 import {G as N, a as F, u as x, m as I, v as h, C as Je, c as U, P as $e, E as fe, b as Ve, I as R, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Bi, h as Ke, i as Sr, j as yr, B as ht, k as jt, l as xr, A as ce, n as se, H as We, o as dt, R as Ri, S as kt, p as vt, D as je, q as Le, J as zr, r as ue, s as Ut, t as Gt, W as rt, U as br, w as kr, x as vr, y as _r, z as $t, F as Ir, K as Mr, L as Tr, N as Pr, Q as Cr, V as Dr, X as Lr, Y as Ar, Z as Br, _ as Rr, $ as _t, a0 as Er, a1 as Or, a2 as Me, a3 as Bt, a4 as Ht} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/resurviv/shared.js"; // metka mod
 (function() {
     const e = document.createElement("link").relList;
