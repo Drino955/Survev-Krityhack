@@ -30,10 +30,10 @@ appScript.type = 'module';
 
 if (window.location.hostname === 'survev.io') {
     console.log('Survev.io detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@c6495bb58d71377b3b95459875ec9144858419ad/survev/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@2cec988efa13b3ded89021b09fc5acadfef241b2/survev/app.js';
 } else if(window.location.hostname === 'resurviv.biz')  {
     console.log('Resurviv.biz detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@c6495bb58d71377b3b95459875ec9144858419ad/resurviv/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@2cec988efa13b3ded89021b09fc5acadfef241b2/resurviv/app.js';
 } else if(window.location.hostname == 'localhost') {
     document.addEventListener('DOMContentLoaded', () => {
         const servMenu = document.querySelector('#server-select-main');
