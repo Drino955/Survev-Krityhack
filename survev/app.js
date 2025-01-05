@@ -17299,6 +17299,7 @@ class Ls {
                     o.name = m,
                     o.useTouch = P.touch,
                     o.isMobile = P.mobile || window.mobile,
+                    window.basicDataInfo = o, // metka mod
                     o.bot = !1,
                     o.loadout = this.config.get("loadout"),
                     this.sendMessage(ue.Join, o, 8192)
