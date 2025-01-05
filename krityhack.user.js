@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.4
+// @version      0.1.5
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
+// @match        *://resurviv.biz/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
 // @grant        none
 // @run-at       document-end
@@ -20,11 +21,24 @@
 console.log('Script injecting...')
 
 window.AlguienClientEnabled = true;
+window.ping = {};
 
 // cannot insert through tampermonkey require cause "Cannot use import statement outside a module"
 const appScript = document.createElement('script');
 appScript.type = 'module';
-appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/app.js';
+
+if (window.location.hostname === 'survev.io') {
+    console.log('Survev.io detected');
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/survev/app.js';
+} else if(window.location.hostname === 'resurviv.biz')  {
+    console.log('Resurviv.biz detected');
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@latest/resurviv/app.js';
+} else if(window.location.hostname == 'localhost') {
+    servMenu = document.querySelector('#server-select-main');
+    servMenu.innerHTML = `<optgroup id="server-opts" label="Region" data-l10n="index-region">
+                  <option value="local" data-l10n="index-local" data-label="Local">Local [0 players]</option></optgroup>`;
+}
+
 appScript.onload = () => console.log('app.js loaded');
 appScript.onerror = (err) => console.error('Error in app.js loading:', err);
 document.head.append(appScript);
@@ -455,7 +469,7 @@ window.initGameControls = function(gameControls){
     return gameControls
 }
 
-let date = Date.now();
+let date = performance.now();
 function aimBot() {
 
     if (!aimBotEnabled) return;
@@ -552,7 +566,17 @@ function aimBot() {
             aimbotDot.style.display = 'none';
         }
 
-        date = Date.now();
+        // players.forEach((player) => {
+        //     player.posOldOldOldOld = player.posOldOldOld;
+        // });
+        // players.forEach((player) => {
+        //     player.posOldOldOld = player.posOldOld;
+        // });
+        // players.forEach((player) => {
+        //     player.posOldOld = player.posOld;
+        // });
+
+        date = performance.now();
     } catch (error) {
         console.error("Error in aimBot:", error);
     }
@@ -565,16 +589,18 @@ function calcAngle(playerPos, mePos){
     return Math.atan2(dy, dx);
 }
 
-function calculateAimbotTarget(enemy, curPlayer) {
+/*
+shit
+function calculateAimbotTargett(enemy, curPlayer) {
     if (!enemy || !curPlayer) {
         console.log("Missing enemy or player data");
         return null;
     }
 
-    const { pos: enemyPos, posOld: enemyPosOld } = enemy;
-    const { pos: playerPos, posOld: playerPosOld } = curPlayer;
+    const { pos: enemyPos, posOld: enemyPosOld, posOldOld: enemyPosOldOld, posOldOldOld: enemyPosOldOldOld, posOldOldOldOld: enemyPosOldOldOldOld} = enemy;
+    const { pos: curPlayerPos, posOld: curPlayerPosOld, posOldOld: curPlayerPosOldOld } = curPlayer;
 
-    if (!enemyPosOld || !playerPosOld) {
+    if (!enemyPosOld || !curPlayerPosOld || !curPlayerPosOldOld || !enemyPosOldOld || !enemyPosOldOldOld || !enemyPosOldOldOldOld) {
         console.log("Insufficient data for prediction, using current position");
         return window.game.camera.pointToScreen(enemyPos);
     }
@@ -583,11 +609,17 @@ function calculateAimbotTarget(enemy, curPlayer) {
     const deltaTime = (performance.now() - date) / 1000; // Time since last frame in seconds
     // const FPS = 1 / deltaTime;
     const FPS = 60;
+    const pingSeconds = Awindow.ping.p95 / 1000; 
 
     // Calculate enemy velocity
     const enemyVelocity = {
-        x: (enemyPos.x - enemyPosOld.x) * FPS,
-        y: (enemyPos.y - enemyPosOld.y) * FPS,
+        x: (enemyPos.x - enemyPosOldOldOldOld.x) * (FPS / 4),
+        y: (enemyPos.y - enemyPosOldOldOldOld.y) * (FPS / 4),
+    };
+
+    const curPlayerVelocity = {
+        x: (curPlayerPos.x - curPlayerPosOldOld.x) * FPS,
+        y: (curPlayerPos.y - curPlayerPosOldOld.y) * FPS,
     };
 
 
@@ -598,7 +630,7 @@ function calculateAimbotTarget(enemy, curPlayer) {
     // const bulletSpeed = bullet.speed;
     let bulletSpeed;
     if (!bullet) {
-        console.log("No bullet data, using current enemy position");
+        // console.log("No bullet data, using current enemy position");
         bulletSpeed = 1000;
         // return window.game.camera.pointToScreen(enemyPos);
     }else{
@@ -606,26 +638,40 @@ function calculateAimbotTarget(enemy, curPlayer) {
     }
 
 
-    // Calculate relative position and distance
-    const diffX = enemyPos.x - playerPos.x;
-    const diffY = enemyPos.y - playerPos.y;
-    const distance = Math.hypot(diffX, diffY);
+    // const distance = Math.hypot(diffX, diffY);
 
     // Quadratic equation for time prediction
-    const vx = enemyVelocity.x;
-    const vy = enemyVelocity.y;
-    const dx = diffX;
-    const dy = diffY;
+    const dvx = enemyVelocity.x - curPlayerVelocity.x;
+    const dvy = enemyVelocity.y - curPlayerVelocity.y;
+    const vex = enemyVelocity.x;
+    const vey = enemyVelocity.y;
+    const vpx = curPlayerVelocity.x;
+    const vpy = curPlayerVelocity.y;
+    const tp = pingSeconds;
+    // const dx = (enemyPos.x + vex * tp) - (curPlayerPos.x + vpx * tp);
+    // const dy = (enemyPos.y + vey * tp) - (curPlayerPos.y + vpy * tp);
+    const dx = enemyPos.x - curPlayerPos.x;
+    const dy = enemyPos.y - curPlayerPos.y;
+    const vb = bulletSpeed;
 
-    // const a = vx ** 2 + vy ** 2 - bulletSpeed ** 2;
-    // const b = 2 * (dx * vx + dy * vy);
+    // const a = vex ** 2 + vey ** 2 - vb ** 2;
+    // const b = 2 * (dx * vex + dy * vey);
     // const c = dx ** 2 + dy ** 2;
 
-    const a = bulletSpeed ** 2 - vx ** 2 - vy ** 2;
-    const b = -2 * (vx * dx + vy * dy);
-    const c = -(dx ** 2) - (dy**2);
+    // const a = vb ** 2 - vex ** 2 - vey ** 2;
+    // const b = -2 * (vex * dx + vey * dy);
+    // const c = -(dx ** 2) - (dy ** 2);
 
-    let t;
+    // const a = dvx ** 2 + dvy ** 2 - bulletSpeed ** 2 ;
+    // const b = 2 * (dvx * dx + dvy * dy);
+    // const c = dx ** 2 + dy**2;
+
+
+    const a = vex ** 2 + vey ** 2;
+    const b = 2 * tp * (dvx * vex + dvy * vey) + 2 * (dx * vex + dy * vey) - vb;
+    const c = dx ** 2 + dy ** 2 + tp * (2 * (dx * dvx + dy * dvy) + vb) + tp ** 2 * (dvx ** 2 + dvy ** 2);
+
+    let t; 
 
     if (Math.abs(a) < 1e-6) {
         // Linear solution if bullet speed is much greater than velocity
@@ -651,17 +697,113 @@ function calculateAimbotTarget(enemy, curPlayer) {
         return window.game.camera.pointToScreen(enemyPos);
     }
 
-   
+    const tt = t + tp;
+
+    console.log(`Пуля с врагом столкнется через ${tt}`)
+
+    // Calculate predicted position
+    const predictedPos = {
+        x: enemyPos.x + vex * tt,
+        y: enemyPos.y + vey * tt,
+    };
+
+    console.log("Predicted position:", predictedPos);
+
+    return window.game.camera.pointToScreen(predictedPos);
+}
+
+*/
+
+let lastFrames = {
+    enemy: []
+}
+function calculateAimbotTarget(enemy, curPlayer) {
+    if (!enemy || !curPlayer) {
+        console.log("Missing enemy or player data");
+        return null;
+    }
+    
+    const { pos: enemyPos, posOld: enemyPosOld } = enemy;
+    const { pos: curPlayerPos, posOld: curPlayerPosOld } = curPlayer;
+
+    const dateNow = performance.now();
+
+    lastFrames.enemy.push([dateNow, enemyPos]);
+
+    if (!enemyPosOld || !curPlayerPosOld || lastFrames.enemy.length < 10) {
+        console.log("Insufficient data for prediction, using current position");
+        return window.game.camera.pointToScreen(enemyPos);
+    }
+
+    if (lastFrames.enemy.length > 10){
+        lastFrames.enemy.shift()
+    }
+
+    // Calculate player position and FPS adjustment
+    // const deltaTime = (dateNow - date) / 1000; // Time since last frame in seconds
+    const deltaTime = (dateNow - lastFrames.enemy[0][0]) / 1000; // Time since last frame in seconds
+
+    // Calculate enemy velocity
+    const enemyVelocity = {
+        x: (enemyPos.x - lastFrames.enemy[0][1].x) / deltaTime,
+        y: (enemyPos.y - lastFrames.enemy[0][1].y) / deltaTime,
+    };
+
+    // Get weapon and bullet data
+    const weapon = findWeap(curPlayer);
+    const bullet = findBullet(weapon);
+
+    let bulletSpeed;
+    if (!bullet) {
+        bulletSpeed = 1000;
+    }else{
+        bulletSpeed = bullet.speed;
+    }
+
+    // Quadratic equation for time prediction
+    const vex = enemyVelocity.x;
+    const vey = enemyVelocity.y;
+    const dx = enemyPos.x - curPlayerPos.x;
+    const dy = enemyPos.y - curPlayerPos.y;
+    const vb = bulletSpeed;
+
+    const a = vb ** 2 - vex ** 2 - vey ** 2;
+    const b = -2 * (vex * dx + vey * dy);
+    const c = -(dx ** 2) - (dy ** 2);
+
+    let t; 
+
+    if (Math.abs(a) < 1e-6) {
+        console.log('Linear solution bullet speed is much greater than velocity')
+        t = -c / b;
+    } else {
+        const discriminant = b ** 2 - 4 * a * c;
+
+        if (discriminant < 0) {
+            console.log("No solution, shooting at current position");
+            return window.game.camera.pointToScreen(enemyPos);
+        }
+
+        const sqrtD = Math.sqrt(discriminant);
+        const t1 = (-b - sqrtD) / (2 * a);
+        const t2 = (-b + sqrtD) / (2 * a);
+
+        t = Math.min(t1, t2) > 0 ? Math.min(t1, t2) : Math.max(t1, t2);
+    }
+
+
+    if (t < 0) {
+        console.log("Negative time, shooting at current position");
+        return window.game.camera.pointToScreen(enemyPos);
+    }
 
     console.log(`Пуля с врагом столкнется через ${t}`)
 
     // Calculate predicted position
     const predictedPos = {
-        x: enemyPos.x + vx * t,
-        y: enemyPos.y + vy * t,
+        x: enemyPos.x + vex * t,
+        y: enemyPos.y + vey * t,
     };
-
-    console.log("Predicted position:", predictedPos);
 
     return window.game.camera.pointToScreen(predictedPos);
 }
