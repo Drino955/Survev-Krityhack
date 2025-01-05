@@ -23618,7 +23618,7 @@ const Le = {
     mil_crate_03: A({
         collision: r.createAabbExtents(e.create(0, 0), e.create(2.7, 1.25)),
         health: 100,
-        loot: [d("ots38_dual", 1), d("outfitWhite", 1)],
+        loot: [d("ots38_dual", 1)],
         map: {
             display: !1
         },
@@ -43652,8 +43652,7 @@ const jr = {
             riverbank: 9461284,
             grass: 12434877,
             underground: 1772803,
-            playerSubmerge: 2854052,
-            playerGhillie: 12303291
+            playerSubmerge: 2854052
         },
         particles: {
             camera: "falling_snow_fast"
