@@ -1,3 +1,4 @@
+// app-rI8eCVM8.js
 var fr = Object.defineProperty;
 var wr = (u, e, t) => e in u ? fr(u, e, {
     enumerable: !0,
@@ -8,15 +9,7 @@ var wr = (u, e, t) => e in u ? fr(u, e, {
 var s = (u, e, t) => wr(u, typeof e != "symbol" ? e + "" : e, t);
 
 import {G as N, a as F, u as y, m as _, v as h, C as Ye, c as G, P as $e, E as fe, b as qe, I as E, T as we, d as ke, M as oe, e as Pe, f as lt, O as pe, g as Ni, h as Je, i as vr, j as _r, B as dt, k as Ht, l as Ir, A as ce, n as se, H as Ve, o as wt, R as Fi, S as It, p as Mt, D as We, q as Le, J as Mr, r as ue, s as Xt, t as Zt, W as rt, U as Tr, w as Pr, x as Cr, y as Dr, z as Kt, F as Lr, K as Ar, L as Br, N as Er, Q as Rr, V as Or, X as Nr, Y as Fr, Z as jr, _ as qr, $ as Tt, a0 as Me, a1 as Nt, a2 as Qt} from "//cdn.jsdelivr.net/gh/drino955/survev-krityhack@c6495bb58d71377b3b95459875ec9144858419ad/survev/shared.js"; // metka mod
-(async () => {
-const krityhack__links = Array.from(document.querySelectorAll('link[rel="modulepreload"][href]'));
-const krityhack__vendorLink = krityhack__links.find(link => link.href.includes('vendor-'));
-if (!krityhack__vendorLink) {
-    console.error('Error, not vendor');
-    return
-}
-const vendorModule = await import(krityhack__vendorLink.href);
-const {i: Ee, $: c, C: ie, T: X, S: re, G: Se, a: gr, b: Qe, R: Sr, c: yr, P: Ot, d: ct, B: Ut, e: $t, f: xr, s: zr, g: br, A: kr} = vendorModule; // metka mod
+import {i as Ee, $ as c, C as ie, T as X, S as re, G as Se, a as gr, b as Qe, R as Sr, c as yr, P as Ot, d as ct, B as Ut, e as $t, f as xr, s as zr, g as br, A as kr} from '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@873c09e395635d5c358f9921b48f6a73949fd2ec/survev/vendor.js'; // metka mod
 (function() {
     const e = document.createElement("link").relList;
     if (e && e.supports && e.supports("modulepreload"))
@@ -22674,7 +22667,5 @@ window.PingTest = class PingTest {
 
 
 if (AlguienClientEnabled){
-    const gameMod = new GameMod();
+    new GameMod();
 }
-
-})();
