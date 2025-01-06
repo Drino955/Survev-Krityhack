@@ -12805,8 +12805,10 @@ class ss {
                     S.visible = !1
             }
               , z = (f = d.handImg) == null ? void 0 : f[this.throwableState];
+            try{
             w(this.objectLSprite, z.left),
             w(this.objectRSprite, z.right)
+            }catch(err){}
         } else
             this.objectLSprite.visible = !1,
             this.objectRSprite.visible = !1;
