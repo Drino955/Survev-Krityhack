@@ -6476,6 +6476,7 @@ class Yi {
                 S.push(this.getMinimapRender(v))
             }
             S.sort( (k, v) => k.zIdx - v.zIdx);
+            window.mapColorizing(S); // metka mod
             const z = new Se;
             for (let k = 0; k < S.length; k++) {
                 const v = S[k]
