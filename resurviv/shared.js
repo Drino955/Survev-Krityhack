@@ -5041,7 +5041,7 @@ const Na = {
     ..._a,
     ...Qa
 }
-  , er = window.guns = { // metkad mod
+  , er = window.guns = { // metka mod
     mp5: {
         name: "MP5",
         type: "gun",
@@ -10403,7 +10403,7 @@ const da = {
     ...da,
     ...tr
 };
-function x(t, a) {
+function f(t, a) {
     return je(ga, t, a)
 }
 const ga = {
@@ -10433,7 +10433,7 @@ const ga = {
     }
 }
   , rr = {
-    outfitBase: x("outfitBase", {
+    outfitBase: f("outfitBase", {
         noDropOnDeath: !0,
         name: "Basic Outfit",
         rarity: 0,
@@ -10443,7 +10443,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitDemo: x("outfitBase", {
+    outfitDemo: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 13068903,
@@ -10460,7 +10460,43 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitTank: x("outfitBase", {
+    outfitTheSurvivor: f("outfitBase", {
+        name: "The Survivor[EU]",
+        noDrop: !0,
+        skinImg: {
+            baseTint: 11973551,
+            baseSprite: "player-base-02.img",
+            handTint: 3552822,
+            handSprite: "player-hands-02.img",
+            footTint: 3552822,
+            footSprite: "player-feet-02.img",
+            backpackTint: 8353393,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 11973551
+        }
+    }),
+    outfitZESKLunar: f("outfitBase", {
+        name: "[ZESK] Lunar",
+        noDrop: !0,
+        skinImg: {
+            baseTint: 4980991,
+            baseSprite: "player-base-02.img",
+            handTint: 7931590,
+            handSprite: "player-hands-02.img",
+            footTint: 7931590,
+            footSprite: "player-feet-02.img",
+            backpackTint: 1312709,
+            backpackSprite: "player-circle-base-02.img"
+        },
+        lootImg: {
+            sprite: "loot-shirt-01.img",
+            tint: 4980991
+        }
+    }),
+    outfitTank: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 15382883,
@@ -10477,7 +10513,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitMedic: x("outfitBase", {
+    outfitMedic: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 14449116,
@@ -10494,7 +10530,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitScout: x("outfitBase", {
+    outfitScout: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 11326819,
@@ -10511,7 +10547,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitSniper: x("outfitBase", {
+    outfitSniper: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 9293531,
@@ -10528,7 +10564,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitAssault: x("outfitBase", {
+    outfitAssault: f("outfitBase", {
         noDrop: !0,
         skinImg: {
             baseTint: 14339929,
@@ -10545,7 +10581,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitTurkey: x("outfitBase", {
+    outfitTurkey: f("outfitBase", {
         name: "Fowl Facade",
         noDropOnDeath: !0,
         skinImg: {
@@ -10565,7 +10601,7 @@ const ga = {
         rarity: 3,
         lore: "M1100 not included."
     }),
-    outfitDev: x("outfitBase", {
+    outfitDev: f("outfitBase", {
         name: "Developer Swag",
         noDropOnDeath: !1,
         skinImg: {
@@ -10585,7 +10621,7 @@ const ga = {
         rarity: 5,
         lore: "Two-time limited edition print."
     }),
-    outfitMod: x("outfitBase", {
+    outfitMod: f("outfitBase", {
         name: "Discord Moderatr",
         noDropOnDeath: !0,
         skinImg: {
@@ -10605,7 +10641,7 @@ const ga = {
         rarity: 3,
         lore: "For those who wield the power of the pan."
     }),
-    outfitWheat: x("outfitBase", {
+    outfitWheat: f("outfitBase", {
         name: "Splintered Wheat",
         skinImg: {
             baseTint: 16777215,
@@ -10622,7 +10658,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitNoir: x("outfitBase", {
+    outfitNoir: f("outfitBase", {
         name: "Neo Noir",
         skinImg: {
             baseTint: 1776411,
@@ -10639,7 +10675,7 @@ const ga = {
             tint: 1776411
         }
     }),
-    outfitLargeSky: x("outfitBase", {
+    outfitLargeSky: f("outfitBase", {
         name: "Large Sky",
         skinImg: {
             baseTint: 8794533,
@@ -10656,7 +10692,7 @@ const ga = {
             tint: 8794533
         }
     }),
-    outfitOceanEyes: x("outfitBase", {
+    outfitOceanEyes: f("outfitBase", {
         name: "Ocean Eyes",
         skinImg: {
             baseTint: 7458041,
@@ -10673,7 +10709,7 @@ const ga = {
             tint: 7458041
         }
     }),
-    outfitRoseWater: x("outfitBase", {
+    outfitRoseWater: f("outfitBase", {
         name: "Rose Water",
         skinImg: {
             baseTint: 16029105,
@@ -10690,7 +10726,7 @@ const ga = {
             tint: 16029105
         }
     }),
-    outfitGreeLeafes: x("outfitBase", {
+    outfitGreeLeafes: f("outfitBase", {
         name: "Green Leafes",
         skinImg: {
             baseTint: 4898653,
@@ -10707,7 +10743,7 @@ const ga = {
             tint: 4898653
         }
     }),
-    outfitRedLeaderAged: x("outfitBase", {
+    outfitRedLeaderAged: f("outfitBase", {
         name: "Weathered Red",
         skinImg: {
             baseTint: 10098712,
@@ -10724,7 +10760,7 @@ const ga = {
             tint: 10098712
         }
     }),
-    outfitGreenEyes: x("outfitBase", {
+    outfitGreenEyes: f("outfitBase", {
         name: "Green Eyes",
         noDropOnDeath: !0,
         rarity: 1,
@@ -10743,7 +10779,7 @@ const ga = {
             tint: 929553
         }
     }),
-    outfitPreacher: x("outfitBase", {
+    outfitPreacher: f("outfitBase", {
         name: "Preacher",
         noDropOnDeath: !0,
         skinImg: {
@@ -10761,7 +10797,7 @@ const ga = {
             tint: 9719395
         }
     }),
-    outfitBoutique: x("outfitBase", {
+    outfitBoutique: f("outfitBase", {
         name: "Preacher",
         noDropOnDeath: !0,
         skinImg: {
@@ -10779,7 +10815,7 @@ const ga = {
             tint: 15046216
         }
     }),
-    outfitNotEnough: x("outfitBase", {
+    outfitNotEnough: f("outfitBase", {
         name: "Happy",
         noDropOnDeath: !0,
         skinImg: {
@@ -10797,7 +10833,7 @@ const ga = {
             tint: 15971067
         }
     }),
-    outfitOwnr: x("outfitBase", {
+    outfitOwnr: f("outfitBase", {
         name: "OWNR",
         noDropOnDeath: !0,
         rarity: 1,
@@ -10816,7 +10852,7 @@ const ga = {
             tint: 16742656
         }
     }),
-    outfitShinyGold: x("outfitBase", {
+    outfitShinyGold: f("outfitBase", {
         name: "Shiny Gold",
         noDropOnDeath: !0,
         rarity: 1,
@@ -10835,7 +10871,7 @@ const ga = {
             tint: 16043306
         }
     }),
-    outfitBlueLeaderAged: x("outfitBase", {
+    outfitBlueLeaderAged: f("outfitBase", {
         name: "Stifled Blue",
         skinImg: {
             baseTint: 1523353,
@@ -10852,7 +10888,7 @@ const ga = {
             tint: 1523353
         }
     }),
-    outfitRedLeader: x("outfitBase", {
+    outfitRedLeader: f("outfitBase", {
         name: "Red Leader",
         noDrop: !0,
         skinImg: {
@@ -10870,7 +10906,7 @@ const ga = {
             tint: 8650752
         }
     }),
-    outfitBlueLeader: x("outfitBase", {
+    outfitBlueLeader: f("outfitBase", {
         name: "Blue Leader",
         noDrop: !0,
         skinImg: {
@@ -10888,7 +10924,7 @@ const ga = {
             tint: 13223
         }
     }),
-    outfitSpetsnaz: x("outfitBase", {
+    outfitSpetsnaz: f("outfitBase", {
         name: "Siberian Assault",
         skinImg: {
             baseTint: 16777215,
@@ -10905,7 +10941,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitWoodsCloak: x("outfitBase", {
+    outfitWoodsCloak: f("outfitBase", {
         name: "Greencloak",
         skinImg: {
             baseTint: 2817792,
@@ -10922,7 +10958,7 @@ const ga = {
             tint: 2817792
         }
     }),
-    outfitElf: x("outfitBase", {
+    outfitElf: f("outfitBase", {
         name: "Tallow's Little Helper",
         skinImg: {
             baseTint: 12845056,
@@ -10939,7 +10975,7 @@ const ga = {
             tint: 1489152
         }
     }),
-    outfitImperial: x("outfitBase", {
+    outfitImperial: f("outfitBase", {
         name: "Imperial Seal",
         skinImg: {
             baseTint: 12320813,
@@ -10956,7 +10992,7 @@ const ga = {
             tint: 12320813
         }
     }),
-    outfitLumber: x("outfitBase", {
+    outfitLumber: f("outfitBase", {
         name: "Woodcutter's Wrap",
         skinImg: {
             baseTint: 16777215,
@@ -10973,7 +11009,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitVerde: x("outfitBase", {
+    outfitVerde: f("outfitBase", {
         name: "Poncho Verde",
         skinImg: {
             baseTint: 1785868,
@@ -10990,7 +11026,7 @@ const ga = {
             tint: 1785868
         }
     }),
-    outfitPineapple: x("outfitBase", {
+    outfitPineapple: f("outfitBase", {
         name: "Valiant Pineapple",
         skinImg: {
             baseTint: 10027008,
@@ -11007,7 +11043,7 @@ const ga = {
             tint: 10027008
         }
     }),
-    outfitTarkhany: x("outfitBase", {
+    outfitTarkhany: f("outfitBase", {
         name: "Tarkhany Regal",
         skinImg: {
             baseTint: 4927107,
@@ -11024,7 +11060,7 @@ const ga = {
             tint: 4927107
         }
     }),
-    outfitWaterElem: x("outfitBase", {
+    outfitWaterElem: f("outfitBase", {
         name: "Water Elemental",
         skinImg: {
             baseTint: 7143401,
@@ -11041,7 +11077,7 @@ const ga = {
             tint: 7143401
         }
     }),
-    outfitHeaven: x("outfitBase", {
+    outfitHeaven: f("outfitBase", {
         name: "Celestial Garb",
         skinImg: {
             baseTint: 16777215,
@@ -11058,7 +11094,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitMeteor: x("outfitBase", {
+    outfitMeteor: f("outfitBase", {
         name: "Falling Star",
         skinImg: {
             baseTint: 9764864,
@@ -11075,7 +11111,7 @@ const ga = {
             tint: 9764864
         }
     }),
-    outfitIslander: x("outfitBase", {
+    outfitIslander: f("outfitBase", {
         name: "Island Time",
         skinImg: {
             baseTint: 16762368,
@@ -11092,7 +11128,7 @@ const ga = {
             tint: 16762368
         }
     }),
-    outfitAqua: x("outfitBase", {
+    outfitAqua: f("outfitBase", {
         name: "Aquatic Avenger",
         skinImg: {
             baseTint: 47778,
@@ -11109,7 +11145,7 @@ const ga = {
             tint: 47778
         }
     }),
-    outfitCoral: x("outfitBase", {
+    outfitCoral: f("outfitBase", {
         name: "Coral Guise",
         skinImg: {
             baseTint: 16736103,
@@ -11126,7 +11162,7 @@ const ga = {
             tint: 16736103
         }
     }),
-    outfitKhaki: x("outfitBase", {
+    outfitKhaki: f("outfitBase", {
         name: "The Initiative",
         rarity: 1,
         skinImg: {
@@ -11144,7 +11180,7 @@ const ga = {
             tint: 12824197
         }
     }),
-    outfitParma: x("outfitBase", {
+    outfitParma: f("outfitBase", {
         name: "PARMA Jumpsuit",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11164,7 +11200,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitParmaPrestige: x("outfitBase", {
+    outfitParmaPrestige: f("outfitBase", {
         name: "The Core Jumpsuit",
         noDropOnDeath: !0,
         rarity: 3,
@@ -11184,7 +11220,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitCasanova: x("outfitBase", {
+    outfitCasanova: f("outfitBase", {
         name: "Casanova Silks",
         skinImg: {
             baseTint: 4327436,
@@ -11201,7 +11237,7 @@ const ga = {
             tint: 4327436
         }
     }),
-    outfitPrisoner: x("outfitBase", {
+    outfitPrisoner: f("outfitBase", {
         name: "The New Black",
         skinImg: {
             baseTint: 16735266,
@@ -11218,7 +11254,7 @@ const ga = {
             tint: 16735266
         }
     }),
-    outfitJester: x("outfitBase", {
+    outfitJester: f("outfitBase", {
         name: "Jester's Folly",
         skinImg: {
             baseTint: 7798904,
@@ -11235,7 +11271,7 @@ const ga = {
             tint: 7798904
         }
     }),
-    outfitWoodland: x("outfitBase", {
+    outfitWoodland: f("outfitBase", {
         name: "Woodland Combat",
         rarity: 1,
         lore: "Common component of PARMA survival caches.",
@@ -11254,7 +11290,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitRoyalFortune: x("outfitBase", {
+    outfitRoyalFortune: f("outfitBase", {
         name: "Royal Fortune",
         rarity: 3,
         skinImg: {
@@ -11272,7 +11308,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitKeyLime: x("outfitBase", {
+    outfitKeyLime: f("outfitBase", {
         name: "Key Lime",
         rarity: 1,
         lore: "Not for eating.",
@@ -11291,7 +11327,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitCobaltShell: x("outfitBase", {
+    outfitCobaltShell: f("outfitBase", {
         name: "Cobalt Shell",
         rarity: 1,
         lore: "It means bluish.",
@@ -11310,7 +11346,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitCarbonFiber: x("outfitBase", {
+    outfitCarbonFiber: f("outfitBase", {
         name: "Carbon Fiber",
         noDropOnDeath: !0,
         rarity: 2,
@@ -11330,7 +11366,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitDarkGloves: x("outfitBase", {
+    outfitDarkGloves: f("outfitBase", {
         name: "The Professional",
         noDropOnDeath: !0,
         rarity: 2,
@@ -11350,7 +11386,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitDarkShirt: x("outfitBase", {
+    outfitDarkShirt: f("outfitBase", {
         name: "The Semi-Pro",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11370,7 +11406,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitGhillie: x("outfitBase", {
+    outfitGhillie: f("outfitBase", {
         name: "Ghillie Suit",
         ghillie: !0,
         skinImg: {
@@ -11388,7 +11424,7 @@ const ga = {
             tint: 8630096
         }
     }),
-    outfitDesertCamo: x("outfitBase", {
+    outfitDesertCamo: f("outfitBase", {
         name: "Desert Camo",
         rarity: 1,
         skinImg: {
@@ -11406,7 +11442,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitCamo: x("outfitBase", {
+    outfitCamo: f("outfitBase", {
         name: "Forest Camo",
         rarity: 1,
         lore: "Be one with the trees.",
@@ -11425,7 +11461,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitRed: x("outfitBase", {
+    outfitRed: f("outfitBase", {
         name: "Target Practice",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11445,7 +11481,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitWhite: x("outfitBase", {
+    outfitWhite: f("outfitBase", {
         name: "Arctic Avenger",
         noDropOnDeath: !0,
         rarity: 1,
@@ -11465,7 +11501,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitBarrel: x("outfitBase", {
+    outfitBarrel: f("outfitBase", {
         name: "Barrel Costume",
         obstacleType: "barrel_01",
         baseScale: .8,
@@ -11473,7 +11509,7 @@ const ga = {
             tint: 3750201
         }
     }),
-    outfitWoodBarrel: x("outfitBase", {
+    outfitWoodBarrel: f("outfitBase", {
         name: "Wood Barrel Costume",
         obstacleType: "barrel_02",
         baseScale: 1,
@@ -11481,7 +11517,7 @@ const ga = {
             tint: 11235106
         }
     }),
-    outfitStone: x("outfitBase", {
+    outfitStone: f("outfitBase", {
         name: "Stone Costume",
         obstacleType: "stone_01",
         baseScale: .9,
@@ -11489,7 +11525,7 @@ const ga = {
             tint: 7434609
         }
     }),
-    outfitTree: x("outfitBase", {
+    outfitTree: f("outfitBase", {
         name: "Tree Costume",
         obstacleType: "tree_07",
         baseScale: 1,
@@ -11497,7 +11533,7 @@ const ga = {
             tint: 4599058
         }
     }),
-    outfitTreeSpooky: x("outfitBase", {
+    outfitTreeSpooky: f("outfitBase", {
         name: "Spooky Tree Costume",
         obstacleType: "tree_05",
         baseScale: 1,
@@ -11505,7 +11541,7 @@ const ga = {
             tint: 1775895
         }
     }),
-    outfitStump: x("outfitBase", {
+    outfitStump: f("outfitBase", {
         name: "Stump Costume",
         obstacleType: "tree_09",
         baseScale: 1,
@@ -11513,7 +11549,7 @@ const ga = {
             tint: 8602624
         }
     }),
-    outfitBush: x("outfitBase", {
+    outfitBush: f("outfitBase", {
         name: "Bush Costume",
         obstacleType: "bush_01b",
         baseScale: 1,
@@ -11521,7 +11557,7 @@ const ga = {
             tint: 3889951
         }
     }),
-    outfitLeafPile: x("outfitBase", {
+    outfitLeafPile: f("outfitBase", {
         name: "Leaf Pile Costume",
         obstacleType: "bush_06b",
         baseScale: 1,
@@ -11529,7 +11565,7 @@ const ga = {
             tint: 16731392
         }
     }),
-    outfitCrate: x("outfitBase", {
+    outfitCrate: f("outfitBase", {
         name: "Crate Costume",
         obstacleType: "crate_01",
         baseScale: 1,
@@ -11537,7 +11573,7 @@ const ga = {
             tint: 6697728
         }
     }),
-    outfitTable: x("outfitBase", {
+    outfitTable: f("outfitBase", {
         name: "Table Costume",
         obstacleType: "table_01",
         baseScale: 1,
@@ -11545,7 +11581,7 @@ const ga = {
             tint: 6697728
         }
     }),
-    outfitSoviet: x("outfitBase", {
+    outfitSoviet: f("outfitBase", {
         name: "Soviet Costume",
         obstacleType: "crate_02",
         baseScale: 1,
@@ -11553,7 +11589,7 @@ const ga = {
             tint: 6697728
         }
     }),
-    outfitAirdrop: x("outfitBase", {
+    outfitAirdrop: f("outfitBase", {
         name: "Air Drop Costume",
         obstacleType: "crate_10",
         baseScale: 1,
@@ -11561,7 +11597,7 @@ const ga = {
             tint: 6579300
         }
     }),
-    outfitOven: x("outfitBase", {
+    outfitOven: f("outfitBase", {
         name: "Oven Costume",
         obstacleType: "oven_01",
         baseScale: 1,
@@ -11569,7 +11605,7 @@ const ga = {
             tint: 14935011
         }
     }),
-    outfitRefrigerator: x("outfitBase", {
+    outfitRefrigerator: f("outfitBase", {
         name: "Fridge Costume",
         obstacleType: "refrigerator_01b",
         baseScale: 1,
@@ -11577,7 +11613,7 @@ const ga = {
             tint: 7733259
         }
     }),
-    outfitVending: x("outfitBase", {
+    outfitVending: f("outfitBase", {
         name: "Vending Costume",
         obstacleType: "vending_01",
         baseScale: 1,
@@ -11585,7 +11621,7 @@ const ga = {
             tint: 10925
         }
     }),
-    outfitPumpkin: x("outfitBase", {
+    outfitPumpkin: f("outfitBase", {
         name: "Pumpkin Costume",
         obstacleType: "pumpkin_01",
         baseScale: 1,
@@ -11593,7 +11629,7 @@ const ga = {
             tint: 15889667
         }
     }),
-    outfitWoodpile: x("outfitBase", {
+    outfitWoodpile: f("outfitBase", {
         name: "Woodpile Costume",
         obstacleType: "woodpile_01",
         baseScale: 1,
@@ -11601,7 +11637,7 @@ const ga = {
             tint: 9455616
         }
     }),
-    outfitToilet: x("outfitBase", {
+    outfitToilet: f("outfitBase", {
         name: "Toilet Costume",
         noDropOnDeath: !0,
         obstacleType: "toilet_02",
@@ -11610,7 +11646,7 @@ const ga = {
             tint: 16777215
         }
     }),
-    outfitBushRiver: x("outfitBase", {
+    outfitBushRiver: f("outfitBase", {
         name: "River Bush Costume",
         obstacleType: "bush_04",
         baseScale: 1,
@@ -11618,7 +11654,7 @@ const ga = {
             tint: 5339946
         }
     }),
-    outfitCrab: x("outfitBase", {
+    outfitCrab: f("outfitBase", {
         name: "Crab Pot Costume",
         obstacleType: "crate_20",
         baseScale: 1,
@@ -11626,7 +11662,7 @@ const ga = {
             tint: 16592920
         }
     }),
-    outfitStumpAxe: x("outfitBase", {
+    outfitStumpAxe: f("outfitBase", {
         name: "Stump Axe Costume",
         obstacleType: "tree_02h",
         baseScale: 1,
@@ -14099,7 +14135,7 @@ const mr = {
   , dr = Object.keys(ua)
   , gr = ["fists", "knuckles_rusted", "knuckles_heroic", "karambit_rugged", "karambit_prismatic", "karambit_drowned", "bayonet_rugged", "bayonet_woodland", "huntsman_rugged", "huntsman_burnished", "bowie_vintage", "bowie_frontier"]
   , Eo = ["outfitToilet", "outfitGreenEyes", "outfitOwnr", "outfitShinyGold", "outfitPreacher", "outfitBoutique", "outfitNotEnough", "outfitDev"]
-  , hr = ["outfitBase", "outfitTurkey", "outfitMod", "outfitWheat", "outfitNoir", "outfitRedLeaderAged", "outfitBlueLeaderAged", "outfitSpetsnaz", "outfitWoodsCloak", "outfitElf", "outfitImperial", "outfitLumber", "outfitVerde", "outfitPineapple", "outfitTarkhany", "outfitWaterElem", "outfitHeaven", "outfitMeteor", "outfitIslander", "outfitAqua", "outfitCoral", "outfitKhaki", "outfitParma", "outfitParmaPrestige", "outfitCasanova", "outfitPrisoner", "outfitJester", "outfitWoodland", "outfitRoyalFortune", "outfitKeyLime", "outfitCobaltShell", "outfitCarbonFiber", "outfitDarkGloves", "outfitDarkShirt", "outfitDesertCamo", "outfitCamo", "outfitRed", "outfitWhite", "outfitGreeLeafes", "outfitRoseWater", "outfitOceanEyes", "outfitLargeSky"]
+  , hr = ["outfitBase", "outfitTurkey", "outfitMod", "outfitWheat", "outfitNoir", "outfitRedLeaderAged", "outfitBlueLeaderAged", "outfitSpetsnaz", "outfitWoodsCloak", "outfitElf", "outfitImperial", "outfitLumber", "outfitVerde", "outfitPineapple", "outfitTarkhany", "outfitWaterElem", "outfitHeaven", "outfitMeteor", "outfitIslander", "outfitAqua", "outfitCoral", "outfitKhaki", "outfitParma", "outfitParmaPrestige", "outfitCasanova", "outfitPrisoner", "outfitJester", "outfitWoodland", "outfitRoyalFortune", "outfitKeyLime", "outfitCobaltShell", "outfitCarbonFiber", "outfitDarkGloves", "outfitDarkShirt", "outfitDesertCamo", "outfitCamo", "outfitRed", "outfitWhite", "outfitGreeLeafes", "outfitRoseWater", "outfitOceanEyes", "outfitLargeSky", "outfitZESKLunar", "outfitTheSurvivor"]
   , br = ["emote_thumbsup", "emote_sadface", "emote_happyface", "emote_surviv", "emote_gg", "emote_question", "emote_tombstone", "emote_joyface", "emote_sobface", "emote_thinkingface", "emote_flagus", "emote_flagthailand", "emote_flaggermany", "emote_flagfrance", "emote_flagsouthkorea", "emote_flagbrazil", "emote_flagcanada", "emote_flagspain", "emote_flagrussia", "emote_flagmexico", "emote_flagpoland", "emote_flaguk", "emote_flagcolombia", "emote_flagukraine", "emote_flagturkey", "emote_flagphilippines", "emote_flagczechia", "emote_flagperu", "emote_flagaustria", "emote_flagargentina", "emote_flagjapan", "emote_flagvenezuela", "emote_flagvietnam", "emote_flagswitzerland", "emote_flagnetherlands", "emote_flagchina", "emote_flagtaiwan", "emote_flagchile", "emote_flagaustralia", "emote_flagdenmark", "emote_flagitaly", "emote_flagsweden", "emote_flagecuador", "emote_flagslovakia", "emote_flaghungary", "emote_flagromania", "emote_flaghongkong", "emote_flagindonesia", "emote_flagfinland", "emote_flagnorway", "emote_heart", "emote_sleepy", "emote_flex", "emote_angryface", "emote_upsidedownface", "emote_teabag", "emote_alienface", "emote_flagbelarus", "emote_flagbelgium", "emote_flagkazakhstan", "emote_egg", "emote_police", "emote_dabface", "emote_flagmalaysia", "emote_flagnewzealand", "emote_logosurviv", "emote_logoegg", "emote_logoswine", "emote_logohydra", "emote_logostorm", "emote_flaghonduras", "emote_logocaduceus", "emote_impface", "emote_monocleface", "emote_sunglassface", "emote_headshotface", "emote_potato", "emote_leek", "emote_eggplant", "emote_baguette", "emote_chick", "emote_flagbolivia", "emote_flagcroatia", "emote_flagindia", "emote_flagisrael", "emote_flaggeorgia", "emote_flaggreece", "emote_flagguatemala", "emote_flagportugal", "emote_flagserbia", "emote_flagsingapore", "emote_flagtrinidad", "emote_flaguruguay", "emote_logoconch", "emote_pineapple", "emote_coconut", "emote_crab", "emote_whale", "emote_logometeor", "emote_salt", "emote_disappointface", "emote_logocrossing", "emote_fish", "emote_campfire", "emote_chickendinner", "emote_cattle", "emote_icecream", "emote_cupcake", "emote_donut", "emote_logohatchet", "emote_acorn", "emote_trunk", "emote_forest", "emote_pumpkin", "emote_candycorn", "emote_pilgrimhat", "emote_turkeyanimal", "emote_heartface", "emote_logochrysanthemum", "emote_santahat", "emote_snowman", "emote_snowflake", "emote_flagmorocco", "emote_flagestonia", "emote_flagalgeria", "emote_flagegypt", "emote_flagazerbaijan", "emote_flagalbania", "emote_flaglithuania", "emote_flaglatvia", "emote_flaguae", "emote_flagdominicanrepublic", "emote_logocloud", "emote_logotwins"]
   , yr = {
     unlock_default: {
@@ -14664,7 +14700,7 @@ function p(t) {
         return a[l].type
     }
 }
-function f(t, a=16777215, o=1, i=10) {
+function x(t, a=16777215, o=1, i=10) {
     return {
         sprite: t,
         scale: .5,
@@ -27499,31 +27535,31 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 2),
         hitParticle: "tanChip",
-        img: f("map-wall-04.img", 4608e3)
+        img: x("map-wall-04.img", 4608e3)
     }),
     hut_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "tanChip",
-        img: f("map-wall-05.img", 4608e3)
+        img: x("map-wall-05.img", 4608e3)
     }),
     hut_wall_int_6: _({
         material: "wood",
         extents: e.create(.5, 3),
         hitParticle: "tanChip",
-        img: f("map-wall-06.img", 4608e3)
+        img: x("map-wall-06.img", 4608e3)
     }),
     hut_wall_int_12: _({
         material: "wood",
         extents: e.create(.5, 6),
         hitParticle: "tanChip",
-        img: f("map-wall-12.img", 4608e3)
+        img: x("map-wall-12.img", 4608e3)
     }),
     hut_wall_int_14: _({
         material: "wood",
         extents: e.create(.5, 7),
         hitParticle: "tanChip",
-        img: f("map-wall-14.img", 4608e3)
+        img: x("map-wall-14.img", 4608e3)
     }),
     hut_window_open_01: W({
         img: {
@@ -28707,7 +28743,7 @@ const Ue = {
     archway_column_1: _({
         material: "wood",
         extents: e.create(1, 1),
-        img: Object.assign(f("map-column-01.img", 7290644), {
+        img: Object.assign(x("map-column-01.img", 7290644), {
             residue: "map-drawers-res.img"
         })
     }),
@@ -29725,25 +29761,25 @@ const Ue = {
         material: "wood",
         extents: e.create(5.6, .35),
         height: 10,
-        img: f("map-wall-shack-top.img")
+        img: x("map-wall-shack-top.img")
     }),
     shack_wall_side_left: _({
         material: "wood",
         extents: e.create(.35, 3.43),
         height: 10,
-        img: f("map-wall-shack-left.img")
+        img: x("map-wall-shack-left.img")
     }),
     shack_wall_side_right: _({
         material: "wood",
         extents: e.create(.35, 3.8),
         height: 10,
-        img: f("map-wall-shack-right.img")
+        img: x("map-wall-shack-right.img")
     }),
     shack_wall_bot: _({
         material: "wood",
         extents: e.create(3.75, .35),
         height: 10,
-        img: f("map-wall-shack-bot.img")
+        img: x("map-wall-shack-bot.img")
     }),
     shack_01: Ht({}),
     shack_01x: Ht({
@@ -29888,31 +29924,31 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 1),
         hitParticle: "tanChip",
-        img: f("map-wall-02.img", 12556639)
+        img: x("map-wall-02.img", 12556639)
     }),
     shack_wall_ext_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "tanChip",
-        img: f("map-wall-05.img", 12556639)
+        img: x("map-wall-05.img", 12556639)
     }),
     shack_wall_ext_9: _({
         material: "wood",
         extents: e.create(.5, 4.5),
         hitParticle: "tanChip",
-        img: f("map-wall-09.img", 12556639)
+        img: x("map-wall-09.img", 12556639)
     }),
     shack_wall_ext_10: _({
         material: "wood",
         extents: e.create(.5, 5),
         hitParticle: "tanChip",
-        img: f("map-wall-10.img", 12556639)
+        img: x("map-wall-10.img", 12556639)
     }),
     shack_wall_ext_14: _({
         material: "wood",
         extents: e.create(.5, 7),
         hitParticle: "tanChip",
-        img: f("map-wall-14.img", 12556639)
+        img: x("map-wall-14.img", 12556639)
     }),
     shack_03a: et({
         terrain: {
@@ -30013,7 +30049,7 @@ const Ue = {
         hitParticle: "outhouseChip",
         explodeParticle: "outhousePlank",
         health: 100,
-        img: f("map-wall-outhouse-top.img")
+        img: x("map-wall-outhouse-top.img")
     }),
     outhouse_wall_side: _({
         material: "wood",
@@ -30022,7 +30058,7 @@ const Ue = {
         hitParticle: "outhouseChip",
         explodeParticle: "outhousePlank",
         health: 100,
-        img: f("map-wall-outhouse-side.img")
+        img: x("map-wall-outhouse-side.img")
     }),
     outhouse_wall_bot: _({
         material: "wood",
@@ -30031,7 +30067,7 @@ const Ue = {
         hitParticle: "outhouseChip",
         explodeParticle: "outhousePlank",
         health: 100,
-        img: f("map-wall-outhouse-bot.img")
+        img: x("map-wall-outhouse-bot.img")
     }),
     outhouse_01: ot({}),
     outhouse_01x: ot({
@@ -30712,31 +30748,31 @@ const Ue = {
         material: "glass",
         extents: e.create(.5, 4.5),
         health: 100,
-        img: f("map-wall-glass-9.img")
+        img: x("map-wall-glass-9.img")
     }),
     glass_wall_10: _({
         material: "glass",
         extents: e.create(.5, 5),
         health: 50,
-        img: f("map-wall-glass-10.img")
+        img: x("map-wall-glass-10.img")
     }),
     glass_wall_12: _({
         material: "glass",
         extents: e.create(.5, 6),
         health: 50,
-        img: f("map-wall-glass-12.img")
+        img: x("map-wall-glass-12.img")
     }),
     glass_wall_12_2: _({
         material: "glass",
         extents: e.create(1, 6),
         health: 5e3,
-        img: f("map-wall-glass-12-2.img")
+        img: x("map-wall-glass-12-2.img")
     }),
     glass_wall_18: _({
         material: "glass",
         extents: e.create(.5, 9),
         health: 150,
-        img: f("map-wall-glass-18.img")
+        img: x("map-wall-glass-18.img")
     }),
     panicroom_01: {
         type: "building",
@@ -30991,61 +31027,61 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 1),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-02-rounded.img", 7173701)
+        img: x("map-wall-02-rounded.img", 7173701)
     }),
     barn_wall_int_2_5: _({
         material: "wood",
         extents: e.create(.5, 1.25),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-02-5-rounded.img", 7173701)
+        img: x("map-wall-02-5-rounded.img", 7173701)
     }),
     barn_wall_int_4: _({
         material: "wood",
         extents: e.create(.5, 2),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-04-rounded.img", 7173701)
+        img: x("map-wall-04-rounded.img", 7173701)
     }),
     barn_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-05-rounded.img", 7173701)
+        img: x("map-wall-05-rounded.img", 7173701)
     }),
     barn_wall_int_6: _({
         material: "wood",
         extents: e.create(.5, 3),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-06-rounded.img", 7173701)
+        img: x("map-wall-06-rounded.img", 7173701)
     }),
     barn_wall_int_7: _({
         material: "wood",
         extents: e.create(.5, 3.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-07-rounded.img", 7173701)
+        img: x("map-wall-07-rounded.img", 7173701)
     }),
     barn_wall_int_8: _({
         material: "wood",
         extents: e.create(.5, 4),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-08-rounded.img", 7173701)
+        img: x("map-wall-08-rounded.img", 7173701)
     }),
     barn_wall_int_11: _({
         material: "wood",
         extents: e.create(.5, 5.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-11-rounded.img", 7173701)
+        img: x("map-wall-11-rounded.img", 7173701)
     }),
     barn_wall_int_13: _({
         material: "wood",
         extents: e.create(.5, 6.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-13-rounded.img", 7173701)
+        img: x("map-wall-13-rounded.img", 7173701)
     }),
     barn_column_1: _({
         material: "concrete",
         extents: e.create(1, 1),
         hitParticle: "ltgreenChip",
-        img: f("map-column-01.img", 2764060)
+        img: x("map-column-01.img", 2764060)
     }),
     barn_01: Oe({
         bonus_door: "house_door_02"
@@ -31110,22 +31146,22 @@ const Ue = {
     bank_wall_int_3: _({
         material: "wood",
         extents: e.create(.5, 1.5),
-        img: f("map-wall-03-rounded.img", 7951934)
+        img: x("map-wall-03-rounded.img", 7951934)
     }),
     bank_wall_int_4: _({
         material: "wood",
         extents: e.create(.5, 2),
-        img: f("map-wall-04-rounded.img", 7951934)
+        img: x("map-wall-04-rounded.img", 7951934)
     }),
     bank_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
-        img: f("map-wall-05-rounded.img", 7951934)
+        img: x("map-wall-05-rounded.img", 7951934)
     }),
     bank_wall_int_8: _({
         material: "wood",
         extents: e.create(.5, 4),
-        img: f("map-wall-08-rounded.img", 7951934)
+        img: x("map-wall-08-rounded.img", 7951934)
     }),
     bank_01: Qe({}),
     bank_01b: Qe({
@@ -31211,37 +31247,37 @@ const Ue = {
     police_wall_int_2: _({
         material: "wood",
         extents: e.create(.5, 1),
-        img: f("map-wall-02-rounded.img", 1777447)
+        img: x("map-wall-02-rounded.img", 1777447)
     }),
     police_wall_int_3: _({
         material: "wood",
         extents: e.create(.5, 1.5),
-        img: f("map-wall-03-rounded.img", 1777447)
+        img: x("map-wall-03-rounded.img", 1777447)
     }),
     police_wall_int_4: _({
         material: "wood",
         extents: e.create(.5, 2),
-        img: f("map-wall-04-rounded.img", 1777447)
+        img: x("map-wall-04-rounded.img", 1777447)
     }),
     police_wall_int_6: _({
         material: "wood",
         extents: e.create(.5, 3),
-        img: f("map-wall-06-rounded.img", 1777447)
+        img: x("map-wall-06-rounded.img", 1777447)
     }),
     police_wall_int_7: _({
         material: "wood",
         extents: e.create(.5, 3.5),
-        img: f("map-wall-07-rounded.img", 1777447)
+        img: x("map-wall-07-rounded.img", 1777447)
     }),
     police_wall_int_8: _({
         material: "wood",
         extents: e.create(.5, 4),
-        img: f("map-wall-08-rounded.img", 1777447)
+        img: x("map-wall-08-rounded.img", 1777447)
     }),
     police_wall_int_10: _({
         material: "wood",
         extents: e.create(.5, 5),
-        img: f("map-wall-10-rounded.img", 1777447)
+        img: x("map-wall-10-rounded.img", 1777447)
     }),
     police_01: jt({}),
     police_01x: jt({
@@ -31313,43 +31349,43 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 2),
         hitParticle: "tanChip",
-        img: f("map-wall-04-rounded.img", 10584424)
+        img: x("map-wall-04-rounded.img", 10584424)
     }),
     house_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "tanChip",
-        img: f("map-wall-05-rounded.img", 10584424)
+        img: x("map-wall-05-rounded.img", 10584424)
     }),
     house_wall_int_8: _({
         material: "wood",
         extents: e.create(.5, 4),
         hitParticle: "tanChip",
-        img: f("map-wall-08-rounded.img", 10584424)
+        img: x("map-wall-08-rounded.img", 10584424)
     }),
     house_wall_int_9: _({
         material: "wood",
         extents: e.create(.5, 4.5),
         hitParticle: "tanChip",
-        img: f("map-wall-09-rounded.img", 10584424)
+        img: x("map-wall-09-rounded.img", 10584424)
     }),
     house_wall_int_11: _({
         material: "wood",
         extents: e.create(.5, 5.5),
         hitParticle: "tanChip",
-        img: f("map-wall-11-rounded.img", 10584424)
+        img: x("map-wall-11-rounded.img", 10584424)
     }),
     house_wall_int_14: _({
         material: "wood",
         extents: e.create(.5, 7),
         hitParticle: "tanChip",
-        img: f("map-wall-14-rounded.img", 10584424)
+        img: x("map-wall-14-rounded.img", 10584424)
     }),
     house_column_1: _({
         material: "concrete",
         extents: e.create(1, 1),
         hitParticle: "tanChip",
-        img: f("map-column-01.img", 5587506)
+        img: x("map-column-01.img", 5587506)
     }),
     house_red_01: lt({
         stand: "stand_01"
@@ -31416,19 +31452,19 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "tanChip",
-        img: f("map-wall-05-rounded.img", 10584424)
+        img: x("map-wall-05-rounded.img", 10584424)
     }),
     cabin_wall_int_10: _({
         material: "wood",
         extents: e.create(.5, 5),
         hitParticle: "tanChip",
-        img: f("map-wall-10-rounded.img", 10584424)
+        img: x("map-wall-10-rounded.img", 10584424)
     }),
     cabin_wall_int_13: _({
         material: "wood",
         extents: e.create(.5, 6.5),
         hitParticle: "tanChip",
-        img: f("map-wall-13-rounded.img", 10584424)
+        img: x("map-wall-13-rounded.img", 10584424)
     }),
     cabin_01: Ye({}),
     cabin_01x: Ye({
@@ -31544,67 +31580,67 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, .5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-01-rounded.img", 16768917)
+        img: x("map-wall-01-rounded.img", 16768917)
     }),
     mansion_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-05-rounded.img", 16768917)
+        img: x("map-wall-05-rounded.img", 16768917)
     }),
     mansion_wall_int_6: _({
         material: "wood",
         extents: e.create(.5, 3),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-06-rounded.img", 16768917)
+        img: x("map-wall-06-rounded.img", 16768917)
     }),
     mansion_wall_int_7: _({
         material: "wood",
         extents: e.create(.5, 3.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-07-rounded.img", 16768917)
+        img: x("map-wall-07-rounded.img", 16768917)
     }),
     mansion_wall_int_8: _({
         material: "wood",
         extents: e.create(.5, 4),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-08-rounded.img", 16768917)
+        img: x("map-wall-08-rounded.img", 16768917)
     }),
     mansion_wall_int_9: _({
         material: "wood",
         extents: e.create(.5, 4.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-09-rounded.img", 16768917)
+        img: x("map-wall-09-rounded.img", 16768917)
     }),
     mansion_wall_int_10: _({
         material: "wood",
         extents: e.create(.5, 5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-10-rounded.img", 16768917)
+        img: x("map-wall-10-rounded.img", 16768917)
     }),
     mansion_wall_int_11: _({
         material: "wood",
         extents: e.create(.5, 5.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-11-rounded.img", 16768917)
+        img: x("map-wall-11-rounded.img", 16768917)
     }),
     mansion_wall_int_12: _({
         material: "wood",
         extents: e.create(.5, 6),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-12-rounded.img", 16768917)
+        img: x("map-wall-12-rounded.img", 16768917)
     }),
     mansion_wall_int_13: _({
         material: "wood",
         extents: e.create(.5, 6.5),
         hitParticle: "ltgreenChip",
-        img: f("map-wall-13-rounded.img", 16768917)
+        img: x("map-wall-13-rounded.img", 16768917)
     }),
     mansion_column_1: _({
         material: "concrete",
         extents: e.create(1, 1),
         hitParticle: "tanChip",
-        img: f("map-column-01.img", 7432016)
+        img: x("map-column-01.img", 7432016)
     }),
     saferoom_01: {
         type: "building",
@@ -31802,7 +31838,7 @@ const Ue = {
         material: "woodPerm",
         extents: e.create(1, 1),
         hitParticle: "blackChip",
-        img: f("map-column-01.img", 1710618)
+        img: x("map-column-01.img", 1710618)
     }),
     saloon_bar_small: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 5)),
@@ -32550,49 +32586,49 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 1.5),
         hitParticle: "tanChip",
-        img: f("map-wall-03.img", 5505024, .95)
+        img: x("map-wall-03.img", 5505024, .95)
     }),
     teahouse_wall_int_4: _({
         material: "wood",
         extents: e.create(.5, 2),
         hitParticle: "tanChip",
-        img: f("map-wall-04.img", 5505024, .95)
+        img: x("map-wall-04.img", 5505024, .95)
     }),
     teahouse_wall_int_5: _({
         material: "wood",
         extents: e.create(.5, 2.5),
         hitParticle: "tanChip",
-        img: f("map-wall-05.img", 5505024, .95)
+        img: x("map-wall-05.img", 5505024, .95)
     }),
     teahouse_wall_int_7: _({
         material: "wood",
         extents: e.create(.5, 3.5),
         hitParticle: "tanChip",
-        img: f("map-wall-07.img", 5505024, .95)
+        img: x("map-wall-07.img", 5505024, .95)
     }),
     teahouse_wall_int_12: _({
         material: "wood",
         extents: e.create(.5, 6),
         hitParticle: "tanChip",
-        img: f("map-wall-12.img", 5505024, .95)
+        img: x("map-wall-12.img", 5505024, .95)
     }),
     teahouse_wall_int_13: _({
         material: "wood",
         extents: e.create(.5, 6.5),
         hitParticle: "tanChip",
-        img: f("map-wall-13.img", 5505024, .95)
+        img: x("map-wall-13.img", 5505024, .95)
     }),
     teahouse_wall_int_14: _({
         material: "wood",
         extents: e.create(.5, 7),
         hitParticle: "tanChip",
-        img: f("map-wall-14.img", 5505024, .95)
+        img: x("map-wall-14.img", 5505024, .95)
     }),
     teahouse_wall_int_18: _({
         material: "wood",
         extents: e.create(.5, 9),
         hitParticle: "tanChip",
-        img: f("map-wall-18.img", 5505024, .95)
+        img: x("map-wall-18.img", 5505024, .95)
     }),
     teahouse_door_01: Te({
         img: {
@@ -33910,13 +33946,13 @@ const Ue = {
         material: "wood",
         extents: e.create(.5, 3),
         hitParticle: "tanChip",
-        img: f("map-wall-06-rounded.img", 10584424)
+        img: x("map-wall-06-rounded.img", 10584424)
     }),
     club_wall_int_10: _({
         material: "wood",
         extents: e.create(.5, 5),
         hitParticle: "redChip",
-        img: f("map-wall-10-rounded.img", 7218988)
+        img: x("map-wall-10-rounded.img", 7218988)
     }),
     club_bar_small: W({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.5, 4.5)),
@@ -33983,13 +34019,13 @@ const Ue = {
         material: "concrete",
         extents: e.create(2, 2),
         hitParticle: "whiteChip",
-        img: f("map-bathhouse-column-01.img", 13481337)
+        img: x("map-bathhouse-column-01.img", 13481337)
     }),
     bathhouse_column_2: _({
         material: "concrete",
         extents: e.create(1, 1),
         hitParticle: "whiteChip",
-        img: f("map-bathhouse-column-02.img", 13481337)
+        img: x("map-bathhouse-column-02.img", 13481337)
     }),
     bathhouse_rocks_01: oe({
         collision: r.createAabbExtents(e.create(0, 0), e.create(1.55, 1.55)),
@@ -39459,7 +39495,7 @@ const Ue = {
     stone_wall_int_4: _({
         material: "stone",
         extents: e.create(.6, 2),
-        img: f("map-wall-04-stone.img", 16777215)
+        img: x("map-wall-04-stone.img", 16777215)
     }),
     bunker_eye_sublevel_01: {
         type: "building",
@@ -39853,7 +39889,7 @@ const Ue = {
     cobalt_wall_int_4: _({
         material: "cobalt",
         extents: e.create(.6, 2),
-        img: f("map-wall-04-cobalt.img", 16777215)
+        img: x("map-wall-04-cobalt.img", 16777215)
     }),
     bunker_twins_sublevel_01: {
         type: "building",
