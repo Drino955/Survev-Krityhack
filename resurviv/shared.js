@@ -4013,7 +4013,7 @@ const Va = {
         category: 4
     }
 }
-  , Wa = {
+  , Wa = window.explosions = { // metka mod
     explosion_frag: {
         type: "explosion",
         damage: 125,
@@ -13284,7 +13284,7 @@ const mr = {
         color: 16772119
     }
 }
-  , _r = {
+  , _r = window.throwable = { // metka mod
     frag: {
         name: "Frag Grenade",
         type: "throwable",
@@ -22272,7 +22272,7 @@ const Ue = {
         }
     }
 }
-  , bt = {
+  , bt = window.objects = { // metka mod
     barrel_01: Ve({}),
     barrel_01b: Ve({
         img: {

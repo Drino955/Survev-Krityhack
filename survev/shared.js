@@ -1,3 +1,4 @@
+// shared-N0aMCfBe.js
 var ya = Object.defineProperty;
 var fa = (t, a, o) => a in t ? ya(t, a, {
     enumerable: !0,
@@ -4010,7 +4011,7 @@ const Ua = {
         category: 4
     }
 }
-  , Fa = {
+  , Fa = window.explosions = { // metka mod
     explosion_frag: {
         type: "explosion",
         damage: 125,
@@ -13061,7 +13062,7 @@ const cr = {
         color: 16772119
     }
 }
-  , nr = {
+  , nr = window.throwable = { // metka mod
     frag: {
         name: "Frag Grenade",
         type: "throwable",
@@ -22043,7 +22044,7 @@ const Le = {
         }
     }
 }
-  , ht = {
+  , ht = window.objects = { // metka mod
     barrel_01: Ve({}),
     barrel_01b: Ve({
         img: {
