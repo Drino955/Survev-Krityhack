@@ -14620,6 +14620,7 @@ class Ms {
         this.container.visible = !0
     }
 }
+window.pieTimerClass = Ms; // metka mod
 function xi(u) {
     const e = Math.floor(u / 3600)
       , t = Math.floor(u / 60) % 60
