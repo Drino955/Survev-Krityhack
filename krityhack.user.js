@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.1.75
+// @version      0.2.0
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @match        *://survev.io/*
@@ -30,10 +30,10 @@ appScript.type = 'module';
 
 if (window.location.hostname === 'survev.io') {
     console.log('Survev.io detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@2cec988efa13b3ded89021b09fc5acadfef241b2/survev/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@759e3aeced64928ffa0ca067545aa390b6d00277/survev/app.js';
 } else if(window.location.hostname === 'resurviv.biz')  {
     console.log('Resurviv.biz detected');
-    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@2cec988efa13b3ded89021b09fc5acadfef241b2/resurviv/app.js';
+    appScript.src = '//cdn.jsdelivr.net/gh/drino955/survev-krityhack@759e3aeced64928ffa0ca067545aa390b6d00277/resurviv/app.js';
 } else if(window.location.hostname == 'localhost') {
     document.addEventListener('DOMContentLoaded', () => {
         const servMenu = document.querySelector('#server-select-main');
@@ -53,10 +53,12 @@ pixiScript.onerror = (err) => console.error('Error in pixi.js loading:', err);
 let aimBotEnabled = true;
 let zoomEnabled = true;
 let mobileAttackEnabled = true;
-let spinBot = true;
+let spinBot = false;
+let autoSwitchEnabled = true;
 
 let espEnabled = true;
 let xrayEnabled = true;
+let autoStopEnabled = false;
 
 const version = GM_info.script.version;
 
@@ -137,6 +139,8 @@ window.addEventListener('keyup', function (event) {
             event.preventDefault();
             break;
         case 'Y': spinBot = !spinBot; break;
+        // case 'P': autoStopEnabled = !autoStopEnabled; break;
+        // case 'U': autoSwitchEnabled = !autoSwitchEnabled; break;
         // case 'O': window.gameOptimization = !window.gameOptimization; break;
     }
     updateOverlay();
@@ -235,6 +239,9 @@ Object.defineProperty(window, 'basicDataInfo', {
 
 let espOneTime = false;
 let aimBotOneTime = false;
+let autoSwitchOneTime = false;
+let obstacleOpacityOneTime = false;
+let grenadeTimerOneTime = false;
 function initGame() {
     console.log('init game...........');
 
@@ -243,11 +250,14 @@ function initGame() {
 
     const tasks = [
         {isApplied: false, condition: () => window.game?.activePlayer?.localData, action: betterScale},
-        {isApplied: false, condition: () => window.game?.map?.obstaclePool?.pool != undefined, action: obstacleOpacity},
+        // {isApplied: false, condition: () => window.game?.map?.obstaclePool?.pool != undefined, action: obstacleOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
         {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
         {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!espOneTime) { window.game?.pixi?._ticker?.add(esp); espOneTime = true; } } },
         {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!aimBotOneTime) { window.game?.pixi?._ticker?.add(aimBot); aimBotOneTime = true; } } },
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!autoSwitchOneTime) { window.game?.pixi?._ticker?.add(autoSwitch); autoSwitchOneTime = true; } } },
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!obstacleOpacityOneTime) { window.game?.pixi?._ticker?.add(obstacleOpacity); obstacleOpacityOneTime = true; } } },
+        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!grenadeTimerOneTime) { window.game?.pixi?._ticker?.add(grenadeTimer); grenadeTimerOneTime = true; } } },
     ];
 
     (function checkLocalData(){
@@ -369,12 +379,12 @@ function smokeOpacity(){
 }
 
 function obstacleOpacity(){
-    setInterval(() => {
+    // setInterval(() => {
         window.game.map.obstaclePool.pool.forEach(obstacle => {
             if (!['bush', 'tree', 'table', 'stairs'].some(substring => obstacle.type.includes(substring))) return;
             obstacle.sprite.alpha = 0.45
         });
-    });
+    // });
 }
 
 const getTeam = player => Object.keys(game.playerBarn.teamInfo).find(team => game.playerBarn.teamInfo[team].playerIds.includes(player.__id))
@@ -398,6 +408,7 @@ function visibleNames(){
                     const playerTeam = getTeam(player);
                     // console.log('visible', player?.nameText?._text, playerTeam === meTeam ? BLUE : RED, player, me, playerTeam, meTeam)
                     this.tint = playerTeam === meTeam ? BLUE : RED;
+                    player.nameText.style.fontSize = 40;
                     return true;
                 },
                 set(value){
@@ -416,7 +427,7 @@ function visibleNames(){
                 const playerTeam = getTeam(player);
                 // console.log('visible', player?.nameText?._text, playerTeam === meTeam ? BLUE : RED, player, me, playerTeam, meTeam)
                 this.tint = playerTeam === meTeam ? BLUE : RED;
-
+                player.nameText.style.fontSize = 40;
                 return true;
             },
             set(value){
@@ -424,7 +435,6 @@ function visibleNames(){
         });
     });
 }
-
 function esp(){
     const pixi = window.game.pixi; 
     const me = window.game.activePlayer;
@@ -432,7 +442,7 @@ function esp(){
 
     // We check if there is an object of Pixi, otherwise we create a new
     if (!pixi || me?.container == undefined) {
-        console.error("PIXI object not found in game.");
+        // console.error("PIXI object not found in game.");
         return;
     }
 
@@ -474,17 +484,266 @@ function esp(){
         );
     });
 
-    }catch{}
+    if (!me.container.nadeDrawer) {
+        me.container.nadeDrawer = new PIXI.Graphics();
+        me.container.addChild(me.container.nadeDrawer);
+    }
+        
+    const nadeDrawer = me.container.nadeDrawer;
+    nadeDrawer.clear();
+
+    Object.values(window.game.objectCreator.idToObj)
+        .filter(obj => {
+            const isValid = ( obj.__type === 9 && obj.type !== "smoke" )
+                ||  (
+                        // obj.img &&
+                        // obj.img.match(/barrel-/g) &&
+                        obj.smokeEmitter &&
+                        window.objects[obj.type].explosion);
+            // console.log('Filtering object:', obj, 'isValid:', isValid);
+            return isValid;
+        })
+        .forEach(obj => {
+            // console.log('Processing object:', obj);
+            //If the object is inside a bunker and you're not etc, make the blast radius white
+            if(obj.layer !== me.layer) {
+                // console.log('Object is in a different layer:', obj.layer, 'me.layer:', me.layer);
+                nadeDrawer.beginFill(0xffffff, 0.3);
+            } else {
+                // console.log('Object is in the same layer:', obj.layer, 'me.layer:', me.layer);
+                nadeDrawer.beginFill(0xff0000, 0.2);
+            }
+            nadeDrawer.drawCircle(
+                (obj.pos.x - meX) * 16,
+                (meY - obj.pos.y) * 16,
+                (window.explosions[
+                    window.throwable[obj.type]?.explosionType ||
+                    window.objects[obj.type].explosion
+                        ].rad.max +
+                    1) *
+                16
+            );
+            nadeDrawer.endFill();
+        });
+
+    const curWeapon = findWeap(me);
+    const curBullet = findBullet(curWeapon);
+    
+    if ( !me.container.laserDrawer ) {
+        me.container.laserDrawer = new PIXI.Graphics();
+        me.container.addChildAt(me.container.laserDrawer, 0);
+    }
+    const laserDrawer = me.container.laserDrawer;
+    laserDrawer.clear();
+        
+
+    function laserPointer(
+        curBullet,
+        curWeapon,
+        acPlayer,
+        color = 0x0000ff,
+        opacity = 0.3,
+    ) {
+        // console.log("laserPointer called with:", { curBullet, acPlayer, curWeapon, color, opacity });
+        const { pos: acPlayerPos, posOld: acPlayerPosOld } = acPlayer;
+
+        const dateNow = performance.now();
+        if ( !(acPlayer.__id in lastFrames) ) lastFrames[acPlayer.__id] = [];
+        lastFrames[acPlayer.__id].push([dateNow, acPlayerPos]);
+
+        if (!acPlayerPosOld || lastFrames[acPlayer.__id].length < 20) {
+            // console.log("Insufficient data for isMoving");
+            return
+        }
+
+        if (lastFrames[acPlayer.__id].length > 20){
+            lastFrames[acPlayer.__id].shift();
+        }
+
+        const deltaTime = (dateNow - lastFrames[acPlayer.__id][0][0]) / 1000; // Time since last frame in seconds
+
+        // Calculate enemy velocity
+        const acPlayerVelocity = {
+            x: (acPlayerPos._x - lastFrames[acPlayer.__id][0][1]._x) / deltaTime,
+            y: (acPlayerPos._y - lastFrames[acPlayer.__id][0][1]._y) / deltaTime,
+        };
+
+        // console.log(acPlayerVelocity, lastFrames)
+    
+        let lasic = {};
+    
+        // let isMoving =
+        //     acPlayer.posOld &&
+        //     (acPlayer.pos._x != acPlayer.posOld._x ||
+        //     acPlayer.pos._y != acPlayer.posOld._y);
+        let isMoving = !!(acPlayerVelocity.x || acPlayerVelocity.y);
+    
+        if(curBullet) {
+            lasic.active = true;
+            lasic.range = curBullet.distance * 16.25;
+            let atan;
+            if (acPlayer == me && !window.game.input.mouseButtons['0']){
+                //local rotation
+                atan = Math.atan2(
+                    window.game.input.mousePos._y - window.innerHeight / 2,
+                    window.game.input.mousePos._x - window.innerWidth / 2,
+                );
+            }else{
+                atan = Math.atan2(
+                    acPlayer.dir.x,
+                    acPlayer.dir.y
+                ) 
+                -
+                Math.PI / 2;
+            }
+            lasic.direction = atan;
+            lasic.angle =
+                ((curWeapon.shotSpread +
+                    (isMoving ? curWeapon.moveSpread : 0)) *
+                    0.01745329252) /
+                2;
+            // console.log("lasic updated:", lasic);
+        } else {
+            lasic.active = false;
+            // console.log("No current bullet, lasic inactive");
+        }
+    
+        if(!lasic.active) {
+            // console.log("lasic is not active");
+            return;
+        }
+
+        const center = {
+            x: (acPlayerPos._x - me.pos._x) * 16,
+            y: (me.pos._y - acPlayerPos._y) * 16,
+        };
+        const radius = lasic.range;
+        let angleFrom = lasic.direction - lasic.angle;
+        let angleTo = lasic.direction + lasic.angle;
+        angleFrom =
+            angleFrom > Math.PI * 2
+                ? angleFrom - Math.PI * 2
+                : angleFrom < 0
+                ? angleFrom + Math.PI * 2
+                : angleFrom;
+        angleTo =
+            angleTo > Math.PI * 2
+                ? angleTo - Math.PI * 2
+                : angleTo < 0
+                ? angleTo + Math.PI * 2
+                : angleTo;
+        laserDrawer.beginFill(color, opacity);
+        laserDrawer.moveTo(center.x, center.y);
+        laserDrawer.arc(center.x, center.y, radius, angleFrom, angleTo);
+        laserDrawer.lineTo(center.x, center.y);
+        laserDrawer.endFill();
+        // console.log("Laser pointer drawn with center:", center, "radius:", radius, "angles:", { angleFrom, angleTo });
+    }
+    
+    
+    laserPointer(
+        curBullet,
+        curWeapon,
+        me,
+    );
+    
+    players
+        .filter(player => player.active || !player.netData.dead || me.__id !== player.__id || me.layer === player.layer || getTeam(player) != meTeam)
+        .forEach(enemy => {
+            const enemyWeapon = findWeap(enemy);
+            // console.log("Processing enemy:", enemy);
+            laserPointer(
+                findBullet(enemyWeapon),
+                enemyWeapon,
+                enemy,
+                "0",
+                0.2,
+            )
+        });
+
+    }catch(err){
+        // console.error('esp', err)
+    }
 }
 
+const inputCommands = {
+    Cancel: 6,
+    Count: 36,
+    CycleUIMode: 30,
+    EmoteMenu: 31,
+    EquipFragGrenade: 15,
+    EquipLastWeap: 19,
+    EquipMelee: 13,
+    EquipNextScope: 22,
+    EquipNextWeap: 17,
+    EquipOtherGun: 20,
+    EquipPrevScope: 21,
+    EquipPrevWeap: 18,
+    EquipPrimary: 11,
+    EquipSecondary: 12,
+    EquipSmokeGrenade: 16,
+    EquipThrowable: 14,
+    Fire: 4,
+    Fullscreen: 33,
+    HideUI: 34,
+    Interact: 7,
+    Loot: 10,
+    MoveDown: 3,
+    MoveLeft: 0,
+    MoveRight: 1,
+    MoveUp: 2,
+    Reload: 5,
+    Revive: 8,
+    StowWeapons: 27,
+    SwapWeapSlots: 28,
+    TeamPingMenu: 32,
+    TeamPingSingle: 35,
+    ToggleMap: 29,
+    Use: 9,
+    UseBandage: 23,
+    UseHealthKit: 24,
+    UsePainkiller: 26,
+    UseSoda: 25,
+};
+let inputs = [];
 window.initGameControls = function(gameControls){
+    for (const command of inputs){
+        gameControls.addInput(inputCommands[command]);
+    }
+    inputs = [];
+
+
+
     if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
-        if (window.aimTouchDistanceToEnemy < 4) window.gameControls.addInput(13); // melee
-        if(window.game.activePlayer.localData.curWeapIdx == 2){
-            gameControls.touchMoveActive = true;
-            gameControls.touchMoveLen = 255;
-            gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
-            gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+        if (window.aimTouchDistanceToEnemy < 4) gameControls.addInput(inputCommands['EquipMelee']);
+        gameControls.touchMoveActive = true;
+        gameControls.touchMoveLen = 255;
+        gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
+        gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+    }
+
+    const curWeapIdx = window.game.activePlayer.localData.curWeapIdx;
+    const weaps = window.game.activePlayer.localData.weapons;
+    const curWeap = weaps[curWeapIdx];
+    if(autoStopEnabled
+        && window.game.input.mouseButtons['0'] 
+        // && window.lastAimPos 
+        && window.game.activePlayer.localData.curWeapIdx != 2 && window.game.activePlayer.localData.curWeapIdx != 3
+        && (window.guns[curWeap.type].fireMode !== "auto" || window.guns[curWeap.type].fireMode !== "burst" )
+    ){
+        if ( ( Date.now() - ammo[curWeapIdx].lastShotDate ) / 1000 < window.guns[curWeap.type].fireDelay ) return gameControls;
+
+        if (gameControls.moveDown){
+            gameControls.moveUp = true;
+        }
+        if (gameControls.moveUp){
+            gameControls.moveDown = true;
+        }
+        if (gameControls.moveLeft){
+            gameControls.moveRight = true;
+        }
+        if (gameControls.moveRight){
+            gameControls.moveLeft = true;
         }
     }
     return gameControls
@@ -498,13 +757,17 @@ let spinAngle = 0;
 const radius = 100; // The radius of the circle
 const spinSpeed = 37.5; // Rotation speed (increase for faster speed)
 let date = performance.now();
+let enemyAimBot = null;
+let newEnemyAimBotDate = Date.now();
 function aimBot() {
 
     if (!aimBotEnabled) return;
 
     Object.defineProperty(window.game.input.mousePos, 'x', {
         get(){
-            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) return window.lastAimPos.clientX;
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) {
+                return window.lastAimPos.clientX;
+            }
             if (!window.game.input.mouseButtons['0'] && !window.game.input.mouseButtons['2'] && window.game.activePlayer.localData.curWeapIdx != 3 && spinBot) {
                 spinAngle += spinSpeed;
                 return Math.cos(degreesToRadians(spinAngle)) * radius + window.innerWidth / 2;
@@ -518,7 +781,9 @@ function aimBot() {
 
     Object.defineProperty(window.game.input.mousePos, 'y', {
         get(){
-            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) return window.lastAimPos.clientY;
+            if (window.game.input.mouseButtons['0'] && window.lastAimPos && window.game.activePlayer.localData.curWeapIdx != 3) {
+                return window.lastAimPos.clientY;
+            }
             if (!window.game.input.mouseButtons['0'] && !window.game.input.mouseButtons['2'] && window.game.activePlayer.localData.curWeapIdx != 3 && spinBot) {
                 return Math.sin(degreesToRadians(spinAngle)) * radius + window.innerHeight / 2;
             }
@@ -533,36 +798,43 @@ function aimBot() {
     const me = window.game.activePlayer;
 
     try {
-        const meX = me.pos._x;
-        const meY = me.pos._y;
         const meTeam = getTeam(me);
 
-        let closestEnemy = null;
-        let distanceToEnemy = Infinity;
-        let minDistanceToPlayerFromMouse = Infinity;
+        let enemy = null;
+        let minDistanceToEnemyFromMouse = Infinity;
 
         players.forEach((player) => {
+            if ( enemyAimBot && player.active && !enemyAimBot.dead && me.layer === enemyAimBot.layer && (Date.now() - newEnemyAimBotDate) / 1000 < 0.5) {
+                enemy = enemyAimBot;
+                return;
+            };
+
             // We miss inactive or dead players
-            if (!player.active || player.netData.dead || me.__id === player.__id || me.layer !== player.layer) return;
+            if (!player.active || player.netData.dead || me.__id === player.__id || me.layer !== player.layer || getTeam(player) == meTeam) return;
 
-            const playerTeam = getTeam(player);
-            if (playerTeam === meTeam) return; // We miss the allies
-
-            const playerX = player.pos._x;
-            const playerY = player.pos._y;
-            const distanceToPlayer = Math.hypot(meX - playerX, meY - playerY);
             const screenPlayerPos = window.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
-            const distanceToPlayerFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos._x, screenPlayerPos.y - window.game.input.mousePos._y);
-
-            if (distanceToPlayerFromMouse < minDistanceToPlayerFromMouse) {
-                minDistanceToPlayerFromMouse = distanceToPlayerFromMouse;
-                distanceToEnemy = distanceToPlayer;
-                closestEnemy = player;
+            const distanceToEnemyFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos._x, screenPlayerPos.y - window.game.input.mousePos._y);
+            
+            if (distanceToEnemyFromMouse < minDistanceToEnemyFromMouse) {
+                minDistanceToEnemyFromMouse = distanceToEnemyFromMouse;
+                enemy = player;
             }
         });
 
-        if (closestEnemy) {
-            const predictedEnemyPos = calculateAimbotTarget(closestEnemy, me);
+        if (enemy) {
+            const meX = me.pos._x;
+            const meY = me.pos._y;
+            const enemyX = enemy.pos._x;
+            const enemyY = enemy.pos._y;
+
+            const distanceToEnemy = Math.hypot(meX - enemyX, meY - enemyY);
+
+            if (enemy != enemyAimBot) {
+                enemyAimBot = enemy;
+                newEnemyAimBotDate = Date.now();
+            }
+
+            const predictedEnemyPos = calculateAimbotTarget(enemy, me);
 
             if (!predictedEnemyPos) return;
 
@@ -573,7 +845,7 @@ function aimBot() {
             
             // Autoattack with mobile movement
             if(mobileAttackEnabled && distanceToEnemy <= 8) {
-                const moveAngle = calcAngle(closestEnemy.pos, me.pos) + Math.PI;
+                const moveAngle = calcAngle(enemy.pos, me.pos) + Math.PI;
                 window.gameControls.touchMoveActive = true;
                 window.aimTouchMoveDir = {
                     x: Math.cos(moveAngle),
@@ -596,7 +868,7 @@ function aimBot() {
 
         date = performance.now();
     } catch (error) {
-        console.error("Error in aimBot:", error);
+        // console.error("Error in aimBot:", error);
     }
 }
 
@@ -718,6 +990,8 @@ function updateOverlay() {
         [ '[Z] Zoom:', zoomEnabled ],
         [ '[M] MobileAtk:', mobileAttackEnabled ],
         [ '[Y] SpinBot:', spinBot ],
+        // [ '[P] AutoStop:', autoStopEnabled ],
+        // [ '[U] AutoSwitch:', autoSwitchEnabled ],
         // [ '[O] gameOptimization:', gameOptimization ],
     ];
 
@@ -739,10 +1013,12 @@ const ammo = [
     {
         name: "",
         ammo: 0,
+        lastShotDate: Date.now()
     },
     {
         name: "",
         ammo: 0,
+        lastShotDate: Date.now()
     },
     {
         name: "",
@@ -754,109 +1030,57 @@ const ammo = [
     },
 ]
 
+
+let sniperSwitchEnabled = true;
+let sniperSpeed = 'idk';
+let sniperSwitchMode = 'SniperSwitch'; // SniperSwitch / SmartSwitch
 function autoSwitch(){
-    var curWeapIdx = dataAccessor.GetPlayerWeapIdx(player);
-    var weaps = dataAccessor.GetPlayerWeapons(player);
-    var curWeap = weaps[curWeapIdx];
-    var sniper = () => {
-        var shouldSwitch = gun => {
-            var s = false
-            try {
-                s =
-                    (this.option("sniper")
-                        ? data.guns[gun].fireMode === "single" ||
-                        data.guns[gun].fireMode === "burst"
-                        : true) &&
-                    data.guns[gun].fireDelay >=
-                        (typeof this.option("speed") == "number"
-                            ? this.option("speed") / 100
-                            : 0.45);
-            }
-            catch (e) {
-            console.error("Sniper Switch",e);
-            }
-            return s;
+
+    if (!autoSwitchEnabled) return;
+
+    try {
+    // console.log("autoSwitch called");
+    const curWeapIdx = window.game.activePlayer.localData.curWeapIdx;
+    const weaps = window.game.activePlayer.localData.weapons;
+    const curWeap = weaps[curWeapIdx];
+    // console.log("Current weapon index:", curWeapIdx);
+    // console.log("Current weapon:", curWeap);
+    const shouldSwitch = gun => {
+        let s = false;
+        try {
+            s =
+                (sniperSwitchEnabled
+                    ? window.guns[gun].fireMode === "single" ||
+                    window.guns[gun].fireMode === "burst"
+                    : true) &&
+                window.guns[gun].fireDelay >=
+                    (typeof sniperSpeed == "number"
+                        ? sniperSpeed / 100
+                        : 0.45);
         }
-        this.keys = [
-            weaps["1"].type !== "" && shouldSwitch(weaps["1"].type)
-                ? "EquipOtherGun"
-                : this.option("melee")
-                ? "EquipMelee"
-                : "EquipOtherGun",
-            weaps["0"].type !== "" && shouldSwitch(weaps["0"].type)
-                ? "EquipOtherGun"
-                : this.option("melee")
-                ? "EquipMelee"
-                : "EquipOtherGun",
-            "EquipMelee",
-            "EquipMelee",
-        ];
-        if(curWeap.ammo !== this.ammo[curWeapIdx].ammo) {
-            if (curWeap.ammo < this.ammo[curWeapIdx].ammo &&
-                shouldSwitch(curWeap.type) &&
-                curWeap.type == this.ammo[curWeapIdx].type) 
-            {
-                input.addInput(this.keys[curWeapIdx])
-            }
-            this.ammo[curWeapIdx].ammo = curWeap.ammo
-            this.ammo[curWeapIdx].type = curWeap.type
+        catch (e) {
+            // console.error("Sniper Switch",e);
         }
+        // console.log("Should switch for gun", gun, ":", s);
+        return s;
     }
-    if(this.option("mode") == "SniperSwitch™") {
-        sniper()
+    weapsEquip = ['EquipPrimary', 'EquipSecondary']
+    if(curWeap.ammo !== ammo[curWeapIdx].ammo) {
+        otherWeapIdx = (curWeapIdx == 0) ? 1 : 0
+        otherWeap = weaps[otherWeapIdx]
+        if (curWeap.ammo < ammo[curWeapIdx].ammo && shouldSwitch(curWeap.type) && curWeap.type == ammo[curWeapIdx].type) {
+            ammo[curWeapIdx].lastShotDate = Date.now();
+            console.log("Switching weapon due to ammo change");
+            if ( shouldSwitch(otherWeap.type) && otherWeap.ammo ) { inputs.push(weapsEquip[otherWeapIdx]); }
+            else if ( otherWeap.type !== "" ) { inputs.push(weapsEquip[otherWeapIdx]); inputs.push(weapsEquip[curWeapIdx]); }
+            else { inputs.push('EquipMelee'); inputs.push(weapsEquip[curWeapIdx]); }
+        }
+        ammo[curWeapIdx].ammo = curWeap.ammo
+        ammo[curWeapIdx].type = curWeap.type
     }
-    else if(this.option("mode") == "SmartSwitch™") {
-        let choices = [];
-        if(data.autoAttack) {
-            return;
-        }
-        for(let i = 0; i < 2; i++) {
-            let enemy = data.selectedEnemy[0],
-                gun = data.guns[weaps[i].type],
-                bullet;
-            if(gun) {
-                bullet = data.bullets[gun.bulletType];
-            }
-            if(!enemy || !bullet) {
-                break;
-            }
-            var enemyPos = dataAccessor.GetPlayerPosition(enemy);
-            var playerPos = dataAccessor.GetPlayerPosition(player);
-            let distance = this.calcDistance(
-                enemyPos.x,
-                enemyPos.y,
-                playerPos.x,
-                playerPos.y
-            )
-            choices.push({
-                dps:
-                    ((1 / gun.fireDelay) *
-                        bullet.damage *
-                        (gun.burstCount || 1) *
-                        gun.bulletCount *
-                        (1 - bullet.falloff)) ^
-                    distance,
-                hittable: distance < bullet.distance,
-                hasAmmo: weaps[i].ammo > 0,
-                key: i,
-                gun,
-            })
-        }
-        if(choices.length == 2) {
-            choices = choices.filter(function (e) {
-                return e.hittable && e.hasAmmo
-            });
-            choices = choices.sort(function (a, b) {
-                return b.dps - a.dps
-            });
-            if(!choices[0]) {
-                return;
-            }
-            input.addInput(
-                choices[0].key == 0 ? "EquipPrimary" : "EquipSecondary"
-            );
-        }
-    }
+ 
+    // console.log("autoSwitch completed");
+    }catch(err){}
 }
 
 
@@ -871,4 +1095,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+let colors = {
+    container_06: 14934793,
+    barn_02: 14934793,
+    stone_02: 1654658,
+    tree_03: 16777215,
+    stone_04: 0xeb175a,
+    stone_05: 0xeb175a,
+    bunker_storm_01: 14934793,
+},
+sizes = {
+    stone_02: 4,
+    tree_03: 2,
+    stone_04: 2,
+    stone_05: 2,
+};
+
+window.mapColorizing = map => {
+    map.forEach(object => {
+        if ( !colors[object.obj.type] ) return;
+        object.shapes.forEach(shape => {
+            shape.color = colors[object.obj.type];
+            console.log(object);
+            if ( !sizes[object.obj.type] ) return;
+            shape.scale = sizes[object.obj.type];
+            console.log(object);
+        });
+    });
+}
+
 console.log('Script injected')
+
+
+let lastTime = Date.now();
+let showing = false;
+let timer = null;
+function grenadeTimer(){
+    try{
+    let elapsed = (Date.now() - lastTime) / 1000;
+    const player = window.game.activePlayer;
+    const activeItem = player.netData.activeWeapon;
+
+    if (3 !== window.game.activePlayer.localData.curWeapIdx 
+        || player.throwableState !== "cook"
+        || (!activeItem.includes('frag') && !activeItem.includes('mirv') && !activeItem.includes('martyr_nade'))
+    )
+        return (
+            (showing = false),
+            timer && timer.destroy(),
+            (timer = false)
+        );
+    const time = 4;
+
+    if(elapsed > time) {
+        showing = false;
+    }
+    if(!showing) {
+        if(timer) {
+            timer.destroy();
+        }
+        timer = new window.pieTimerClass();
+        window.game.pixi.stage.addChild(timer.container);
+        timer.start("Grenade", 0, time);
+        showing = true;
+        lastTime = Date.now();
+        return;
+    }
+    timer.update(elapsed - timer.elapsed, window.game.camera);
+    }catch(err){}
+}
