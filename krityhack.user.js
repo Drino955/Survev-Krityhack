@@ -4,6 +4,7 @@
 // @version      0.2.1
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
+// @license      GPL3
 // @match        *://survev.io/*
 // @match        *://resurviv.biz/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
