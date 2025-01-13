@@ -4,7 +4,7 @@
 
 ## Features ✨
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
-- 🖱️ **Improved mouse click functionality**: You will be able to hold down the left mouse button continuously, reducing the need for multiple clicks to shoot.
+- 🔫 **BumpFire**: Allows continuous shooting without constant clicking.
 - 🔍 **Enhanced game zoom**.
 - 🌫️ **Smoke opacity**.
 - 🧱 **Obstacle opacity**.
@@ -24,7 +24,6 @@
 - 🗺️ **Map Coloring**: The map is color-coded (e.g., white circle for mosin-tree, gold container for SV98, blue circle for rock cache, yellow bunker for storm bunker, pink square for hardstone...)
 - 🥋 **AutoMelee**: Automatically moves towards and attacks enemies when they are within a certain distance (4 game coordinates for ranged weapons, 8 game coordinates for melee weapons) while holding down the left mouse button.
 - 🔄 **AutoSwitch**: Quickly switches weapons to avoid cooldown after shooting.
-- 🔫 **BumpFire**: Allows continuous shooting without constant clicking.
 - 🎯 **FocusedEnemy**: Press [T] to focus on an enemy. AimBot will continuously target the focused enemy. Press [T] again to reset.
 - ⏲️ **GrenadeTimer**: Shows a timer for when a grenade will explode.
 
@@ -63,4 +62,4 @@ Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityt
 Join our Discord community for discussions and support: [[HACK] League of Hackers](https://discord.gg/wPuvEySg3E)
 
 ## License 📄
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
