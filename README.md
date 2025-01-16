@@ -2,6 +2,22 @@
 
 **Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.
 
+## Installation 📥
+1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
+YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
+2. Install script from [click](https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js).
+3. Refresh the survev.io/resurviv.biz page to activate the hack.
+
+## Usage 🚀
+1. Launch survev.io/resurviv.biz in your browser.
+2. Run the hack executable.
+3. Enjoy the enhanced gameplay!
+
+![main-menu](./github-images/main.png)
+![hack](./github-images/hack.png)
+![tracer](./github-images/tracer.png)
+![map](./github-images/map.png)
+
 ## Features ✨
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
 - 🔫 **BumpFire**: Allows continuous shooting without constant clicking.
@@ -26,24 +42,6 @@
 - 🔄 **AutoSwitch**: Quickly switches weapons to avoid cooldown after shooting.
 - 🎯 **FocusedEnemy**: Press [T] to focus on an enemy. AimBot will continuously target the focused enemy. Press [T] again to reset.
 - ⏲️ **GrenadeTimer**: Shows a timer for when a grenade will explode.
-
-
-![main-menu](./github-images/main.png)
-![hack](./github-images/hack.png)
-![tracer](./github-images/tracer.png)
-![map](./github-images/map.png)
-
-
-## Installation 📥
-1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
-YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
-2. Install script from [click](https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js).
-3. Refresh the survev.io/resurviv.biz page to activate the hack.
-
-## Usage 🚀
-1. Launch survev.io/resurviv.biz in your browser.
-2. Run the hack executable.
-3. Enjoy the enhanced gameplay!
 
 ## Disclaimer ⚠️
 This software is for educational purposes only. Use at your own risk.
