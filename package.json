@@ -1,0 +1,41 @@
+{
+  "name": "Survev-Krityhack",
+  "version": "0.2.1",
+  "description": "Survev-Krityhack is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.",
+  "main": "init.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "watch": "chokidar 'src/**/*' -c 'npm run build'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drino955/Survev-Krityhack.git"
+  },
+  "keywords": [
+    "Aimbot",
+    "xray",
+    "tracer",
+    "better",
+    "zoom",
+    "smoke/obstacle",
+    "opacity",
+    "autoloot",
+    "player",
+    "names",
+    "survev.io",
+    "resurviv.biz"
+  ],
+  "author": "KrityTeam",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Drino955/Survev-Krityhack/issues"
+  },
+  "homepage": "https://github.com/Drino955/Survev-Krityhack#readme",
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "vite": "^6.0.7",
+    "vite-plugin-banner": "^0.8.0"
+  }
+}
