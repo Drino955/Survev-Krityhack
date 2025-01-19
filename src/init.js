@@ -1,11 +1,7 @@
-console.log('Script injecting...');
-window.ping = {}; // for reverse compatibility
-
+import './injecting.js';
 import './plugins/gameOptimization.js';
-import './injecting.js'; // Modified App.js and Shared.js so that the script can interact with the game
 import './styles.js';
 import './overlay.js';
-// import { updateOverlay } from './overlay.js';
 import './plugins/mapColorizing.js';
 import './plugins/alguienClient.js';
 import './plugins/keybinds.js';
@@ -15,6 +11,7 @@ import { initGame } from './initGame.js';
 import './overrideInputs.js';
 
 
+// init game every time()
 function bootLoader(){
     Object.defineProperty(window, 'game', {
         get () {
@@ -31,7 +28,4 @@ function bootLoader(){
     });
 }
 
-bootLoader(); // init game every time()
-
-
-console.log('Script injected')
+bootLoader(); 
