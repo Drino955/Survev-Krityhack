@@ -67,7 +67,6 @@ export function aimBot() {
             // AutoMelee
             if(state.isMeleeAttackEnabled && distanceToEnemy <= 8) {
                 const moveAngle = calcAngle(enemy.pos, me.pos) + Math.PI;
-                window.gameControls.touchMoveActive = true;
                 window.aimTouchMoveDir = {
                     x: Math.cos(moveAngle),
                     y: Math.sin(moveAngle),
