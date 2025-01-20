@@ -8,13 +8,14 @@ let colors = {
     bunker_storm_01: 14934793,
 },
 sizes = {
-    stone_02: 4,
-    tree_03: 2,
-    stone_04: 2,
-    stone_05: 2,
+    stone_02: 6,
+    tree_03: 8,
+    stone_04: 6,
+    stone_05: 6,
+    bunker_storm_01: 1.75,
 };
 
-window.mapColorizing = map => {
+unsafeWindow.mapColorizing = map => {
     map.forEach(object => {
         if ( !colors[object.obj.type] ) return;
         object.shapes.forEach(shape => {

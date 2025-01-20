@@ -1,31 +1,28 @@
-window.GameMod = class GameMod { // metka mod
+import { version } from "../constants.js";
+
+
+class GameMod {
     constructor() {
         this.lastFrameTime = performance.now();
         this.frameCount = 0;
         this.fps = 0;
         this.kills = 0;
         this.setAnimationFrameCallback();
-        this.isFpsVisible = true;
-        this.isPingVisible = true;
-        this.isKillsVisible = true;
-        this.isMenuVisible = true;
-        this.isClean = false;
 
+        if (unsafeWindow.location.hostname !== 'resurviv.biz' && unsafeWindow.location.hostname !== 'zurviv.io' && unsafeWindow.location.hostname !== 'eu-comp.net'){
+            // cause they have fps counter, etc...
+            this.initCounter("fpsCounter");
+            this.initCounter("pingCounter");
+            this.initCounter("killsCounter");
+        }
 
-        this.initCounter("fpsCounter", "isFpsVisible", this.updateFpsVisibility.bind(this));
-        this.initCounter("pingCounter", "isPingVisible", this.updatePingVisibility.bind(this));
-        this.initCounter("killsCounter", "isKillsVisible", this.updateKillsVisibility.bind(this));
+        this.initMenu(); // left menu in lobby page
+        this.initRules(); // right menu in lobby page
 
-        this.initMenu();
-        this.initRules();
-        this.loadBackgroundFromLocalStorage();
-        this.loadLocalStorage();
-        this.startUpdateLoop();
         this.setupWeaponBorderHandler();
-        this.setupKeyListeners();
     }
 
-    initCounter(id, visibilityKey, updateVisibilityFn) {
+    initCounter(id) {
         this[id] = document.createElement("div");
         this[id].id = id;
         Object.assign(this[id].style, {
@@ -41,53 +38,19 @@ window.GameMod = class GameMod { // metka mod
         });
 
         const uiTopLeft = document.getElementById("ui-top-left");
+        // const uiTeam = document.getElementById("ui-team");
         if (uiTopLeft) {
+            // if (uiTeam) {
+            // uiTopLeft.insertBefore(this[id], uiTeam);
+            // uiTeam.style.marginTop = '20px';
+            // } else {
             uiTopLeft.appendChild(this[id]);
+            // }
         }
-
-        updateVisibilityFn();
-    }
-
-    updateFpsVisibility() {
-        this.updateVisibility("fpsCounter", this.isFpsVisible);
-    }
-
-    updatePingVisibility() {
-        this.updateVisibility("pingCounter", this.isPingVisible);
-    }
-
-    updateKillsVisibility() {
-        this.updateVisibility("killsCounter", this.isKillsVisible);
-    }
-
-
-    updateVisibility(id, isVisible) {
-        if (this[id]) {
-            this[id].style.display = isVisible ? "block" : "none";
-            this[id].style.backgroundColor = isVisible
-                ? "rgba(0, 0, 0, 0.2)"
-                : "transparent";
-        }
-    }
-
-    toggleFpsDisplay() {
-      this.isFpsVisible = !this.isFpsVisible;
-      this.updateFpsVisibility();
     }
     
     setAnimationFrameCallback() {
         this.animationFrameCallback = (callback) => setTimeout(callback, 1);
-    }
-
-
-    togglePingDisplay() {
-      this.isPingVisible = !this.isPingVisible;
-      this.updatePingVisibility();
-    }
-
-    toggleKillsDisplay() {
-      this.isKillsVisible = !this.isKillsVisible;
-      this.updateKillsVisibility();
     }
 
     getKills() {
@@ -101,17 +64,8 @@ window.GameMod = class GameMod { // metka mod
       return 0;
     }
 
-    getRegionFromLocalStorage() {
-      let config = localStorage.getItem("surviv_config");
-      if (config) {
-        let configObject = JSON.parse(config);
-        return configObject.region;
-      }
-      return null;
-    }
-
     startPingTest() {
-      const currentUrl = window.location.href;
+      const currentUrl = unsafeWindow.location.href;
       const isSpecialUrl = /\/#\w+/.test(currentUrl);
 
       const teamSelectElement = document.getElementById("team-server-select");
@@ -128,22 +82,9 @@ window.GameMod = class GameMod { // metka mod
         this.currentServer = region;
         this.resetPing();
 
-        let servers;
+        let servers = unsafeWindow.servers;
 
-        if (window.location.hostname === 'resurviv.biz'){
-            servers = [
-              { region: "NA", url: "resurviv.biz:8001" },
-              { region: "EU", url: "217.160.224.171:8001" },
-            ];
-        }else if (window.location.hostname === 'survev.io'){
-            servers = [
-                { region: "NA", url: "usr.mathsiscoolfun.com:8001" },
-                { region: "EU", url: "eur.mathsiscoolfun.com:8001" },
-                { region: "Asia", url: "asr.mathsiscoolfun.com:8001" },
-                { region: "SA", url: "sa.mathsiscoolfun.com:8001" },
-            ];
-        }
-
+        if (!servers) return;
 
         const selectedServer = servers.find(
           (server) => region.toUpperCase() === server.region.toUpperCase(),
@@ -164,52 +105,6 @@ window.GameMod = class GameMod { // metka mod
         this.pingTest.test.ws = null;
       }
       this.pingTest = null;
-    }
-
-
-    saveBackgroundToLocalStorage(url) {
-      localStorage.setItem("lastBackgroundUrl", url);
-    }
-
-    saveBackgroundToLocalStorage(image) {
-      if (typeof image === "string") {
-        localStorage.setItem("lastBackgroundType", "url");
-        localStorage.setItem("lastBackgroundValue", image);
-      } else {
-        localStorage.setItem("lastBackgroundType", "local");
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem("lastBackgroundValue", reader.result);
-        };
-        reader.readAsDataURL(image);
-      }
-    }
-
-    loadBackgroundFromLocalStorage() {
-      const backgroundType = localStorage.getItem("lastBackgroundType");
-      const backgroundValue = localStorage.getItem("lastBackgroundValue");
-
-      const backgroundElement = document.getElementById("background");
-      if (backgroundElement && backgroundType && backgroundValue) {
-        if (backgroundType === "url") {
-          backgroundElement.style.backgroundImage = `url(${backgroundValue})`;
-        } else if (backgroundType === "local") {
-          backgroundElement.style.backgroundImage = `url(${backgroundValue})`;
-        }
-      }
-    }
-    loadLocalStorage() {
-        const savedSettings = JSON.parse(localStorage.getItem("userSettings"));
-        if (savedSettings) {
-            this.isFpsVisible = savedSettings.isFpsVisible ?? this.isFpsVisible;
-            this.isPingVisible = savedSettings.isPingVisible ?? this.isPingVisible;
-            this.isKillsVisible = savedSettings.isKillsVisible ?? this.isKillsVisible;
-            this.isClean = savedSettings.isClean ?? this.isClean;
-        }
-
-        this.updateKillsVisibility();
-        this.updateFpsVisibility();
-        this.updatePingVisibility();
     }
 
     updateHealthBars() {
@@ -340,73 +235,6 @@ window.GameMod = class GameMod { // metka mod
         });
       }
 
-    updateUiElements() {
-      const currentUrl = window.location.href;
-
-      const isSpecialUrl = /\/#\w+/.test(currentUrl);
-
-      const playerOptions = document.getElementById("player-options");
-      const teamMenuContents = document.getElementById("team-menu-contents");
-      const startMenuContainer = document.querySelector(
-        "#start-menu .play-button-container",
-      );
-
-      if (!playerOptions) return;
-
-      if (
-        isSpecialUrl &&
-        teamMenuContents &&
-        playerOptions.parentNode !== teamMenuContents
-      ) {
-        teamMenuContents.appendChild(playerOptions);
-      } else if (
-        !isSpecialUrl &&
-        startMenuContainer &&
-        playerOptions.parentNode !== startMenuContainer
-      ) {
-        const firstChild = startMenuContainer.firstChild;
-        startMenuContainer.insertBefore(playerOptions, firstChild);
-      }
-      const teamMenu = document.getElementById("team-menu");
-      if (teamMenu) {
-        teamMenu.style.height = "355px";
-      }
-      const menuBlocks = document.querySelectorAll(".menu-block");
-      menuBlocks.forEach((block) => {
-        block.style.maxHeight = "355px";
-      });
-      const leftColumn = document.getElementById("left-column");
-      const newsBlock = document.getElementById("news-block");
-      //scalable?
-    }
-
-    updateCleanMode() {
-        const leftColumn = document.getElementById("left-column");
-        const newsBlock = document.getElementById("news-block");
-
-        if (this.isClean) {
-            if (leftColumn) leftColumn.style.display = "none";
-            if (newsBlock) newsBlock.style.display = "none";
-        } else {
-            if (leftColumn) leftColumn.style.display = "block";
-            if (newsBlock) newsBlock.style.display = "block";
-        }
-    }
-
-    updateMenuButtonText() {
-      const hideButton = document.getElementById("hideMenuButton");
-      hideButton.textContent = this.isMenuVisible
-        ? "Hide Menu [P]"
-        : "Show Menu [P]";
-    }
-
-    setupKeyListeners() {
-      document.addEventListener("keydown", (event) => {
-        if (event.key.toLowerCase() === "p") {
-          this.toggleMenuVisibility();
-        }
-      });
-    }
     //menu
     initMenu() {
         const middleRow = document.querySelector("#start-row-top");
@@ -507,7 +335,7 @@ window.GameMod = class GameMod { // metka mod
     initRules() {
         const newsBlock = document.querySelector("#news-block");
         newsBlock.innerHTML = `
-<h3 class="news-header">KrityHack v0.2.1</h3>
+<h3 class="news-header">KrityHack v${version}</h3>
 <div id="news-current">
 <small class="news-date">January 13, 2025</small>
                       
@@ -521,23 +349,19 @@ window.GameMod = class GameMod { // metka mod
     <li><strong>[M]</strong> - Toggle Melee Attack</li>
     <li><strong>[Y]</strong> - Toggle SpinBot</li>
     <li><strong>[T]</strong> - Focus on enemy</li>
+    <li><strong>[V]</strong> - Lock weapon</li>
 </ul>
 
 <h3>Features:</h3>
 <ul>
+    <li><strong>[ESC]</strong> - Open Cheats Menu</li>
     <li>By clicking the middle mouse button, you can add a player to friends. AimBot will not target them, green lines will go to them, and their name will turn green.</li>
+    <li>AimBot activates when you shoot.</li>
     <li><strong>AutoMelee:</strong> If the enemy is close enough (4 game coordinates), AutoMelee will automatically move towards and attack them when holding down the left mouse button. If you equip a melee weapon, AutoMelee will work at a distance of 8 game coordinates.</li>
-    <li><strong>AutoSwitch:</strong> Quickly switch weapons to avoid cooldown after shooting.</li>
+    <li><strong>AutoSwitch:</strong> By default, quickly switch weapons to avoid cooldown after shooting.</li>
     <li><strong>BumpFire:</strong> Shoot without constant clicking.</li>
-    <li>Some ESP features can be disabled by changing their values in the code:
-        <pre>let laserDrawerEnabled = true;
-let lineDrawerEnabled = true;
-let nadeDrawerEnabled = true;
-        </pre>
-        Set them to <code>false</code> to disable.
-    </li>
-    <li>AimBot activates when holding down the left mouse button.</li>
     <li><strong>FocusedEnemy:</strong> Press <strong>[T]</strong> to focus on an enemy. AimBot will continuously target the focused enemy. Press <strong>[T]</strong> again to reset.</li>
+    <li><strong>UseOneGun:</strong> Press <strong>[V]</strong> to lock a weapon and shoot only from it using autoswitch. Useful when you have a shotgun and a rifle, and the enemy is far away.
 </ul>
 
 <h3>Recommendations:</h3>
@@ -550,11 +374,6 @@ let nadeDrawerEnabled = true;
 <p class="news-paragraph">For more details, visit the <a href="https://github.com/Drino955/survev-krityhack">GitHub page</a> and join our <a href="https://t.me/krityteam">Telegram group</a> or <a href="https://discord.gg/wPuvEySg3E">Discord</a>.</p></div>`;
     
     
-    }
-
-    toggleMenuVisibility() {
-      const isVisible = this.menu.style.display !== "none";
-      this.menu.style.display = isVisible ? "none" : "block";
     }
 
     startUpdateLoop() {
@@ -570,31 +389,28 @@ let nadeDrawerEnabled = true;
 
         this.kills = this.getKills();
 
-        if (this.isFpsVisible && this.fpsCounter) {
+        if (this.fpsCounter) {
           this.fpsCounter.textContent = `FPS: ${this.fps}`;
         }
 
-        if (this.isKillsVisible && this.killsCounter) {
+        if (this.killsCounter) {
           this.killsCounter.textContent = `Kills: ${this.kills}`;
         }
 
-        if (this.isPingVisible && this.pingCounter && this.pingTest) {
+        if (this.pingCounter && this.pingTest) {
           const result = this.pingTest.getPingResult();
           this.pingCounter.textContent = `PING: ${result.ping} ms`;
         }
       }
 
       this.startPingTest();
-      this.animationFrameCallback(() => this.startUpdateLoop());
-      this.updateUiElements();
-      this.updateCleanMode();
       this.updateBoostBars();
       this.updateHealthBars();
     }
     
   }
 
-window.PingTest = class PingTest {
+class PingTest {
     constructor(selectedServer) {
       this.ptcDataBuf = new ArrayBuffer(1);
       this.test = {
@@ -659,5 +475,5 @@ window.PingTest = class PingTest {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new GameMod(); // AlguienClient
+    unsafeWindow.GameMod = new GameMod(); // AlguienClient
 });

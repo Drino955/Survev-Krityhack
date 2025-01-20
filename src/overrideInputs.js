@@ -1,4 +1,4 @@
-const inputCommands = {
+export const inputCommands = {
     Cancel: 6,
     Count: 36,
     CycleUIMode: 30,
@@ -39,19 +39,38 @@ const inputCommands = {
 };
 
 export let inputs = [];
-window.initGameControls = function(gameControls){
+unsafeWindow.initGameControls = function(gameControls){
     for (const command of inputs){
         gameControls.addInput(inputCommands[command]);
     }
     inputs = [];
 
+    // mobile aimbot
+    if (gameControls.touchMoveActive && unsafeWindow.lastAimPos){
+        // gameControls.toMouseDir
+        gameControls.toMouseLen = 18;
+
+        const atan = Math.atan2(
+            unsafeWindow.lastAimPos.clientX - unsafeWindow.innerWidth / 2,
+            unsafeWindow.lastAimPos.clientY - unsafeWindow.innerHeight / 2,
+        ) - Math.PI / 2;
+
+        if ( (  unsafeWindow.game.touch.shotDetected || unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire) ) && unsafeWindow.lastAimPos && unsafeWindow.game.activePlayer.localData.curWeapIdx != 3) {
+            gameControls.toMouseDir.x = Math.cos(atan);
+
+        }
+        if ( (  unsafeWindow.game.touch.shotDetected || unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire) ) && unsafeWindow.lastAimPos && unsafeWindow.game.activePlayer.localData.curWeapIdx != 3) {
+            gameControls.toMouseDir.y = Math.sin(atan);
+        }
+    }
+
     // autoMelee
-    if (window.game.input.mouseButtons['0'] && window.aimTouchMoveDir) {
-        if (window.aimTouchDistanceToEnemy < 4) gameControls.addInput(inputCommands['EquipMelee']);
+    if ((  unsafeWindow.game.touch.shotDetected || unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire) ) && unsafeWindow.aimTouchMoveDir) {
+        if (unsafeWindow.aimTouchDistanceToEnemy < 4) gameControls.addInput(inputCommands['EquipMelee']);
         gameControls.touchMoveActive = true;
         gameControls.touchMoveLen = 255;
-        gameControls.touchMoveDir.x = window.aimTouchMoveDir.x;
-        gameControls.touchMoveDir.y = window.aimTouchMoveDir.y;
+        gameControls.touchMoveDir.x = unsafeWindow.aimTouchMoveDir.x;
+        gameControls.touchMoveDir.y = unsafeWindow.aimTouchMoveDir.y;
     }
 
     return gameControls

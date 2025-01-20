@@ -4,10 +4,10 @@ export function getTeam(player) {
 
 export function findWeap(player) {
     const weapType = player.netData.activeWeapon;
-    return weapType && window.guns[weapType] ? window.guns[weapType] : null;
+    return weapType && unsafeWindow.guns[weapType] ? unsafeWindow.guns[weapType] : null;
 }
 
 export function findBullet(weapon) {
-    return weapon ? window.bullets[weapon.bulletType] : null;
+    return weapon ? unsafeWindow.bullets[weapon.bulletType] : null;
 }
 
