@@ -2,7 +2,7 @@
 console.log('Script injecting...');
 
 
-document.addEventListener('DOMContentLoaded', async () => {
+(async () => {
     const links = [
         ...Array.from(document.querySelectorAll('link[rel="modulepreload"][href]')),
         ...Array.from(document.querySelectorAll('script[type="module"][src]'))
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         isolatedHandlers.forEach((handler) => handler.call(document));
     }
     document.head.append(appScript)
-});
+})();
 
 
 

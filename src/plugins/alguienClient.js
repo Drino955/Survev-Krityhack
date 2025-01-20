@@ -474,6 +474,4 @@ class PingTest {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    unsafeWindow.GameMod = new GameMod(); // AlguienClient
-});
+unsafeWindow.GameMod = new GameMod(); // AlguienClient

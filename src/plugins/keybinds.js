@@ -7,7 +7,7 @@ import { updateButtonColors } from '../iceHackMenu.js'; // Импортируй�
 
 
 function keybinds(){
-    unsafeWindow.addEventListener('keyup', function (event) {
+    unsafeWindow.document.addEventListener('keyup', function (event) {
         if (!unsafeWindow?.game?.ws) return;
 
         const validKeys = ['B', 'Z', 'M', 'Y', 'T', 'V'];
@@ -39,7 +39,7 @@ function keybinds(){
         updateButtonColors();
     });
     
-    unsafeWindow.addEventListener('keydown', function (event) {
+    unsafeWindow.document.addEventListener('keydown', function (event) {
         if (!unsafeWindow?.game?.ws) return;
 
         const validKeys = ['M', 'T', 'V'];
@@ -50,7 +50,7 @@ function keybinds(){
         event.preventDefault();
     });
 
-    unsafeWindow.addEventListener('mousedown', function (event) {
+    unsafeWindow.document.addEventListener('mousedown', function (event) {
         if (event.button !== 1) return; // Only proceed if middle mouse button is clicked
 
         const mouseX = event.clientX;
