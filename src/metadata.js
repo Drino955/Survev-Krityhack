@@ -12,7 +12,7 @@ export const metadata = `// ==UserScript==
 // @match        *://50v50.online/*
 // @match        *://67.217.244.178/*
 // @icon         https://www.google.com/s2/favicons?domain=survev.io
-// @run-at       document-start
+// @run-at       document-end
 // @webRequest   [{"selector":"*app-*.js","action":"cancel"}]
 // @webRequest   [{"selector":"*shared-*.js","action":"cancel"}]
 // @grant        GM_xmlhttpRequest
