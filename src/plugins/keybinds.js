@@ -1,27 +1,25 @@
 import { state } from '../vars.js';
-import { aimbotDot } from '../overlay.js';
+import { aimBotToggle, meleeAttackToggle } from './aimBot.js';
 import { updateOverlay } from '../overlay.js';
 import { getTeam } from '../utils.js';
+import { updateButtonColors } from '../iceHackMenu.js'; // Импортируйте функцию обновления цветов кнопок
+
 
 
 function keybinds(){
-    window.addEventListener('keyup', function (event) {
-        if (!window?.game?.ws) return;
+    unsafeWindow.addEventListener('keyup', function (event) {
+        if (!unsafeWindow?.game?.ws) return;
 
-        const validKeys = ['B', 'Z', 'M', 'Y', 'T'];
+        const validKeys = ['B', 'Z', 'M', 'Y', 'T', 'V'];
         if (!validKeys.includes(String.fromCharCode(event.keyCode))) return;
     
         switch (String.fromCharCode(event.keyCode)) {
             case 'B': 
-                state.isAimBotEnabled = !state.isAimBotEnabled; 
-                aimbotDot.style.display = 'None';
-                window.lastAimPos = null;
-                window.aimTouchMoveDir = null;
+                aimBotToggle();
                 break;
             case 'Z': state.isZoomEnabled = !state.isZoomEnabled; break;
             case 'M': 
-                state.isMeleeAttackEnabled = !state.isMeleeAttackEnabled;
-                window.aimTouchMoveDir = null;
+                meleeAttackToggle();
                 break;
             case 'Y': state.isSpinBotEnabled = !state.isSpinBotEnabled; break;
             case 'T': 
@@ -32,41 +30,34 @@ function keybinds(){
                     state.focusedEnemy = state.enemyAimBot;
                 }
                 break;
+            case 'V': state.isUseOneGunEnabled = !state.isUseOneGunEnabled; break;
             // case 'P': autoStopEnabled = !autoStopEnabled; break;
             // case 'U': autoSwitchEnabled = !autoSwitchEnabled; break;
-            // case 'O': window.gameOptimization = !window.gameOptimization; break;
+            // case 'O': unsafeWindow.gameOptimization = !unsafeWindow.gameOptimization; break;
         }
         updateOverlay();
+        updateButtonColors();
     });
     
-    window.addEventListener('keydown', function (event) {
-        if (!window?.game?.ws) return;
+    unsafeWindow.addEventListener('keydown', function (event) {
+        if (!unsafeWindow?.game?.ws) return;
 
-        const validKeys = ['M', 'T'];
+        const validKeys = ['M', 'T', 'V'];
         if (!validKeys.includes(String.fromCharCode(event.keyCode))) return;
     
-        switch (String.fromCharCode(event.keyCode)) {
-            case 'M': 
-                event.stopImmediatePropagation()
-                event.stopPropagation();
-                event.preventDefault();
-                break;
-            case 'T': 
-                event.stopImmediatePropagation()
-                event.stopPropagation();
-                event.preventDefault();
-                break;
-        }
+        event.stopImmediatePropagation()
+        event.stopPropagation();
+        event.preventDefault();
     });
 
-    window.addEventListener('mousedown', function (event) {
+    unsafeWindow.addEventListener('mousedown', function (event) {
         if (event.button !== 1) return; // Only proceed if middle mouse button is clicked
 
         const mouseX = event.clientX;
         const mouseY = event.clientY;
 
-        const players = window.game.playerBarn.playerPool.pool;
-        const me = window.game.activePlayer;
+        const players = unsafeWindow.game.playerBarn.playerPool.pool;
+        const me = unsafeWindow.game.activePlayer;
         const meTeam = getTeam(me);
 
         let enemy = null;
@@ -76,7 +67,7 @@ function keybinds(){
             // We miss inactive or dead players
             if (!player.active || player.netData.dead || player.downed || me.__id === player.__id || getTeam(player) == meTeam) return;
 
-            const screenPlayerPos = window.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
+            const screenPlayerPos = unsafeWindow.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
             const distanceToEnemyFromMouse = (screenPlayerPos.x - mouseX) ** 2 + (screenPlayerPos.y - mouseY) ** 2;
 
             if (distanceToEnemyFromMouse < minDistanceToEnemyFromMouse) {

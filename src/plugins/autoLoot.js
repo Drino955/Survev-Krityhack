@@ -1,5 +1,5 @@
 function autoLoot(){
-    Object.defineProperty(window, 'basicDataInfo', {
+    Object.defineProperty(unsafeWindow, 'basicDataInfo', {
         get () {
             return this._basicDataInfo;
         },
@@ -8,7 +8,7 @@ function autoLoot(){
             
             if (!value) return;
             
-            Object.defineProperty(window.basicDataInfo, 'isMobile', {
+            Object.defineProperty(unsafeWindow.basicDataInfo, 'isMobile', {
                 get () {
                     return true;
                 },
@@ -16,7 +16,7 @@ function autoLoot(){
                 }
             });
             
-            Object.defineProperty(window.basicDataInfo, 'useTouch', {
+            Object.defineProperty(unsafeWindow.basicDataInfo, 'useTouch', {
                 get () {
                     return true;
                 },

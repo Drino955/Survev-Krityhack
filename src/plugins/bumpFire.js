@@ -1,13 +1,13 @@
+import { inputCommands } from "../overrideInputs";
+
+
 export function bumpFire(){
-    Object.defineProperty( window.game.input, 'mouseButtonsOld', {
-        set( value ) {
-            // console.log(value);
-            // console.table(value);
-            value[0] = false;
-            this._value = value;
-        },
-        get() {
-            return this._value || {};
+    unsafeWindow.game.inputBinds.isBindPressed = new Proxy( unsafeWindow.game.inputBinds.isBindPressed, {
+        apply( target, thisArgs, args ) {
+            if (args[0] === inputCommands.Fire) {
+                return unsafeWindow.game.inputBinds.isBindDown(...args);
+            }
+            return Reflect.apply( ...arguments );
         }
     });
 }

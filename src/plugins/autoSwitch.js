@@ -1,5 +1,5 @@
 import { state } from '../vars.js';
-import { inputs } from '../overrideInputs.js';
+import { inputs, inputCommands } from '../overrideInputs.js';
 
 
 const ammo = [
@@ -23,21 +23,21 @@ const ammo = [
     },
 ]
 export function autoSwitch(){
-    if (!(window.game?.ws && window.game?.activePlayer?.localData?.curWeapIdx != null)) return; 
+    if (!(unsafeWindow.game?.ws && unsafeWindow.game?.activePlayer?.localData?.curWeapIdx != null)) return; 
 
     if (!state.isAutoSwitchEnabled) return;
 
     try {
-    const curWeapIdx = window.game.activePlayer.localData.curWeapIdx;
-    const weaps = window.game.activePlayer.localData.weapons;
+    const curWeapIdx = unsafeWindow.game.activePlayer.localData.curWeapIdx;
+    const weaps = unsafeWindow.game.activePlayer.localData.weapons;
     const curWeap = weaps[curWeapIdx];
     const shouldSwitch = gun => {
         let s = false;
         try {
             s =
-                (window.guns[gun].fireMode === "single"
-                || window.guns[gun].fireMode === "burst") 
-                && window.guns[gun].fireDelay >= 0.45;
+                (unsafeWindow.guns[gun].fireMode === "single"
+                || unsafeWindow.guns[gun].fireMode === "burst") 
+                && unsafeWindow.guns[gun].fireDelay >= 0.45;
         }
         catch (e) {
         }
@@ -47,10 +47,10 @@ export function autoSwitch(){
     if(curWeap.ammo !== ammo[curWeapIdx].ammo) {
         const otherWeapIdx = (curWeapIdx == 0) ? 1 : 0
         const otherWeap = weaps[otherWeapIdx]
-        if ((curWeap.ammo < ammo[curWeapIdx].ammo || (ammo[curWeapIdx].ammo === 0 && curWeap.ammo > ammo[curWeapIdx].ammo && window.game.input.mouseButtons['0'])) && shouldSwitch(curWeap.type) && curWeap.type == ammo[curWeapIdx].type) {
+        if ((curWeap.ammo < ammo[curWeapIdx].ammo || (ammo[curWeapIdx].ammo === 0 && curWeap.ammo > ammo[curWeapIdx].ammo && (  unsafeWindow.game.touch.shotDetected ||  unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire) ))) && shouldSwitch(curWeap.type) && curWeap.type == ammo[curWeapIdx].type) {
             ammo[curWeapIdx].lastShotDate = Date.now();
             console.log("Switching weapon due to ammo change");
-            if ( shouldSwitch(otherWeap.type) && otherWeap.ammo) { inputs.push(weapsEquip[otherWeapIdx]); } // && ammo[curWeapIdx].ammo !== 0
+            if ( shouldSwitch(otherWeap.type) && otherWeap.ammo && !state.isUseOneGunEnabled) { inputs.push(weapsEquip[otherWeapIdx]); } // && ammo[curWeapIdx].ammo !== 0
             else if ( otherWeap.type !== "" ) { inputs.push(weapsEquip[otherWeapIdx]); inputs.push(weapsEquip[curWeapIdx]); }
             else { inputs.push('EquipMelee'); inputs.push(weapsEquip[curWeapIdx]); }
         }

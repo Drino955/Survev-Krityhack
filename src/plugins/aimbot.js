@@ -4,13 +4,12 @@ import { updateOverlay, aimbotDot } from '../overlay.js';
 import { findBullet, findWeap } from '../utils.js';
 
 
-let date = performance.now();
 export function aimBot() {
 
     if (!state.isAimBotEnabled) return;
 
-    const players = window.game.playerBarn.playerPool.pool;
-    const me = window.game.activePlayer;
+    const players = unsafeWindow.game.playerBarn.playerPool.pool;
+    const me = unsafeWindow.game.activePlayer;
 
     try {
         const meTeam = getTeam(me);
@@ -28,11 +27,11 @@ export function aimBot() {
 
             players.forEach((player) => {
                 // We miss inactive or dead players
-                if (!player.active || player.netData.dead || player.downed || me.__id === player.__id || me.layer !== player.layer || getTeam(player) == meTeam || state.friends.includes(player.nameText._text)) return;
+                if (!player.active || player.netData.dead || (!state.isAimAtKnockedOutEnabled && player.downed) || me.__id === player.__id || me.layer !== player.layer || getTeam(player) == meTeam || state.friends.includes(player.nameText._text)) return;
     
-                const screenPlayerPos = window.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
-                // const distanceToEnemyFromMouse = Math.hypot(screenPlayerPos.x - window.game.input.mousePos._x, screenPlayerPos.y - window.game.input.mousePos._y);
-                const distanceToEnemyFromMouse = (screenPlayerPos.x - window.game.input.mousePos._x) ** 2 + (screenPlayerPos.y - window.game.input.mousePos._y) ** 2;
+                const screenPlayerPos = unsafeWindow.game.camera.pointToScreen({x: player.pos._x, y: player.pos._y});
+                // const distanceToEnemyFromMouse = Math.hypot(screenPlayerPos.x - unsafeWindow.game.input.mousePos._x, screenPlayerPos.y - unsafeWindow.game.input.mousePos._y);
+                const distanceToEnemyFromMouse = (screenPlayerPos.x - unsafeWindow.game.input.mousePos._x) ** 2 + (screenPlayerPos.y - unsafeWindow.game.input.mousePos._y) ** 2;
                 
                 if (distanceToEnemyFromMouse < minDistanceToEnemyFromMouse) {
                     minDistanceToEnemyFromMouse = distanceToEnemyFromMouse;
@@ -59,7 +58,7 @@ export function aimBot() {
 
             if (!predictedEnemyPos) return;
 
-            window.lastAimPos = {
+            unsafeWindow.lastAimPos = {
                 clientX: predictedEnemyPos.x,
                 clientY: predictedEnemyPos.y,
             }
@@ -67,14 +66,14 @@ export function aimBot() {
             // AutoMelee
             if(state.isMeleeAttackEnabled && distanceToEnemy <= 8) {
                 const moveAngle = calcAngle(enemy.pos, me.pos) + Math.PI;
-                window.aimTouchMoveDir = {
+                unsafeWindow.aimTouchMoveDir = {
                     x: Math.cos(moveAngle),
                     y: Math.sin(moveAngle),
                 }
-                window.aimTouchDistanceToEnemy = distanceToEnemy;
+                unsafeWindow.aimTouchDistanceToEnemy = distanceToEnemy;
             }else{
-                window.aimTouchMoveDir = null;
-                window.aimTouchDistanceToEnemy = null;
+                unsafeWindow.aimTouchMoveDir = null;
+                unsafeWindow.aimTouchDistanceToEnemy = null;
             }
 
             if (aimbotDot.style.left !== predictedEnemyPos.x + 'px' || aimbotDot.style.top !== predictedEnemyPos.y + 'px') {
@@ -83,15 +82,29 @@ export function aimBot() {
                 aimbotDot.style.display = 'block';
             }
         }else{
-            window.aimTouchMoveDir = null;
-            window.lastAimPos = null;
+            unsafeWindow.aimTouchMoveDir = null;
+            unsafeWindow.lastAimPos = null;
             aimbotDot.style.display = 'none';
         }
-
-        date = performance.now();
     } catch (error) {
         console.error("Error in aimBot:", error);
     }
+}
+
+export function aimBotToggle(){
+    state.isAimBotEnabled = !state.isAimBotEnabled;
+    if (state.isAimBotEnabled) return;
+
+    aimbotDot.style.display = 'None';
+    unsafeWindow.lastAimPos = null;
+    unsafeWindow.aimTouchMoveDir = null;
+}
+
+export function meleeAttackToggle(){
+    state.isMeleeAttackEnabled = !state.isMeleeAttackEnabled;
+    if (state.isMeleeAttackEnabled) return;
+
+    unsafeWindow.aimTouchMoveDir = null;
 }
 
 function calculatePredictedPosForShoot(enemy, curPlayer) {
@@ -110,7 +123,7 @@ function calculatePredictedPosForShoot(enemy, curPlayer) {
 
     if (state.lastFrames[enemy.__id].length < 30) {
         console.log("Insufficient data for prediction, using current position");
-        return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
+        return unsafeWindow.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
 
     if (state.lastFrames[enemy.__id].length > 30){
@@ -156,7 +169,7 @@ function calculatePredictedPosForShoot(enemy, curPlayer) {
 
         if (discriminant < 0) {
             console.log("No solution, shooting at current position");
-            return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
+            return unsafeWindow.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
         }
 
         const sqrtD = Math.sqrt(discriminant);
@@ -169,7 +182,7 @@ function calculatePredictedPosForShoot(enemy, curPlayer) {
 
     if (t < 0) {
         console.log("Negative time, shooting at current position");
-        return window.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
+        return unsafeWindow.game.camera.pointToScreen({x: enemyPos._x, y: enemyPos._y});
     }
 
     // console.log(`A bullet with the enemy will collide through ${t}`)
@@ -179,7 +192,7 @@ function calculatePredictedPosForShoot(enemy, curPlayer) {
         y: enemyPos._y + vey * t,
     };
 
-    return window.game.camera.pointToScreen(predictedPos);
+    return unsafeWindow.game.camera.pointToScreen(predictedPos);
 }
 
 function calcAngle(playerPos, mePos){
