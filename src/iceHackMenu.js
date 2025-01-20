@@ -209,34 +209,32 @@ bodyContent.appendChild(featureUseOneGun);
 bodyContent.appendChild(featureOverlay);
 uiContainer.appendChild(bodyContent);
 
-document.addEventListener('DOMContentLoaded', () => {
 
-    document.body.appendChild(uiContainer);
-    updateButtonColors();
-    
-    function syncMenuVisibility() {
-        const gameMenu = document.getElementById('ui-game-menu');
-        if (gameMenu) {
-            const displayStyle = gameMenu.style.display;
-            uiContainer.style.display = displayStyle;
-        }
-    }
-    
-    // Создаем наблюдатель за изменениями атрибутов
-    const observer = new MutationObserver(syncMenuVisibility);
-    
-    // Начинаем наблюдение за изменениями атрибутов у элемента #ui-game-menu
+document.body.appendChild(uiContainer);
+updateButtonColors();
+
+function syncMenuVisibility() {
     const gameMenu = document.getElementById('ui-game-menu');
     if (gameMenu) {
-        observer.observe(gameMenu, { attributes: true, attributeFilter: ['style'] });
+        const displayStyle = gameMenu.style.display;
+        uiContainer.style.display = displayStyle;
     }
-    
-    // Добавление стилей анимации
-    const styleSheet = createElement('style');
-    styleSheet.innerHTML = `
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }`;
-    document.head.appendChild(styleSheet);
-});
+}
+
+// Создаем наблюдатель за изменениями атрибутов
+const observer = new MutationObserver(syncMenuVisibility);
+
+// Начинаем наблюдение за изменениями атрибутов у элемента #ui-game-menu
+const gameMenu = document.getElementById('ui-game-menu');
+if (gameMenu) {
+    observer.observe(gameMenu, { attributes: true, attributeFilter: ['style'] });
+}
+
+// Добавление стилей анимации
+const styleSheet = createElement('style');
+styleSheet.innerHTML = `
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}`;
+document.head.appendChild(styleSheet);
