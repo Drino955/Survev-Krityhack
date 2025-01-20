@@ -1,27 +1,29 @@
-// let isAimBotEnabled = true;
-// let isZoomEnabled = true;
-// let isMeleeAttackEnabled = true;
-// let isSpinBotEnabled = false;
-// let isAutoSwitchEnabled = true;
-// let focusedEnemy = null;
-// let isXrayEnabled = true;
-// let friends = [];
-// let lastFrames = {};
-
-// export { isAimBotEnabled, isZoomEnabled, isMeleeAttackEnabled, isSpinBotEnabled, isXrayEnabled, isAutoSwitchEnabled, focusedEnemy, friends, lastFrames };
-
-
 let state = {
     isAimBotEnabled: true,
+    isAimAtKnockedOutEnabled: true,
+    get aimAtKnockedOutStatus() {
+        return this.isAimBotEnabled && this.isAimAtKnockedOutEnabled;
+    },
     isZoomEnabled: true,
     isMeleeAttackEnabled: true,
+    get meleeStatus() {
+        return this.isAimBotEnabled && this.isMeleeAttackEnabled;
+    },
     isSpinBotEnabled: false,
     isAutoSwitchEnabled: true,
+    isUseOneGunEnabled: false,
     focusedEnemy: null,
+    get focusedEnemyStatus() {
+        return this.isAimBotEnabled && this.focusedEnemy;
+    },
     isXrayEnabled: true,
     friends: [],
     lastFrames: {},
-    enemyAimBot: null
+    enemyAimBot: null,
+    isLaserDrawerEnabled: true,
+    isLineDrawerEnabled: true,
+    isNadeDrawerEnabled: true,
+    isOverlayEnabled: true,
 };
 
 export { state };

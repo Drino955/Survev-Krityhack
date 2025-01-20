@@ -12,32 +12,32 @@ let tickerOneTime = false;
 export function initGame() {
     console.log('init game...........');
 
-    window.lastAimPos = null;
-    window.aimTouchMoveDir = null;
+    unsafeWindow.lastAimPos = null;
+    unsafeWindow.aimTouchMoveDir = null;
     state.enemyAimBot = null;
     state.focusedEnemy = null;
     state.friends = [];
     state.lastFrames = {};
 
     const tasks = [
-        {isApplied: false, condition: () => window.game?.input?.mousePos, action: overrideMousePos},
-        {isApplied: false, condition: () => window.game?.input?.mouseButtonsOld, action: bumpFire},
-        {isApplied: false, condition: () => window.game?.activePlayer?.localData, action: betterZoom},
-        {isApplied: false, condition: () => Array.prototype.push === window.game?.smokeBarn?.particles.push, action: smokeOpacity},
-        {isApplied: false, condition: () => Array.prototype.push === window.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
-        {isApplied: false, condition: () => window.game?.pixi?._ticker && window.game?.activePlayer?.container && window.game?.activePlayer?.pos, action: () => { if (!tickerOneTime) { tickerOneTime = true; initTicker(); } } },
+        {isApplied: false, condition: () => unsafeWindow.game?.input?.mousePos && unsafeWindow.game?.touch?.aimMovement?.toAimDir, action: overrideMousePos},
+        {isApplied: false, condition: () => unsafeWindow.game?.input?.mouseButtonsOld, action: bumpFire},
+        {isApplied: false, condition: () => unsafeWindow.game?.activePlayer?.localData, action: betterZoom},
+        {isApplied: false, condition: () => Array.prototype.push === unsafeWindow.game?.smokeBarn?.particles.push, action: smokeOpacity},
+        {isApplied: false, condition: () => Array.prototype.push === unsafeWindow.game?.playerBarn?.playerPool?.pool.push, action: visibleNames},
+        {isApplied: false, condition: () => unsafeWindow.game?.pixi?._ticker && unsafeWindow.game?.activePlayer?.container && unsafeWindow.game?.activePlayer?.pos, action: () => { if (!tickerOneTime) { tickerOneTime = true; initTicker(); } } },
     ];
 
     (function checkLocalData(){
-        if(!window?.game?.ws) return;
+        if(!unsafeWindow?.game?.ws) return;
 
         console.log('Checking local data')
 
         console.log(
-            window.game?.activePlayer?.localData, 
-            window.game?.map?.obstaclePool?.pool,
-            window.game?.smokeBarn?.particles,
-            window.game?.playerBarn?.playerPool?.pool
+            unsafeWindow.game?.activePlayer?.localData, 
+            unsafeWindow.game?.map?.obstaclePool?.pool,
+            unsafeWindow.game?.smokeBarn?.particles,
+            unsafeWindow.game?.playerBarn?.playerPool?.pool
         );
 
         tasks.forEach(task => console.log(task.action, task.isApplied))
@@ -54,3 +54,4 @@ export function initGame() {
 
     updateOverlay();
 }
+

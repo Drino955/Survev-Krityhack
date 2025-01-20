@@ -19,6 +19,7 @@ YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
 ![map](./github-images/map.png)
 
 ## Features ✨
+- 🕹️ **Cheats Menu**: Added a cheats menu that activates with the ESC key.
 - 🏠 **X-Ray (No Ceilings)**: Removes ceilings from buildings, allowing you to see inside.
 - 🔫 **BumpFire**: Allows continuous shooting without constant clicking.
 - 🔍 **Enhanced game zoom**.
@@ -42,6 +43,8 @@ YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
 - 🔄 **AutoSwitch**: Quickly switches weapons to avoid cooldown after shooting.
 - 🎯 **FocusedEnemy**: Press [T] to focus on an enemy. AimBot will continuously target the focused enemy. Press [T] again to reset.
 - ⏲️ **GrenadeTimer**: Shows a timer for when a grenade will explode.
+- 🔫 **UseOneGun**: Press [V] to lock the weapon and shoot only from it using autoswitch. When you have a shotgun and a rifle, and the enemy is far away, it is useful to lock the rifle and shoot at them.
+
 
 ## Disclaimer ⚠️
 This software is for educational purposes only. Use at your own risk.

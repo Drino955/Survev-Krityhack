@@ -2,15 +2,13 @@ import { getTeam } from '../utils.js';
 import { state } from '../vars.js';
 import { RED, GREEN, BLUE, WHITE } from '../constants.js';
 import { findBullet, findWeap } from '../utils.js';
+import { inputCommands } from '../overrideInputs.js';
 
 
-let laserDrawerEnabled = true,
-    lineDrawerEnabled = true,
-    nadeDrawerEnabled = true;
 export function esp(){
-    const pixi = window.game.pixi; 
-    const me = window.game.activePlayer;
-    const players = window.game.playerBarn.playerPool.pool;
+    const pixi = unsafeWindow.game.pixi; 
+    const me = unsafeWindow.game.activePlayer;
+    const players = unsafeWindow.game.playerBarn.playerPool.pool;
 
     // We check if there is an object of Pixi, otherwise we create a new
     if (!pixi || me?.container == undefined) {
@@ -26,17 +24,16 @@ export function esp(){
     try{
 
     // lineDrawer
-    if (lineDrawerEnabled){
+    const lineDrawer = me.container.lineDrawer;
+    try{lineDrawer.clear()}
+    catch{if(!unsafeWindow.game?.ws || unsafeWindow.game?.activePlayer?.netData?.dead) return;}
+    if (state.isLineDrawerEnabled){
 
         if (!me.container.lineDrawer) {
             me.container.lineDrawer = new PIXI.Graphics();
             me.container.addChild(me.container.lineDrawer);
         }
             
-        const lineDrawer = me.container.lineDrawer;
-        try{lineDrawer.clear()}
-        catch{return}
-    
         // For each player
         players.forEach((player) => {
             // We miss inactive or dead players
@@ -48,7 +45,7 @@ export function esp(){
             const playerTeam = getTeam(player);
     
             // We calculate the color of the line (for example, red for enemies)
-            const lineColor = playerTeam === meTeam ? BLUE : state.friends.includes(player.nameText._text) ? GREEN : me.layer === player.layer && !player.downed ? RED : WHITE;
+            const lineColor = playerTeam === meTeam ? BLUE : state.friends.includes(player.nameText._text) ? GREEN : me.layer === player.layer && (state.isAimAtKnockedOutEnabled || !player.downed) ? RED : WHITE;
     
             // We draw a line from the current player to another player
             lineDrawer.lineStyle(2, lineColor, 1);
@@ -61,22 +58,21 @@ export function esp(){
     }
 
     // nadeDrawer
-    if (nadeDrawerEnabled){
+    const nadeDrawer = me.container.nadeDrawer;
+    try{nadeDrawer?.clear()}
+    catch{if(!unsafeWindow.game?.ws || unsafeWindow.game?.activePlayer?.netData?.dead) return;}
+    if (state.isNadeDrawerEnabled){
         if (!me.container.nadeDrawer) {
             me.container.nadeDrawer = new PIXI.Graphics();
             me.container.addChild(me.container.nadeDrawer);
         }
-            
-        const nadeDrawer = me.container.nadeDrawer;
-        try{nadeDrawer?.clear()}
-        catch{return}
     
-        Object.values(window.game.objectCreator.idToObj)
+        Object.values(unsafeWindow.game.objectCreator.idToObj)
             .filter(obj => {
                 const isValid = ( obj.__type === 9 && obj.type !== "smoke" )
                     ||  (
                             obj.smokeEmitter &&
-                            window.objects[obj.type].explosion);
+                            unsafeWindow.objects[obj.type].explosion);
                 return isValid;
             })
             .forEach(obj => {
@@ -88,9 +84,9 @@ export function esp(){
                 nadeDrawer.drawCircle(
                     (obj.pos.x - meX) * 16,
                     (meY - obj.pos.y) * 16,
-                    (window.explosions[
-                        window.throwable[obj.type]?.explosionType ||
-                        window.objects[obj.type].explosion
+                    (unsafeWindow.explosions[
+                        unsafeWindow.throwable[obj.type]?.explosionType ||
+                        unsafeWindow.objects[obj.type].explosion
                             ].rad.max +
                         1) *
                     16
@@ -100,7 +96,10 @@ export function esp(){
     }
 
     // flashlightDrawer(laserDrawer)
-    if (laserDrawerEnabled) {
+    const laserDrawer = me.container.laserDrawer;
+    try{laserDrawer.clear()}
+    catch{if(!unsafeWindow.game?.ws || unsafeWindow.game?.activePlayer?.netData?.dead) return;}
+    if (state.isLaserDrawerEnabled) {
         const curWeapon = findWeap(me);
         const curBullet = findBullet(curWeapon);
         
@@ -108,9 +107,6 @@ export function esp(){
             me.container.laserDrawer = new PIXI.Graphics();
             me.container.addChildAt(me.container.laserDrawer, 0);
         }
-        const laserDrawer = me.container.laserDrawer;
-        try{laserDrawer.clear()}
-        catch{return}
     
         function laserPointer(
             curBullet,
@@ -147,12 +143,20 @@ export function esp(){
                 lasic.active = true;
                 lasic.range = curBullet.distance * 16.25;
                 let atan;
-                if (acPlayer == me && !window.game.input.mouseButtons['0']){
+                if (acPlayer == me && ( !(unsafeWindow.lastAimPos) || (unsafeWindow.lastAimPos) && !(unsafeWindow.game.touch.shotDetected || unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire)) ) ){
                     //local rotation
                     atan = Math.atan2(
-                        window.game.input.mousePos._y - window.innerHeight / 2,
-                        window.game.input.mousePos._x - window.innerWidth / 2,
+                        unsafeWindow.game.input.mousePos._y - unsafeWindow.innerHeight / 2,
+                        unsafeWindow.game.input.mousePos._x - unsafeWindow.innerWidth / 2,
                     );
+                }else if(acPlayer == me && (unsafeWindow.lastAimPos) && ( unsafeWindow.game.touch.shotDetected || unsafeWindow.game.inputBinds.isBindDown(inputCommands.Fire) ) ){
+                    const playerPointToScreen = unsafeWindow.game.camera.pointToScreen({x: acPlayer.pos._x, y: acPlayer.pos._y})
+                    atan = Math.atan2(
+                        playerPointToScreen.y - unsafeWindow.lastAimPos.clientY,
+                        playerPointToScreen.x - unsafeWindow.lastAimPos.clientX
+                    ) 
+                    -
+                    Math.PI;
                 }else{
                     atan = Math.atan2(
                         acPlayer.dir.x,
@@ -209,7 +213,7 @@ export function esp(){
         );
         
         players
-            .filter(player => player.active || !player.netData.dead || me.__id !== player.__id || me.layer === player.layer || getTeam(player) != meTeam)
+            .filter(player => player.active && !player.netData.dead && me.__id !== player.__id && me.layer === player.layer && getTeam(player) != meTeam)
             .forEach(enemy => {
                 const enemyWeapon = findWeap(enemy);
                 laserPointer(
@@ -223,6 +227,6 @@ export function esp(){
     };
 
     }catch(err){
-        console.error('esp', err);
+        // console.error('esp', err);
     }
 }
