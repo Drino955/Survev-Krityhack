@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.2.21
+// @version      0.2.22
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @license      GPL3
@@ -33,9 +33,9 @@
         const not_supported_msg = `This extension is not supported, install the "Tamperokey Legacy MV2", NOT "TamperMonkey"!!!
     And check that you have not installed the script for "Tampermonkey", the script needs to be installed ONLY for "Tamperokey Legacy MV2"!!!`;
 
-        alert(not_supported_msg);
         unsafeWindow.stop();
         document.write(not_supported_msg);
+        alert(not_supported_msg);
     }
 
     if (typeof GM_info !== 'undefined' && GM_info.scriptHandler === 'Tampermonkey') {
@@ -48,6 +48,33 @@
         console.log('The script is not launched at Tampermonkey');
         alertMsgAndcleanPage();
     }
+
+    unsafeWindow.stop();
+    unsafeWindow.document.write(`
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <p>The script is temporarily not working. The current version is available on Telegram/Discord. Stay tuned for updates and subscribe to <a href="https://www.youtube.com/@iExertis">https://www.youtube.com/@iExertis</a> to stay informed.</p>
+    <p>🛠️ Telegram group for support - <a href="https://t.me/krityteam">https://t.me/krityteam</a></p>
+    <p>🛠️ Discord server for support - <a href="https://discord.gg/z38QJddgKP">https://discord.gg/z38QJddgKP</a></p>
+`);
 
     // colors
     const GREEN = 0x00ff00;
@@ -957,7 +984,7 @@
 
             const discordLink = createSocialLink("");
             discordLink.style.backgroundColor = "#5865F2";
-            discordLink.href = "https://discord.gg/wPuvEySg3E";
+            discordLink.href = "https://discord.gg/z38QJddgKP";
             discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> [HACK] League of Hackers`;
             menu.append(discordLink);
 
@@ -1015,7 +1042,7 @@
     <li>The map is color-coded: white circle - Mosin, gold container - SV98, etc.</li>
 </ul>
 
-<p class="news-paragraph">For more details, visit the <a href="https://github.com/Drino955/survev-krityhack">GitHub page</a> and join our <a href="https://t.me/krityteam">Telegram group</a> or <a href="https://discord.gg/wPuvEySg3E">Discord</a>.</p></div>`;
+<p class="news-paragraph">For more details, visit the <a href="https://github.com/Drino955/survev-krityhack">GitHub page</a> and join our <a href="https://t.me/krityteam">Telegram group</a> or <a href="https://discord.gg/z38QJddgKP">Discord</a>.</p></div>`;
         
         
         }

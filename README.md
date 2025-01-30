@@ -60,7 +60,7 @@ A huge, sarcastic thank you to [ioman](https://github.com/IOMAN1) for calling me
 
 ## Community 🌐
 Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityteam/)
-Join our Discord community for discussions and support: [[HACK] League of Hackers](https://discord.gg/wPuvEySg3E)
+Join our Discord community for discussions and support: [[HACK] League of Hackers](https://discord.gg/z38QJddgKP)
 
 ## License 📄
 This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
