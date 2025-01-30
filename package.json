@@ -1,6 +1,6 @@
 {
   "name": "Survev-Krityhack",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Survev-Krityhack is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.",
   "main": "init.js",
   "type": "module",
