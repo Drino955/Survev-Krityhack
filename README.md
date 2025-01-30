@@ -5,7 +5,7 @@
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
 YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
-2. Install script from [click](https://raw.githubusercontent.com/Drino955/survev-krityhack/main/krityhack.user.js).
+2. Install script from [click](https://raw.githubusercontent.com/Drino955/survev-krityhack/main/dist/krityhack.user.js).
 3. Refresh the survev.io/resurviv.biz page to activate the hack.
 
 ## Usage 🚀
