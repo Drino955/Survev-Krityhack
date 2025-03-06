@@ -314,7 +314,7 @@ class GameMod {
         const discordLink = createSocialLink("");
         discordLink.style.backgroundColor = "#5865F2";
         discordLink.href = "https://discord.gg/FUkaMnbgjK";
-        discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> [HACK] League of Hackers`;
+        discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> Krity Community`;
         menu.append(discordLink);
 
         const additionalDescription = document.createElement("p");
