@@ -73,7 +73,7 @@
     </style>
     <p>The script is temporarily not working. The current version is available on Telegram/Discord. Stay tuned for updates and subscribe to <a href="https://www.youtube.com/@iExertis">https://www.youtube.com/@iExertis</a> to stay informed.</p>
     <p>🛠️ Telegram group for support - <a href="https://t.me/krityteam">https://t.me/krityteam</a></p>
-    <p>🛠️ Discord server for support - <a href="https://discord.gg/z38QJddgKP">https://discord.gg/z38QJddgKP</a></p>
+    <p>🛠️ Discord server for support - <a href="https://discord.gg/FUkaMnbgjK">https://discord.gg/FUkaMnbgjK</a></p>
 `);
 
     // colors
@@ -984,7 +984,7 @@
 
             const discordLink = createSocialLink("");
             discordLink.style.backgroundColor = "#5865F2";
-            discordLink.href = "https://discord.gg/z38QJddgKP";
+            discordLink.href = "https://discord.gg/FUkaMnbgjK";
             discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> [HACK] League of Hackers`;
             menu.append(discordLink);
 
@@ -1042,7 +1042,7 @@
     <li>The map is color-coded: white circle - Mosin, gold container - SV98, etc.</li>
 </ul>
 
-<p class="news-paragraph">For more details, visit the <a href="https://github.com/Drino955/survev-krityhack">GitHub page</a> and join our <a href="https://t.me/krityteam">Telegram group</a> or <a href="https://discord.gg/z38QJddgKP">Discord</a>.</p></div>`;
+<p class="news-paragraph">For more details, visit the <a href="https://github.com/Drino955/survev-krityhack">GitHub page</a> and join our <a href="https://t.me/krityteam">Telegram group</a> or <a href="https://discord.gg/FUkaMnbgjK">Discord</a>.</p></div>`;
         
         
         }

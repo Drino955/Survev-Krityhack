@@ -22,5 +22,5 @@ unsafeWindow.document.write(`
     </style>
     <p>The script is temporarily not working. The current version is available on Telegram/Discord. Stay tuned for updates and subscribe to <a href="https://www.youtube.com/@iExertis">https://www.youtube.com/@iExertis</a> to stay informed.</p>
     <p>🛠️ Telegram group for support - <a href="https://t.me/krityteam">https://t.me/krityteam</a></p>
-    <p>🛠️ Discord server for support - <a href="https://discord.gg/z38QJddgKP">https://discord.gg/z38QJddgKP</a></p>
+    <p>🛠️ Discord server for support - <a href="https://discord.gg/FUkaMnbgjK">https://discord.gg/FUkaMnbgjK</a></p>
 `);

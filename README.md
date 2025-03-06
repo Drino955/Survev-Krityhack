@@ -2,6 +2,11 @@
 
 **Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.
 
+## Community 🌐
+Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityteam/)
+
+Join our Discord community for discussions and support: [Krity Community](https://discord.gg/FUkaMnbgjK)
+
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
 YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
@@ -53,14 +58,6 @@ This software is for educational purposes only. Use at your own risk.
 Special thanks to zertalious for the [surviv.io Aimbot, ESP, X-Ray script](https://greasyfork.org/en/scripts/439241-surviv-io-aimbot-esp-x-ray) and his article on [how the Shellshock.io cheat was made](https://www.zertalious.xyz/how-was-the-shellshock-io-cheat-made/).
 Also, thanks to my friend Askile for help with TamperMonkey and the IceHack team [IceHack](https://github.com/humphreygaming/surviv-cheat-source).
 Thanks to SoyAlguien0 for the [AlguienClient-Survev.io_Client UI client](https://github.com/SoyAlguien0/AlguienClient-Survev.io_Client).
-
-## A Special Note 📝
-
-A huge, sarcastic thank you to [ioman](https://github.com/IOMAN1) for calling me an idiot who has never written a single line of code. That's exactly why I'm releasing the source code of this cheat and keeping it open, to highlight just how utterly helpless and noob the game developers truly are. By the way, ioman only made a couple of crappy commits to the [repository](https://github.com/leia-uwu/survev), while the real developer Leia ([leia-uwu](https://github.com/leia-uwu)) did almost all the work.
-
-## Community 🌐
-Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityteam/)
-Join our Discord community for discussions and support: [[HACK] League of Hackers](https://discord.gg/z38QJddgKP)
 
 ## License 📄
 This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
