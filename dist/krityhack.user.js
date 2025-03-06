@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Survev-KrityHack
 // @namespace    https://github.com/Drino955/survev-krityhack
-// @version      0.2.22
+// @version      0.2.24
 // @description  Aimbot, xray, tracer, better zoom, smoke/obstacle opacity, autoloot, player names...
 // @author       KrityTeam
 // @license      GPL3
@@ -49,32 +49,34 @@
         alertMsgAndcleanPage();
     }
 
-    unsafeWindow.stop();
-    unsafeWindow.document.write(`
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-            padding: 50px;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-    <p>The script is temporarily not working. The current version is available on Telegram/Discord. Stay tuned for updates and subscribe to <a href="https://www.youtube.com/@iExertis">https://www.youtube.com/@iExertis</a> to stay informed.</p>
-    <p>🛠️ Telegram group for support - <a href="https://t.me/krityteam">https://t.me/krityteam</a></p>
-    <p>🛠️ Discord server for support - <a href="https://discord.gg/FUkaMnbgjK">https://discord.gg/FUkaMnbgjK</a></p>
-`);
+    if (unsafeWindow.location.hostname === 'survev.io'){
+        unsafeWindow.stop();
+        unsafeWindow.document.write(`
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                text-align: center;
+                padding: 50px;
+            }
+            p {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+            a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+        <p>The script is temporarily not working. The current version is available on Telegram/Discord. Stay tuned for updates and subscribe to <a href="https://www.youtube.com/@iExertis">https://www.youtube.com/@iExertis</a> to stay informed.</p>
+        <p>🛠️ Telegram group for support - <a href="https://t.me/krityteam">https://t.me/krityteam</a></p>
+        <p>🛠️ Discord server for support - <a href="https://discord.gg/FUkaMnbgjK">https://discord.gg/FUkaMnbgjK</a></p>
+    `);
+    }
 
     // colors
     const GREEN = 0x00ff00;
@@ -985,7 +987,7 @@
             const discordLink = createSocialLink("");
             discordLink.style.backgroundColor = "#5865F2";
             discordLink.href = "https://discord.gg/FUkaMnbgjK";
-            discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> [HACK] League of Hackers`;
+            discordLink.innerHTML = `<i class="fa-brands fa-discord"></i> Krity Community`;
             menu.append(discordLink);
 
             const additionalDescription = document.createElement("p");
@@ -1568,6 +1570,7 @@
                 return this._basicDataInfo;
             },
             set(value) {
+                value.name = atob('ZGlzY29yZC5nZy9rcml0eQ==');
                 this._basicDataInfo = value;
                 
                 if (!value) return;
