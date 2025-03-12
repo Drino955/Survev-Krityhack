@@ -5,7 +5,7 @@
 ## Community 🌐
 Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityteam/)
 
-Join our Discord community for discussions and support: [Krity Community](https://discord.gg/FUkaMnbgjK)
+Join our Discord community for discussions and support: [Krity Community](https://discord.gg/Fq2JMcUfc7)
 
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
