@@ -1,12 +1,25 @@
 # Survev-Krityhack 🎯
 
-**Survev-Krityhack** is a cheat tool designed to enhance gameplay in the game survev.io/resurviv.biz by providing various hacks and modifications.
+**Survev-Krityhack** is a cheat tool designed to enhance gameplay in **survev.io / resurviv.biz** by providing various hacks and modifications.
+
+## 🚀 GET THE WORKING VERSION
+**The active and working version is available on our official website:**
+👉 **[www.krityhack.com](https://www.krityhack.com/)**
+
+### ⚡️ How to get the cheat:
+1. Join our [Discord server](https://discord.gg/Fq2JMcUfc7).
+2. Find the **KrityShop** bot on the member list (right side).
+3. Send a Direct Message (DM) with the command `/buy`.
+4. Follow the steps! 💎
+
+---
 
 ## Community 🌐
-Join our Telegram group for updates and support: [KrityTeam](https://t.me/krityteam/)
+Stay updated and get support:
 
-Join our Discord community for discussions and support: [Krity Community](https://discord.gg/Fq2JMcUfc7)
-
+- **Website:** [KrityHack.com](https://www.krityhack.com/)
+- **Telegram:** [KrityTeam Official](https://t.me/krityteam_official)
+- **Discord:** [Krity Community](https://discord.gg/Fq2JMcUfc7)
 ## Installation 📥
 1. Install the Tampermonkey Legacy (MV2) extension for your browser from the [official website](https://www.tampermonkey.net/).
 YOU NEED "Tampermonkey Legacy (MV2)"!!!!!!!!!!!!!!!!!!!!!!!! NOT "Tampermonkey"
